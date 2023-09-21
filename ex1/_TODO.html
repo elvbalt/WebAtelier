@@ -1,0 +1,225 @@
+<html><head><title>exercises/1-html-css</title><link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Fira+Sans|Fira+Mono"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.0/build/styles/default.min.css"><style>body,* {font-family: "Fira Sans";scroll-behavior: smooth;}body {margin: 1em;}#usi-logo {width: 75px;height: 75px;}header {display: flex;align-content: space-between;width: 100%;justify-items: center;}header ul {list-style: none;}header .title {flex: 1;margin-left: 1em;}html {min-height: 100vh;}pre,code {font-family: "Fira Mono"}pre {background: rgb(202, 227, 255);padding: 1em;}td {text-align: center}td:last-child {text-align: left;}th {font-weight: normal;color: rgb(0, 61, 131);}thead {border-bottom: 2px solid rgb(202, 227, 255);}table {width: 100%}table tr:hover {background-color: rgb(151, 195, 236);}span.task {display: inline-flex;border-radius: 50%;border: 1px solid white;background: #ffbc00;width: 4em;height: 4em;justify-content: center;align-items: center;font-weight: normal;margin-top: 2em;}.deadline {text-align: right;}p.deadline {font-size: 2em;}.deadline b {border-bottom: 1px solid black;}span.get {font-weight: bold; color: #43a047;}span.post {font-weight: bold; color: #F3C142;}span.delete {font-weight: bold; color: #FF0000;}span.put {font-weight: bold; color: #4a90e2;}span.patch {font-weight: bold; color: #666666;}section.submit,section.topics {border: 1px dashed rgb(202, 227, 255);padding: 1em;padding-top: 0;border-right: 1em solid rgb(202, 227,255);border-left: 1em solid rgb(202, 227,255);}section.topics {border-color: #00b2ff;}</style></head><body><header>    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="usi-logo" x="0px" y="0px" width="200" height="200" viewBox="0 0 200 200" style="enable-background:new 0 0 200 200;" xml:space="preserve" class="injected-svg svg"><g><path d="M180,41.7h-51.1V31.1h42.2C153.1,12.5,127.8,1,99.9,1C45.2,1.1,0.9,45.4,1,100.1c0,26.8,10.7,51.1,28.1,68.9   c-1.4-2-2.4-4.1-3-6.1c-1-3.5-1-5.9-1.1-15.8v-47.1h14.8v48.5c0,3.4-0.1,6.6,1,9.6c3,7.6,11.3,8.5,16,8.5c2.3,0,8.3-0.1,12.6-3.9   c4.4-3.9,4.4-8.4,4.4-15v-47.7h14.9v49.7c-0.1,8.9-0.1,16.3-8.5,23.5c-8,7-18.4,7.7-23.8,7.7c-4.8,0-9.5-0.6-14-2.1   c-1.8-0.6-3.5-1.4-5-2.3c17.1,14,39,22.4,62.8,22.4c54.7-0.1,99-44.4,98.9-99.1C199,78.1,191.9,58,180,41.7z M175.3,94.4l-6.3-9   c2.1-1.4,8.7-5.7,8.7-17.7c0-2-0.2-4.1-1-6.2c-1.7-4.1-4.6-4.9-6.6-4.9c-3.6,0-4.9,2.5-5.7,4.3c-0.5,1.3-0.6,1.5-1.8,6.6l-1.5,6.9   c-0.9,3.6-1.3,5.4-2,7.2c-1.1,2.6-4.5,9.6-14,9.6c-10.9,0-17.8-9.2-17.8-22.6c0-12.3,6.1-19,11.6-23l6.6,8.8   c-2.8,1.9-8.5,5.7-8.5,14.8c0,5.8,2.6,10.8,7,10.8c4.9,0,5.8-5.3,6.8-10.5l1.3-5.9c1.6-7.7,4.8-18.6,17-18.6   c13.1,0,18.4,12.2,18.4,24.3c0,3.2-0.3,6.7-1.3,10.2C185.1,83.4,182.3,90.1,175.3,94.4z"></path></g></svg><div class="title"><h2>Web Atelier 2023</h2><h1>Exercise  1 - HTML and CSS</h1></div><div class="deadline"><p>21.9.2023</p><p class="deadline">Deadline: <b>29.9.2023</b></p></div><ul><li>Prof. Cesare Pautasso</li><li>Souhaila Serbout</li><li>Hassan Atwi</li><li>Diana Carolina Mu&ntilde;oz Hurtado</li><li>Joey Bevilacqua</li><li>Edoardo Riggio</li><li>Jacopo Di Ventura</li><li>Hun Rim</li></ul></header><h1 id="goal">Goal</h1>
+<p>The goal of this exercise is to create a sketch of the visual interface of your map website. We will use HTML for the structure and content and CSS for styling.</p>
+<p>The website should have at least the following pages:</p>
+<ol>
+<li>the <strong>home</strong> page showing the map (<code>index.html</code>)</li>
+<li>a map <strong>gallery</strong> page (<code>gallery.html</code>)</li>
+<li>the <strong>marker editor</strong> form page (<code>form.html</code>)</li>
+</ol>
+<p>To get started, you can use the skeleton files we provide in the <code>ex1</code> folder of the github repository.</p>
+<p>Your markup should be <strong>semantically</strong> correct: for example, use the <code>&lt;header&gt;</code> tag for the <code>HEADER</code> section; we will <strong>not</strong> accept vintage solutions which only use <code>&lt;div class=&quot;header&quot;&gt;</code> elements. </p>
+<p>Both the desktop and mobile layouts should be implemented using <strong>CSS</strong> only. Use the same <strong>HTML</strong> markup for both layouts.</p>
+<p>Below you find a detailed description of each Task, which you can follow to achieve this assignment&#39;s goal.</p>
+<section class="submit">
+
+<h2 id="submitting-your-solution">Submitting your solution</h2>
+<p>Your project solution <strong>should</strong> be commited <strong>and pushed</strong> to your github repository. </p>
+<p>Make sure your name is written in every file you submit. Anonymous solutions will not be graded.</p>
+<p>See the <code>README.md</code> file for more details on how to commit <strong>and push</strong> your solution.</p>
+<p>Use the special commit message <code>&quot;completed ex1, please check&quot;</code> <strong>only once</strong> when you have completed the assignment and would like to submit it to be corrected.</p>
+</section>
+
+<h2 id="publishing-your-solution-on-the-web-atelier-server">Publishing your solution on the Web atelier server</h2>
+<p>After pushing your solution on your github repository, log into the atelier server and pull the artifacts from your repository so that they are served from there.</p>
+<p>From your local terminal:</p>
+<pre>ssh &lt;user&gt;@atelier.inf.usi.ch</pre><p>Replace <code>&lt;user&gt;</code> with your USI UNIX LDAP user account name.</p>
+<p>From the remote shell on the atelier server:</p>
+<pre>git clone https://github.com/USI-Web-Atelier-2023/ex-&lt;repository&gt;.git
+cd public_html
+ln -s ~/ex-&lt;repository&gt;/ex1 ex1</pre><p>Replace <code>&lt;repository&gt;</code> with your github user account name.</p>
+<p>Test that you can open your pages from a Web browser at this URL:</p>
+<pre>https://atelier.inf.usi.ch/~&lt;user&gt;/ex1/</pre><h2 id="task---holy-grail-layout"><span class='task'>Task 1.</span>  Holy grail layout</h2>
+<p>Time to get started with the basic structure of your website which will be none other than the classic <a href="https://en.wikipedia.org/wiki/Holy_Grail_(web_design)">holy grail layout</a> with a <a href="https://en.wikipedia.org/wiki/Responsive_web_design">responsive</a> twist.</p>
+<h3 id="content-structure">Content Structure</h3>
+<p>The holy grail layout consists of a header, a navigation section, a sidebar, the main content and a footer section. Your markup should be <strong>semantically</strong> correct (for example using the <code>&lt;header&gt;</code> tag for the <code>HEADER</code> section).</p>
+<h4 id="1-header">1. Header</h4>
+<p>The header should display the name of your webpage. Feel free to put a logo if you have one.</p>
+<h4 id="2-navigation">2. Navigation</h4>
+<p>Links to all the pages of your site. Hovering on a link should <strong>transition</strong> the default background the link to a color of your liking <strong>within 250 milliseconds</strong>.</p>
+<h4 id="3-main-content">3. Main Content</h4>
+<p>This depends on the page (see below).</p>
+<h4 id="4-sidebar">4. Sidebar</h4>
+<p>The sidebar should contain the details about selected markers on the map and forms to edit their content (see below).</p>
+<h4 id="5-footer">5. Footer</h4>
+<p>Additional information like copyright, the date when the page was last updated and links to legal disclaimers.</p>
+<h3 id="styling-and-layout">Styling and Layout</h3>
+<p>Your site should use a consistent style shared by all the pages. If you need to customize the layout/formatting of individual pages you can also add CSS rules dedicated to each page.</p>
+<p>Use <strong>flexbox</strong> or <strong>grid</strong> to implement this layout for <strong>all</strong> your pages.    Pay attention to the design mockups provided.</p>
+<h4 id="mobile">Mobile</h4>
+<p>For <strong>mobile-size</strong> viewports (less than than <strong>768 pixels</strong>), your design should look like shown below:</p>
+<img src="https://i.imgur.com/WlI3EI4.png" alt="holy grail mobile png" style="height: 380px">
+
+<p>The mobile version should satisfy the following requirements:</p>
+<ul>
+<li>All sections should fill <strong>horizontally</strong> the visible viewport.</li>
+<li>The <code>NAVIGATION</code> and the <code>SIDEBAR</code> are positioned above and below the <code>MAIN CONTENT</code> respectively.</li>
+</ul>
+<h4 id="desktop">Desktop</h4>
+<p>For <strong>desktop-size</strong> viewports (equal or more than <strong>768 pixels</strong>), your design should look like shown below:</p>
+<img src="https://i.imgur.com/63CCMl6.png" alt="holy grail desktop png" style="height: 350px">
+
+
+<p>The desktop version should satisfy the following requirements:</p>
+<ul>
+<li>The content of the page should <strong>horizontally</strong> fill the visible viewport.</li>
+<li>The <strong>height</strong> of the <code>NAVIGATION</code> and <code>SIDEBAR</code> is expected to stretch all the way to the <code>FOOTER</code> even when there&#39;s no content inside them.</li>
+<li>The <code>FOOTER</code> is supposed be <strong>&quot;sticky&quot;</strong> to the bottom of the page. This means that even if there&#39;s not enough content in the <code>MAIN CONTENT</code> section of your page to push the footer the bottom of the window, the <code>FOOTER</code> should still stick to the bottom. However, if the main content does not fit in the browser viewport, the <code>FOOTER</code> should be pushed out of view (the user will need to scroll to find at the bottom of the page).</li>
+</ul>
+<p>Both the desktop and mobile layouts should be implemented using <strong>CSS</strong> only. Use the same <strong>HTML</strong> markup for both layouts.</p>
+<div class="header-margin" style="page-break-before: always;"></div>
+
+<h2 id="task---home-page"><span class='task'>Task 2.</span>  Home page</h2>
+<h3 id="main-content">Main Content</h3>
+<p>The homepage display the map with navigation links to the other pages to edit the map and its content.</p>
+<p>Use an <code>&lt;iframe&gt;</code> element to display the map by sharing it from <a href="https://www.openstreetmap.org/">https://www.openstreetmap.org/</a>.</p>
+<h3 id="side-bar">Side Bar</h3>
+<p>The side bar should contain a brief text describing your Map</p>
+<h3 id="styling-and-layout-1">Styling and Layout</h3>
+<p>The homepage content <strong>should not overflow horizontally</strong>. Otherwise you are free to style the main content of the homepage as you prefer.</p>
+<h2 id="task---map-gallery-page"><span class='task'>Task 3.</span>  Map Gallery page</h2>
+<p>This page should list the available maps so that users can select which one they would like to open. </p>
+<h3 id="main-content-1">Main Content</h3>
+<p>Look for the <code>gallery.html</code> file. Style it with CSS so that it is displayed as a table on desktop and as a set of cards on mobile, without changing the HTML markup.</p>
+<p>For each map, we display:</p>
+<ul>
+<li>the title</li>
+<li>the center gps coordinates (latitude and longitude)</li>
+<li>the map zoom level</li>
+<li>the tiles used to display the map</li>
+<li>a thumbnail image representing a preview of the map</li>
+</ul>
+<p>Additionally, for each map it should be possible to:</p>
+<ul>
+<li>edit the map</li>
+<li>clone the map</li>
+<li>mark the map as a favourite one (or viceversa)</li>
+<li>delete the map</li>
+</ul>
+<h3 id="side-bar-1">Side Bar</h3>
+<p>The map gallery page sidebar will include details about the selected map. For now, prepare an HTML template to display the title, description, position (latitude and longitude), zoom level and tiles of the first map listed in the gallery.</p>
+<h3 id="styling-and-layout-2">Styling and Layout</h3>
+<h4 id="desktop-1">Desktop</h4>
+<p>The table should occupy all available horizontal space. Using CSS, attempt to manually adjust the column width so that the content fits.</p>
+<p>The table should look like a table, even if the HTML markup does not use table elements, so experiment with styling borders and background colors to highlight headers.</p>
+<p>The action buttons/links to delete, edit, clone and mark the map as favourite should be displayed only when the mouse hovers on the corresponding table row.</p>
+<p>Here&#39;s an example of how the map gallery found in the <code>Main Content</code> section should look like in <strong>desktop-size</strong> viewports (feel free to modify the design to your liking, as long as it conforms to the requirements):</p>
+<img src="https://imgur.com/0OXKXND.png" alt="desktop table mockup" style="height: 300px">
+
+
+<h4 id="mobile-1">Mobile</h4>
+<p>On Mobile version, there is no space to show a table with so many columns and users should not scroll horizontally. Instead, we will display each map as a card, taking up the whole screen size both horizontally and vertically. You may hide some less important information items (again using CSS only).</p>
+<p>Here&#39;s an example of how the map gallery found in the <code>Main Content</code> section should look like in <strong>mobile-size</strong> viewports:</p>
+<img src="https://imgur.com/cX4xHZv.png" alt="mobile card mockup" style="height: 400px">
+
+
+
+
+
+
+<h2 id="task---marker-editor-form"><span class='task'>Task 4.</span>  Marker Editor Form</h2>
+<h3 id="main-content-2">Main Content</h3>
+<p>The page should contain a form to edit Marker settings. In future assignments, we will use JavaScript to make the marker editor work with the map.</p>
+<h4 id="marker-editor">Marker Editor</h4>
+<p>The marker editor form should contain the following input fields:</p>
+<ul>
+<li>a field for the marker title</li>
+<li>a multi-line description field</li>
+<li>an email field to store contact information for the location</li>
+<li>a checkbox field to denote whether the marker should be marked as favourite or not</li>
+<li>two fields to enter the marker position (its longitude and latitude)</li>
+<li>a selection field to classify the marker type of point of interest (e.g., Hotel, Restaurant, Shop, Transport, Education, or Custom)</li>
+<li>a field to upload a custom marker icon picture <strong>file</strong></li>
+<li>a slider to change the marker color (from 0 to 360)</li>
+<li>a button to Submit the Form</li>
+</ul>
+<p>Every field should have a label that denotes what this field expects as a value. Opt for a <strong>two-column</strong> layout (without using table markup elements) where on the left you have the labels and on the right the fields. Clicking on the label should activate the corresponding input field. The button does not need a label since it can display the &quot;Submit&quot; text within its markup.</p>
+<p>Pay extra attention to using the correct fields, buttons and attributes for the form. For example, if the user tries to submit the form with an latitude or longitude that has invalid format, the form should show an error message. There is no need to use JavaScript for this basic type of validation.</p>
+<h3 id="styling-and-layout-3">Styling and Layout</h3>
+<p>Here&#39;s an example of how the forms in the <code>Main Content</code> section of the editor page should look like (feel free to modify the design to your liking, as long as it conforms to the requirements):</p>
+<img src="https://i.imgur.com/OzHsujx.png" alt="Form mockup" style="height: 500px">
+
+<p>Note that the style for the desktop version of the marker editor page is already provided in the <code>css/form.css</code> file; you should create the corresponding HTML markup elements without changing their style.</p>
+<p>After you have built the HTML markup, then you can create your own styles for the mobile version. Also in this case, the constraint is to make efficient use of the limited space available.</p>
+<h2 id="task----optional-features"><span class='task'>Task 5.</span>  &starf;&starf;&star; Optional Features</h2>
+<p>For bonus points, implement at least <em>two</em> (or <em>four</em> when working in pairs) of the following:</p>
+<ol>
+<li><p>Navigation</p>
+<p> Highlight the navigation entry corresponding to the currently active page.</p>
+</li>
+<li><p>Custom Fonts</p>
+<p> Your site may optionally also load and use at least <strong>one custom font</strong>. Feel free to either use Web fonts, or to specify one using <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/%40font-face"><code>@font-face</code></a> CSS rule.</p>
+</li>
+<li><p>Form Placeholders</p>
+<p> Before the user enters information the form fields are empty. Add some example text content which will disappear as soon as the user starts typing.</p>
+</li>
+<li><p>Light/Dark Theme</p>
+<p> Use the <code>prefers-color-scheme</code> CSS media query to adapt the style to the OS preferences.</p>
+</li>
+<li><p>Custom Marker Image</p>
+<p> Create an SVG image with your own marker icon and show it on the form page. We will use this image later on to display markers on the map.</p>
+</li>
+</ol>
+<p><span style="font-style: italic; ">Please list in the <code>README.md</code> file the optional features you implemented.</span></p>
+<h2 id="task----optional-features-1"><span class='task'>Task 6.</span>  &starf;&starf;&starf; Optional Features</h2>
+<p>For additional bonus points, in addition to the above chosen optional features, implement also <em>two</em> (or <em>four</em> when working in pairs) of the following: </p>
+<ol>
+<li><p>Favourite Star</p>
+<p> Turn the favourite checkbox input into a star (or whatever shape you prefer) which changes color to indicate whether the checkbox input is checked or not. Use only HTML and CSS to implement this.</p>
+</li>
+<li><p>Interactive Table and Form</p>
+<p> As the user moves the mouse over the table/form elements or enters information in the form, the style of the elements should smoothly change to highlight the current focus of attention.</p>
+</li>
+<li><p>Switch table/card view in the desktop version</p>
+<p> Provide a way for users to choose whether the desktop version of the gallery page is displayed using a table or card layout. Can you do it with CSS and without reloading the HTML page?</p>
+</li>
+<li><p>Display selected map details. </p>
+<p> In the gallery page, place an <code>&lt;iframe&gt;</code> in the sidebar and add a link to each map in the gallery to display the corresponding details in the targeted iframe when clicking on the link. </p>
+</li>
+<li><p>Scroll Snapping</p>
+<p> Experiment with CSS scroll snapping in the mobile view of the gallery to make sure that the cards are kept completely in view when scrolling.</p>
+</li>
+</ol>
+<p><span style="font-style: italic; ">Please list in the <code>README.md</code> file the optional features you implemented.</span></p>
+<section class="topics">
+
+<h2 id="mastery-check-topics">Mastery Check Topics</h2>
+<p>Solving this exercise will demonstrate mastery for the following topics:</p>
+<ul>
+<li>1. HTML<ul>
+<li>1.1. Syntax (Elements, Attributes)</li>
+<li>1.2. Core Elements</li>
+<li>1.3. Multimedia Elements</li>
+<li>1.4. Interactive Elements</li>
+</ul>
+</li>
+<li>2. CSS<ul>
+<li>2.1. Selectors<ul>
+<li>2.1.1. Basic Selectors</li>
+<li>2.1.2. Attribute Selectors</li>
+<li>2.1.3. Combined Selectors</li>
+</ul>
+</li>
+<li>2.2. Core Properties</li>
+<li>2.3. Layout<ul>
+<li>2.3.1. Flexbox</li>
+<li>2.3.2. Grid</li>
+<li>2.3.3. Transform</li>
+</ul>
+</li>
+<li>2.4. Transitions</li>
+</ul>
+</li>
+<li>6. Development Tools<ul>
+<li>6.1. Browser<ul>
+<li>6.1.1. Inspector</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+
+
+<h2 id="questions">Questions?</h2>
+<p>Please post them on our <a href="https://stackoverflowteams.com/c/usi-web-atelier/questions/ask?tags=ex1">private StackOverflow</a> using the <code>ex1</code> tag.</p>
+<footer></footer></body></html>

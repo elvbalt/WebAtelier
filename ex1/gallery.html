@@ -1,0 +1,522 @@
+<!--
+    Web Atelier 2023
+    Exercise 1
+    HTML and CSS
+
+    Browse Map Gallery Page
+
+    Author: __Student Name__
+
+-->
+
+<!--
+
+    This file contains the content of the <main> and should be extended with the rest of the page elements (header, footer, navigation, sidebar)
+
+    This content should be styled without modifying the HTML markup found within the <main> element
+
+-->
+
+<!-- TODO - Add page header from Task 1 -->
+
+<main class="map-index">
+
+
+    <header>
+        <h4>Title</h4>
+        <span>Thumbnail</span>
+        <span class="lat">Latitude</span>
+        <span class="lng">Longitude</span>
+        <span class="zoom">Zoom</span>
+        <span class="tiles">Tile Source</span>
+        <span class="actions">Actions</span>
+    </header>
+
+
+    <section id="map-0">
+        <h4 class="name">Konkordiaplatz</h4>
+        <a href="/map/0">
+            <img src="images/map-thumb-0.png" alt="Map Thumbnail" class="thumb">
+        </a>
+
+        <span class="lat">46.500872627677936</span>
+        <span class="lng">8.034524112688285</span>
+        <span class="zoom">15</span>
+        <span class="tiles">Swiss_Color</span>
+        <a href="/map/0/edit">Edit</a>
+        <form action="/map/0/clone" method="POST">
+            <button>Clone</button>
+        </form>
+        <form action="/map/0?_method=PATCH" method="POST">
+            <input type="hidden" name="fav" value="true">
+            <button>★</button>
+        </form>
+        <form action="/map/0?_method=DELETE" method="POST">
+            <button>Delete</button>
+        </form>
+    </section>
+    <section id="map-1">
+        <h4 class="name">Lugano Satellite</h4>
+        <a href="/map/1">
+            <img src="images/map-thumb-1.png" alt="Map Thumbnail" class="thumb">
+        </a>
+
+        <span class="lat">46.00976488037914</span>
+        <span class="lng">8.967461585998537</span>
+        <span class="zoom">15</span>
+        <span class="tiles">ESRI_world_imagery</span>
+        <a href="/map/1/edit">Edit</a>
+        <form action="/map/1/clone" method="POST">
+            <button>Clone</button>
+        </form>
+        <form action="/map/1?_method=PATCH" method="POST">
+            <input type="hidden" name="fav" value="false">
+            <button>☆</button>
+        </form>
+        <form action="/map/1?_method=DELETE" method="POST">
+            <button>Delete</button>
+        </form>
+    </section>
+    <section id="map-2">
+        <h4 class="name">Europe</h4>
+        <a href="/map/2">
+            <img src="images/map-thumb-2.png" alt="Map Thumbnail" class="thumb">
+        </a>
+
+        <span class="lat">45.166547157856016</span>
+        <span class="lng">16.523437500000004</span>
+        <span class="zoom">5</span>
+        <span class="tiles">watercolor</span>
+        <a href="/map/2/edit">Edit</a>
+        <form action="/map/2/clone" method="POST">
+            <button>Clone</button>
+        </form>
+        <form action="/map/2?_method=PATCH" method="POST">
+            <input type="hidden" name="fav" value="false">
+            <button>☆</button>
+        </form>
+        <form action="/map/2?_method=DELETE" method="POST">
+            <button>Delete</button>
+        </form>
+    </section>
+    <section id="map-3">
+        <h4 class="name">Ritom</h4>
+        <a href="/map/3">
+            <img src="images/map-thumb-3.png" alt="Map Thumbnail" class="thumb">
+        </a>
+
+        <span class="lat">46.539307083117805</span>
+        <span class="lng">8.691687583923342</span>
+        <span class="zoom">15</span>
+        <span class="tiles">ESRI_world_imagery</span>
+        <a href="/map/3/edit">Edit</a>
+        <form action="/map/3/clone" method="POST">
+            <button>Clone</button>
+        </form>
+        <form action="/map/3?_method=PATCH" method="POST">
+            <input type="hidden" name="fav" value="false">
+            <button>☆</button>
+        </form>
+        <form action="/map/3?_method=DELETE" method="POST">
+            <button>Delete</button>
+        </form>
+    </section>
+    <section id="map-4">
+        <h4 class="name">Switzerland</h4>
+        <a href="/map/4">
+            <img src="images/map-thumb-4.png" alt="Map Thumbnail" class="thumb">
+        </a>
+
+        <span class="lat">46.5854469512097</span>
+        <span class="lng">8.189412981840018</span>
+        <span class="zoom">8</span>
+        <span class="tiles">natgeo</span>
+        <a href="/map/4/edit">Edit</a>
+        <form action="/map/4/clone" method="POST">
+            <button>Clone</button>
+        </form>
+        <form action="/map/4?_method=PATCH" method="POST">
+            <input type="hidden" name="fav" value="false">
+            <button>☆</button>
+        </form>
+        <form action="/map/4?_method=DELETE" method="POST">
+            <button>Delete</button>
+        </form>
+    </section>
+    <section id="map-5">
+        <h4 class="name">Corse</h4>
+        <a href="/map/5">
+            <img src="images/map-thumb-5.png" alt="Map Thumbnail" class="thumb">
+        </a>
+
+        <span class="lat">42.07478160216737</span>
+        <span class="lng">9.396057128906252</span>
+        <span class="zoom">9</span>
+        <span class="tiles">ESRI_world_imagery</span>
+        <a href="/map/5/edit">Edit</a>
+        <form action="/map/5/clone" method="POST">
+            <button>Clone</button>
+        </form>
+        <form action="/map/5?_method=PATCH" method="POST">
+            <input type="hidden" name="fav" value="false">
+            <button>☆</button>
+        </form>
+        <form action="/map/5?_method=DELETE" method="POST">
+            <button>Delete</button>
+        </form>
+    </section>
+    <section id="map-6">
+        <h4 class="name">Alps</h4>
+        <a href="/map/6">
+            <img src="images/map-thumb-6.png" alt="Map Thumbnail" class="thumb">
+        </a>
+
+        <span class="lat">45.71193311776845</span>
+        <span class="lng">10.6512451171875</span>
+        <span class="zoom">8</span>
+        <span class="tiles">ESRI_world_imagery</span>
+        <a href="/map/6/edit">Edit</a>
+        <form action="/map/6/clone" method="POST">
+            <button>Clone</button>
+        </form>
+        <form action="/map/6?_method=PATCH" method="POST">
+            <input type="hidden" name="fav" value="false">
+            <button>☆</button>
+        </form>
+        <form action="/map/6?_method=DELETE" method="POST">
+            <button>Delete</button>
+        </form>
+    </section>
+    <section id="map-7">
+        <h4 class="name">Zurich</h4>
+        <a href="/map/7">
+            <img src="images/map-thumb-7.png" alt="Map Thumbnail" class="thumb">
+        </a>
+
+        <span class="lat">47.38451105175862</span>
+        <span class="lng">8.526077968100157</span>
+        <span class="zoom">13</span>
+        <span class="tiles">osm</span>
+        <a href="/map/7/edit">Edit</a>
+        <form action="/map/7/clone" method="POST">
+            <button>Clone</button>
+        </form>
+        <form action="/map/7?_method=PATCH" method="POST">
+            <input type="hidden" name="fav" value="false">
+            <button>☆</button>
+        </form>
+        <form action="/map/7?_method=DELETE" method="POST">
+            <button>Delete</button>
+        </form>
+    </section>
+    <section id="map-8">
+        <h4 class="name">Jyväskylä</h4>
+        <a href="/map/8">
+            <img src="images/map-thumb-8.png" alt="Map Thumbnail" class="thumb">
+        </a>
+
+        <span class="lat">61.976396187471956</span>
+        <span class="lng">26.427612304687504</span>
+        <span class="zoom">8</span>
+        <span class="tiles">natgeo</span>
+        <a href="/map/8/edit">Edit</a>
+        <form action="/map/8/clone" method="POST">
+            <button>Clone</button>
+        </form>
+        <form action="/map/8?_method=PATCH" method="POST">
+            <input type="hidden" name="fav" value="false">
+            <button>☆</button>
+        </form>
+        <form action="/map/8?_method=DELETE" method="POST">
+            <button>Delete</button>
+        </form>
+    </section>
+    <section id="map-9">
+        <h4 class="name">Interlaken</h4>
+        <a href="/map/9">
+            <img src="images/map-thumb-9.png" alt="Map Thumbnail" class="thumb">
+        </a>
+
+        <span class="lat">46.68866222628092</span>
+        <span class="lng">7.859344482421876</span>
+        <span class="zoom">12</span>
+        <span class="tiles">Swiss_Imagery</span>
+        <a href="/map/9/edit">Edit</a>
+        <form action="/map/9/clone" method="POST">
+            <button>Clone</button>
+        </form>
+        <form action="/map/9?_method=PATCH" method="POST">
+            <input type="hidden" name="fav" value="false">
+            <button>☆</button>
+        </form>
+        <form action="/map/9?_method=DELETE" method="POST">
+            <button>Delete</button>
+        </form>
+    </section>
+    <section id="map-10">
+        <h4 class="name">Berlin</h4>
+        <a href="/map/10">
+            <img src="images/map-thumb-10.png" alt="Map Thumbnail" class="thumb">
+        </a>
+
+        <span class="lat">52.469605989368794</span>
+        <span class="lng">13.311309814453127</span>
+        <span class="zoom">11</span>
+        <span class="tiles">topo</span>
+        <a href="/map/10/edit">Edit</a>
+        <form action="/map/10/clone" method="POST">
+            <button>Clone</button>
+        </form>
+        <form action="/map/10?_method=PATCH" method="POST">
+            <input type="hidden" name="fav" value="false">
+            <button>☆</button>
+        </form>
+        <form action="/map/10?_method=DELETE" method="POST">
+            <button>Delete</button>
+        </form>
+    </section>
+    <section id="map-11">
+        <h4 class="name">Down Under</h4>
+        <a href="/map/11">
+            <img src="images/map-thumb-11.png" alt="Map Thumbnail" class="thumb">
+        </a>
+
+        <span class="lat">-29.420460341013133</span>
+        <span class="lng">-221.13281250000003</span>
+        <span class="zoom">4</span>
+        <span class="tiles">toner</span>
+        <a href="/map/11/edit">Edit</a>
+        <form action="/map/11/clone" method="POST">
+            <button>Clone</button>
+        </form>
+        <form action="/map/11?_method=PATCH" method="POST">
+            <input type="hidden" name="fav" value="false">
+            <button>☆</button>
+        </form>
+        <form action="/map/11?_method=DELETE" method="POST">
+            <button>Delete</button>
+        </form>
+    </section>
+    <section id="map-12">
+        <h4 class="name">Venice</h4>
+        <a href="/map/12">
+            <img src="images/map-thumb-12.png" alt="Map Thumbnail" class="thumb">
+        </a>
+
+        <span class="lat">45.435021772040116</span>
+        <span class="lng">12.336096870057816</span>
+        <span class="zoom">14</span>
+        <span class="tiles">watercolor</span>
+        <a href="/map/12/edit">Edit</a>
+        <form action="/map/12/clone" method="POST">
+            <button>Clone</button>
+        </form>
+        <form action="/map/12?_method=PATCH" method="POST">
+            <input type="hidden" name="fav" value="true">
+            <button>★</button>
+        </form>
+        <form action="/map/12?_method=DELETE" method="POST">
+            <button>Delete</button>
+        </form>
+    </section>
+    <section id="map-14">
+        <h4 class="name">Iceland</h4>
+        <a href="/map/14">
+            <img src="images/map-thumb-14.png" alt="Map Thumbnail" class="thumb">
+        </a>
+
+        <span class="lat">65.1091177513242</span>
+        <span class="lng">-18.962261537418925</span>
+        <span class="zoom">7</span>
+        <span class="tiles">watercolor</span>
+        <a href="/map/14/edit">Edit</a>
+        <form action="/map/14/clone" method="POST">
+            <button>Clone</button>
+        </form>
+        <form action="/map/14?_method=PATCH" method="POST">
+            <input type="hidden" name="fav" value="true">
+            <button>★</button>
+        </form>
+        <form action="/map/14?_method=DELETE" method="POST">
+            <button>Delete</button>
+        </form>
+    </section>
+    <section id="map-16">
+        <h4 class="name">Lugano</h4>
+        <a href="/map/16">
+            <img src="images/map-thumb-16.png" alt="Map Thumbnail" class="thumb">
+        </a>
+
+        <span class="lat">46.01194069320304</span>
+        <span class="lng">8.961061835289003</span>
+        <span class="zoom">13</span>
+        <span class="tiles">Swiss_Color</span>
+        <a href="/map/16/edit">Edit</a>
+        <form action="/map/16/clone" method="POST">
+            <button>Clone</button>
+        </form>
+        <form action="/map/16?_method=PATCH" method="POST">
+            <input type="hidden" name="fav" value="false">
+            <button>☆</button>
+        </form>
+        <form action="/map/16?_method=DELETE" method="POST">
+            <button>Delete</button>
+        </form>
+    </section>
+    <section id="map-17">
+        <h4 class="name">New Zealand</h4>
+        <a href="/map/17">
+            <img src="images/map-thumb-17.png" alt="Map Thumbnail" class="thumb">
+        </a>
+
+        <span class="lat">-40.9448215590864</span>
+        <span class="lng">173.37441762352876</span>
+        <span class="zoom">7</span>
+        <span class="tiles">watercolor</span>
+        <a href="/map/17/edit">Edit</a>
+        <form action="/map/17/clone" method="POST">
+            <button>Clone</button>
+        </form>
+        <form action="/map/17?_method=PATCH" method="POST">
+            <input type="hidden" name="fav" value="true">
+            <button>★</button>
+        </form>
+        <form action="/map/17?_method=DELETE" method="POST">
+            <button>Delete</button>
+        </form>
+    </section>
+    <section id="map-19">
+        <h4 class="name">Hawaii</h4>
+        <a href="/map/19">
+            <img src="images/map-thumb-19.png" alt="Map Thumbnail" class="thumb">
+        </a>
+
+        <span class="lat">20.223543059033542</span>
+        <span class="lng">-157.08251953125003</span>
+        <span class="zoom">8</span>
+        <span class="tiles">natgeo</span>
+        <a href="/map/19/edit">Edit</a>
+        <form action="/map/19/clone" method="POST">
+            <button>Clone</button>
+        </form>
+        <form action="/map/19?_method=PATCH" method="POST">
+            <input type="hidden" name="fav" value="false">
+            <button>☆</button>
+        </form>
+        <form action="/map/19?_method=DELETE" method="POST">
+            <button>Delete</button>
+        </form>
+    </section>
+    <section id="map-20">
+        <h4 class="name">Tremola</h4>
+        <a href="/map/20">
+            <img src="images/map-thumb-20.png" alt="Map Thumbnail" class="thumb">
+        </a>
+
+        <span class="lat">46.54505572291053</span>
+        <span class="lng">8.573026657104494</span>
+        <span class="zoom">16</span>
+        <span class="tiles">Swiss_Color</span>
+        <a href="/map/20/edit">Edit</a>
+        <form action="/map/20/clone" method="POST">
+            <button>Clone</button>
+        </form>
+        <form action="/map/20?_method=PATCH" method="POST">
+            <input type="hidden" name="fav" value="false">
+            <button>☆</button>
+        </form>
+        <form action="/map/20?_method=DELETE" method="POST">
+            <button>Delete</button>
+        </form>
+    </section>
+    <section id="map-21">
+        <h4 class="name">Netherlands</h4>
+        <a href="/map/21">
+            <img src="images/map-thumb-21.png" alt="Map Thumbnail" class="thumb">
+        </a>
+
+        <span class="lat">52.17793193118188</span>
+        <span class="lng">5.003585815429688</span>
+        <span class="zoom">11</span>
+        <span class="tiles">osm</span>
+        <a href="/map/21/edit">Edit</a>
+        <form action="/map/21/clone" method="POST">
+            <button>Clone</button>
+        </form>
+        <form action="/map/21?_method=PATCH" method="POST">
+            <input type="hidden" name="fav" value="false">
+            <button>☆</button>
+        </form>
+        <form action="/map/21?_method=DELETE" method="POST">
+            <button>Delete</button>
+        </form>
+    </section>
+    <section id="map-22">
+        <h4 class="name">Colombia</h4>
+        <a href="/map/22">
+            <img src="images/map-thumb-22.png" alt="Map Thumbnail" class="thumb">
+        </a>
+
+        <span class="lat">4.631179340411012</span>
+        <span class="lng">-74.08905029296876</span>
+        <span class="zoom">8</span>
+        <span class="tiles">topo</span>
+        <a href="/map/22/edit">Edit</a>
+        <form action="/map/22/clone" method="POST">
+            <button>Clone</button>
+        </form>
+        <form action="/map/22?_method=PATCH" method="POST">
+            <input type="hidden" name="fav" value="false">
+            <button>☆</button>
+        </form>
+        <form action="/map/22?_method=DELETE" method="POST">
+            <button>Delete</button>
+        </form>
+    </section>
+    <section id="map-23">
+        <h4 class="name">Great Lakes</h4>
+            <img src="images/map-thumb-23.png" alt="Map Thumbnail" class="thumb">
+        </a>
+
+        <span class="lat">44.91753133529358</span>
+        <span class="lng">-84.56176757812501</span>
+        <span class="zoom">7</span>
+        <span class="tiles">toner</span>
+        <a href="/map/23/edit">Edit</a>
+        <form action="/map/23/clone" method="POST">
+            <button>Clone</button>
+        </form>
+        <form action="/map/23?_method=PATCH" method="POST">
+            <input type="hidden" name="fav" value="false">
+            <button>☆</button>
+        </form>
+        <form action="/map/23?_method=DELETE" method="POST">
+            <button>Delete</button>
+        </form>
+    </section>
+    <section id="map-24">
+        <h4 class="name">Hainan</h4>
+        <a href="/map/24">
+            <img src="images/map-thumb-24.png" alt="Map Thumbnail" class="thumb">
+        </a>
+
+        <span class="lat">19.66190617905129</span>
+        <span class="lng">109.17442560195924</span>
+        <span class="zoom">15</span>
+        <span class="tiles">ESRI_world_imagery</span>
+        <a href="/map/24/edit">Edit</a>
+        <form action="/map/24/clone" method="POST">
+            <button>Clone</button>
+        </form>
+        <form action="/map/24?_method=PATCH" method="POST">
+            <input type="hidden" name="fav" value="false">
+            <button>☆</button>
+        </form>
+        <form action="/map/24?_method=DELETE" method="POST">
+            <button>Delete</button>
+        </form>
+    </section>
+
+</main>
+
+<!-- TODO - Add page footer from Task 1 -->
