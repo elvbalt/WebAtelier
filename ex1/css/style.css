@@ -5,6 +5,161 @@
  *
  * Include this stylesheet in all pages of your website
  *
- * Author: __Student Name__
+ * Author: __Elvira Baltasar__
  *
  */
+
+ *{
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+    /*border:1px dotted red; /*QUITAR ESTO PARA EL OVERFLOW
+    background-size: contain;
+    /*overflow-x: hidden;*/
+}
+
+header{
+    display:grid;
+    grid-template-columns: 2fr 1fr 2fr 2fr 1fr 1fr 4fr;
+    background-color: rgb(2, 130, 130);
+    text-align: center;
+    font-size: larger;
+}
+
+section[id^="map-"]{
+    display:grid;
+    grid-template-columns: 2fr 1fr 2fr 2fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    text-align: center;
+    border: 1px inset black;
+    /*background-color: rgb(4, 142, 173);*/
+}
+
+span{
+    font-size: small;
+}
+
+img[class="thumb"]{
+   width:50px
+}
+
+button{
+   /* background-color: rgb(1, 60, 60);;*/
+    border-radius: 50%;
+    height: 20px;
+    width: 50px;
+    text-align: center;
+}
+
+button:hover{
+    background-color: gray;
+    color:white;
+}
+
+body {
+    display: grid;
+    width: 100vw;
+    height: 100vh;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1.3fr 6fr 0.25fr;
+}
+
+#titulo {
+    text-align: center;
+    padding-top: 0.2vw;
+}
+
+#general {
+   /* margin: 1vw;
+    /*border: 2px solid black;*/
+    display: grid;
+    grid-template-columns: 2fr 7fr 2fr;
+    grid-column-gap: 1em;
+}
+
+nav{
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    /*justify-content: center;*/
+    /*grid-row-gap: 1em;*/
+    margin-left: 1vw;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+    /*border:1px dotted red;*/
+}
+#home, #map, #marker { 
+    padding: 5px 5px;
+    /*border:1px dotted red;*/
+}
+
+#op2{
+    background-color: rgb(2, 130, 130);
+}
+
+button[id^="op"]{
+    /*align-items: center;*/
+    border-radius: 9px;
+    width:100%;
+    height:100%;
+}
+
+button[id^="op"]:hover{
+    background-color: rgb(34, 171, 171);
+    color:white;
+}
+
+main{
+    border: 2px solid black;
+    overflow-y: scroll;
+}
+
+
+
+footer{
+    flex-direction: row;
+    background-color: rgb(2, 130, 130);
+    display:flex;
+    color:white;
+}
+
+#date{
+    margin-right: 1vw;
+    position: absolute;
+    right:0;
+}
+#copyright{
+    margin-left: 1vw;
+}
+
+
+@media screen and (max-width: 768px) { /*desktop layout*/
+    #general {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 2fr 6fr 0.5fr;
+    }
+    nav{
+        margin-top: 0.8vw;
+       margin-left: 0vw;
+    }
+    header{
+        display: none;
+    }
+    section[id^="map-"]{
+        display:grid;
+        grid-template-columns: 1fr;
+        /*grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;*/
+        text-align: center;
+    }
+    img[class="thumb"]{
+        width: 250px;
+     }
+     form{
+        /*background-color: brown;*/
+        /*display: flex;
+        /*grid-row: none;
+        /*grid-column-end*/
+     }
+}
+
+
+
