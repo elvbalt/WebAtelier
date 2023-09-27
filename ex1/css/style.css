@@ -35,6 +35,10 @@ section[id^="map-"]{
     /*background-color: rgb(4, 142, 173);*/
 }
 
+section[id^="map-"]:hover{
+    background-color: rgb(183, 179, 179);
+}
+
 span{
     font-size: small;
 }
@@ -171,6 +175,7 @@ footer{
         height: 100%;
     }
     
+    
     section[id^="map-"] h4{
         margin-top: 3vw;
         grid-row:1;
@@ -218,6 +223,10 @@ footer{
         background-color: rgb(38, 38, 38);
         border: 1px inset black;
         color:white;
+    }
+
+    main.map-index section[id^="map-"]:hover{
+        background-color: gray;
     }
 
     main{

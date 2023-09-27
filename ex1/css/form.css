@@ -117,10 +117,13 @@ label[for="fav"] {
     width: 2em;
 }*/
 
-input[id="fav"][type="checkbox"] {
+input[id="fav"][type="checkbox"] { /*check box escondido con texto(la estrella encima)*/
     visibility:hidden;
-    font-size: larger;
-    cursor:pointer;
+    font-size:larger;
+    transform: translate(-1px, -15px);
+    overflow: visible;
+    font-size: xx-large;
+    /*cursor:pointer;*/
 }
 
 input[id="fav"][type="checkbox"]:before {
