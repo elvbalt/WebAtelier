@@ -18,9 +18,6 @@
     /*overflow-x: hidden;*/
 }
 
-img{
-    border:1px dotted red;
-}
 
 header{
     display:grid;
@@ -204,8 +201,48 @@ footer{
 }
 
 @media (prefers-color-scheme: dark){
-    *{
-    /*background-color: rgb(44, 126, 158);*/
+    body{
+    background-color: rgb(0, 0, 0);
+    }
+    body sidebar{
+        color:white;
+    }
+    button{
+        background-color: gray;
+    }
+    main.map-index header{
+        color:white;
+    }
+
+    main.map-index section[id^="map-"]{
+        background-color: rgb(38, 38, 38);
+        border: 1px inset black;
+        color:white;
+    }
+
+    main{
+        background-color: rgb(38, 38, 38);
+    }
+
+    main form section.group label{
+        background-color: rgb(38, 38, 38);
+        color:white;
+    }
+
+    main form section.group input[id="email"][type="email"],
+    main form section.group textarea,
+    main form section.group select[id="poi"],
+    main form section.group input[type="text"]
+    {
+        background-color: gray;
+    }
+
+    main h1{
+        color:white;
+    }
+
+    button[id="submit"] {
+        background-color: rgb(3, 47, 113);
     }
 }
 
