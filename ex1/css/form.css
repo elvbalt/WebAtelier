@@ -112,10 +112,28 @@ label[for="fav"] {
     background-color: white;
 }
 
-input[id="fav"][type="checkbox"] {
+/*input[id="fav"][type="checkbox"] {
     background-color: white;
     width: 2em;
+}*/
+
+input[id="fav"][type="checkbox"] {
+    visibility:hidden;
+    font-size: larger;
+    cursor:pointer;
 }
+
+input[id="fav"][type="checkbox"]:before {
+    color: yellow;
+    content: "\2606";
+    position: absolute;
+    visibility:visible;
+ }
+
+ input[id="fav"][type="checkbox"]:checked:before {
+    content: "\2605";
+    position: absolute;
+ }
 
 button[id="submit"] {
     font-weight: bold;
