@@ -141,7 +141,7 @@ main form section.group {
 
 main form section.group > h3 {
     position: absolute;
-    top: -1.66em;
+    top: 0em;
     background: white;
     padding-left: 0.33em;
     padding-right: 0.33em;
@@ -161,3 +161,4 @@ main img {
     height: 2.5em;
     float: left;
 }
+

@@ -5,6 +5,102 @@
 
     Marker Editor Form Page
 
-    Author: __Student Name__
+    Author: __Elvira Baltasar__
 
 -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="css\style.css">
+        <link rel="stylesheet" href="css\form.css">
+        
+        <title>PAGINA 1</title>
+        <meta name="author" content="__Student Name__">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </head>
+    <body>
+        <h1 id ="titulo"> 
+            <img src="images/logo2.png" width="200">
+            <img id="oscuro" src="images/logo.png" width ="200"> 
+        </h1>
+        <section id="general">
+            <nav> 
+                <a id="home" href="index.html">
+                    <button id="op"> Home page </button> </a>
+                <a id="map" href="gallery.html">
+                    <button id="op"> Map gallery </button> </a>
+                <a id="marker" href="form.html">
+                    <button id="opa"> Marker editor </button> </a>
+            </nav> 
+            <main>  
+                    <div id="Marker">
+                        <img src="images/marker.svg" alt="Logo">
+                        <h1> Marker Editor </h1>
+                    </div>
+                
+                <form  method="POST">
+                    <section class="group">
+                        <h3> Label </h3>
+                        <label for="title" > Title </label>
+                        <input id="title" type="text" placeholder="USI Campus Est"> 
+                        <label for="desc" > Description </label>
+                        <textarea id="desc"> </textarea>
+                    </section>
+
+                    <section class="group">
+                        <h3> Owner </h3>
+                        <label for="title" > Email </label>
+                        <input id="email" type="email">
+
+                        <label for="fav"> Favourite </label>
+                        <input id="fav" type="checkbox">
+
+                        <!-- falta lo de favorito -->
+                    </section>
+
+                    <section class="group">
+                        <h3> Position </h3>
+                        <label for="lat" > Latitude </label>
+                        <input id="lat" type="text" placeholder="46.011838673656165">
+            
+                        <label for="lng" > Longitude </label>
+                        <input id="lng" type="text" placeholder="8,960962916221545"> 
+                    </section>
+
+                    <section class="group">
+                        <h3> Point of interest </h3>
+                        <label for="poi"> Type </label>
+                        <select id="poi">
+                            <option value="hotel"> hotel </option>
+                            <option value="restaurant"> restaurant </option>
+                            <option value="shop"> shop </option>
+                            <option value="transport"> transport </option>
+                            <option value="education"> education </option>
+                            <option value="custom"> custom </option>
+                        </select>
+
+                        <label> Icon </label>
+                        <input type="file"> 
+
+                        <label id="hue"> Color </label>
+                        <input id="hue" type="range" min="0" max="360"> 
+                    </section>
+                    <section>
+                            <button id="submit"> Submit </button>
+                    </section>
+                </form>
+            </main> 
+            <sidebar>  
+                <p> Avila, Castilla y León, Spain</p>
+                <p> Altitude: 1.132</p>
+            </sidebar> 
+    
+        
+        </section>
+        
+        <footer> 
+            <a id="copyright" href="https://www.openstreetmap.org/copyright" target="_blank"> Maps copyright </a> 
+            <div id="date"> 23/09/23 </div>
+        </footer> 
+    </body>
+</html>

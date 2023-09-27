@@ -18,6 +18,10 @@
     /*overflow-x: hidden;*/
 }
 
+img{
+    border:1px dotted red;
+}
+
 header{
     display:grid;
     grid-template-columns: 2fr 1fr 2fr 2fr 1fr 1fr 4fr;
@@ -42,7 +46,7 @@ img[class="thumb"]{
    width:50px
 }
 
-button{
+button:not([id="submit"]){
    /* background-color: rgb(1, 60, 60);;*/
     border-radius: 50%;
     height: 20px;
@@ -91,7 +95,7 @@ nav{
     /*border:1px dotted red;*/
 }
 
-#op2{
+#opa{
     background-color: rgb(2, 130, 130);
 }
 
@@ -112,6 +116,10 @@ main{
     overflow-y: scroll;
 }
 
+div[id="Marker"]{
+    display:flex;
+    align-items: center;
+}
 
 
 footer{
@@ -130,36 +138,74 @@ footer{
     margin-left: 1vw;
 }
 
+::placeholder{
+    color:black;
+}
+
 
 @media screen and (max-width: 768px) { /*desktop layout*/
     #general {
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: 2fr 6fr 0.5fr;
+        grid-template-rows: 1fr 6fr 0.5fr;
     }
     nav{
+        display: grid;
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
         margin-top: 0.8vw;
-       margin-left: 0vw;
+        margin-left: 0vw;
+        height: 1fr;
     }
     header{
         display: none;
     }
+
+    form{
+        display: grid;
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
     section[id^="map-"]{
         display:grid;
-        grid-template-columns: 1fr;
-        /*grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;*/
-        text-align: center;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+        height: 100%;
     }
+    
+    section[id^="map-"] h4{
+        margin-top: 3vw;
+        grid-row:1;
+        grid-column: 1/span 4;
+    }
+
+    section[id^="map-"] a:first-of-type {
+        grid-row:2/span 4;
+        grid-column: 1/span 2;
+    }
+
+    section[id^="map-"] span{
+        grid-column: 3/span 2;
+    }
+
+    section[id^="map-"] a {
+        grid-row:6;
+    }
+
+    section[id^="map-"] form{
+        grid-row: 6;
+    }
+
     img[class="thumb"]{
         width: 250px;
      }
-     form{
-        /*background-color: brown;*/
-        /*display: flex;
-        /*grid-row: none;
-        /*grid-column-end*/
-     }
+    
 }
 
-
+@media (prefers-color-scheme: dark){
+    *{
+    /*background-color: rgb(44, 126, 158);*/
+    }
+}
 
