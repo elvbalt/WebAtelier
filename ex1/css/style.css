@@ -18,7 +18,9 @@
     /*overflow-x: hidden;*/
 }
 
-
+body section[id="general"] main[id="mainMap"]{
+    overflow: hidden;
+}
 header{
     display:grid;
     grid-template-columns: 2fr 1fr 2fr 2fr 1fr 1fr 4fr;
@@ -37,11 +39,34 @@ section[id^="map-"]{
 
 section[id^="map-"]:hover{
     background-color: rgb(183, 179, 179);
+    transition-property: background-color;
+    transition: 0.5s ease;
+}
+
+section[id^="map-"] button{
+    opacity: 0;
+}
+
+section[id^="map-"]:hover button{
+    opacity: 1;
 }
 
 span{
     font-size: small;
 }
+
+main form section.group input[id="email"][type="email"]:hover,
+    main form section.group textarea:hover,
+    main form section.group select[id="poi"]:hover,
+    main form section.group input[type="text"]:hover,
+    main form section.group input[id="email"][type="email"]:focus,
+    main form section.group textarea:focus,
+    main form section.group select[id="poi"]:focus,
+    main form section.group input[type="text"]:focus{
+        background-color: rgb(211, 207, 207);
+        transition-property: background-color;
+        transition: 0.5s ease;
+    }
 
 img[class="thumb"]{
    width:50px
@@ -53,6 +78,7 @@ button:not([id="submit"]){
     height: 20px;
     width: 50px;
     text-align: center;
+    /*visibility: hidden;*/
 }
 
 button:hover{
@@ -227,6 +253,8 @@ footer{
 
     main.map-index section[id^="map-"]:hover{
         background-color: gray;
+        transition-property: background-color;
+        transition: 0.5s ease;
     }
 
     main{
@@ -252,6 +280,19 @@ footer{
 
     button[id="submit"] {
         background-color: rgb(3, 47, 113);
+    }
+
+    main form section.group input[id="email"][type="email"]:hover,
+    main form section.group textarea:hover,
+    main form section.group select[id="poi"]:hover,
+    main form section.group input[type="text"]:hover,
+    main form section.group input[id="email"][type="email"]:focus,
+    main form section.group textarea:focus,
+    main form section.group select[id="poi"]:focus,
+    main form section.group input[type="text"]:focus{
+        background-color: rgb(183, 179, 179);
+        transition-property: background-color;
+        transition: 0.5s ease;
     }
 }
 
