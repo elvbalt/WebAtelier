@@ -112,10 +112,6 @@ label[for="fav"] {
     background-color: white;
 }
 
-/*input[id="fav"][type="checkbox"] {
-    background-color: white;
-    width: 2em;
-}*/
 
 input[id="fav"][type="checkbox"] { /*check box escondido con texto(la estrella encima)*/
     visibility:hidden;

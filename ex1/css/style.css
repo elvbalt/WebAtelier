@@ -13,9 +13,6 @@
     margin: 0px;
     padding: 0px;
     overflow: hidden;
-    /*border:1px dotted red; /*QUITAR ESTO PARA EL OVERFLOW
-    background-size: contain;
-    /*overflow-x: hidden;*/
 }
 
 body section[id="general"] main[id="mainMap"]{
