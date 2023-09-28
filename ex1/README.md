@@ -40,4 +40,4 @@ Important: If you do not use the __exact commit message__ shown above we will no
 Please write below which optional tasks you have completed.
 
 I did the light/dark theme and the form placeholders.
-Did the favourite star and the interactive table and form
+Did the favourite star and the interactive table and form.
