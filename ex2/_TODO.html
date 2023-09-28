@@ -1,0 +1,387 @@
+<html><head><title>exercises/2-js-f</title><link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Fira+Sans|Fira+Mono"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.0/build/styles/default.min.css"><style>body,* {font-family: "Fira Sans";scroll-behavior: smooth;}body {margin: 1em;}#usi-logo {width: 75px;height: 75px;}header {display: flex;align-content: space-between;width: 100%;justify-items: center;}header ul {list-style: none;}header .title {flex: 1;margin-left: 1em;}html {min-height: 100vh;}pre,code {font-family: "Fira Mono"}pre {background: rgb(202, 227, 255);padding: 1em;}td {text-align: center}td:last-child {text-align: left;}th {font-weight: normal;color: rgb(0, 61, 131);}thead {border-bottom: 2px solid rgb(202, 227, 255);}table {width: 100%}table tr:hover {background-color: rgb(151, 195, 236);}span.task {display: inline-flex;border-radius: 50%;border: 1px solid white;background: #ffbc00;width: 4em;height: 4em;justify-content: center;align-items: center;font-weight: normal;margin-top: 2em;}.deadline {text-align: right;}p.deadline {font-size: 2em;}.deadline b {border-bottom: 1px solid black;}span.get {font-weight: bold; color: #43a047;}span.post {font-weight: bold; color: #F3C142;}span.delete {font-weight: bold; color: #FF0000;}span.put {font-weight: bold; color: #4a90e2;}span.patch {font-weight: bold; color: #666666;}section.submit,section.topics {border: 1px dashed rgb(202, 227, 255);padding: 1em;padding-top: 0;border-right: 1em solid rgb(202, 227,255);border-left: 1em solid rgb(202, 227,255);}section.topics {margin-top: 5em;margin-bottom: 3em;border-color: #00b2ff;}section.examples {border: 2px dashed rgb(202, 227, 255);padding: 1em;padding-bottom: 0;}section.examples:before {content: "Examples";text-shadow: 0 0 1em #6aa9f0;font-weight: bold;}</style></head><body><header>    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="usi-logo" x="0px" y="0px" width="200" height="200" viewBox="0 0 200 200" style="enable-background:new 0 0 200 200;" xml:space="preserve" class="injected-svg svg"><g><path d="M180,41.7h-51.1V31.1h42.2C153.1,12.5,127.8,1,99.9,1C45.2,1.1,0.9,45.4,1,100.1c0,26.8,10.7,51.1,28.1,68.9   c-1.4-2-2.4-4.1-3-6.1c-1-3.5-1-5.9-1.1-15.8v-47.1h14.8v48.5c0,3.4-0.1,6.6,1,9.6c3,7.6,11.3,8.5,16,8.5c2.3,0,8.3-0.1,12.6-3.9   c4.4-3.9,4.4-8.4,4.4-15v-47.7h14.9v49.7c-0.1,8.9-0.1,16.3-8.5,23.5c-8,7-18.4,7.7-23.8,7.7c-4.8,0-9.5-0.6-14-2.1   c-1.8-0.6-3.5-1.4-5-2.3c17.1,14,39,22.4,62.8,22.4c54.7-0.1,99-44.4,98.9-99.1C199,78.1,191.9,58,180,41.7z M175.3,94.4l-6.3-9   c2.1-1.4,8.7-5.7,8.7-17.7c0-2-0.2-4.1-1-6.2c-1.7-4.1-4.6-4.9-6.6-4.9c-3.6,0-4.9,2.5-5.7,4.3c-0.5,1.3-0.6,1.5-1.8,6.6l-1.5,6.9   c-0.9,3.6-1.3,5.4-2,7.2c-1.1,2.6-4.5,9.6-14,9.6c-10.9,0-17.8-9.2-17.8-22.6c0-12.3,6.1-19,11.6-23l6.6,8.8   c-2.8,1.9-8.5,5.7-8.5,14.8c0,5.8,2.6,10.8,7,10.8c4.9,0,5.8-5.3,6.8-10.5l1.3-5.9c1.6-7.7,4.8-18.6,17-18.6   c13.1,0,18.4,12.2,18.4,24.3c0,3.2-0.3,6.7-1.3,10.2C185.1,83.4,182.3,90.1,175.3,94.4z"></path></g></svg><div class="title"><h2>Web Atelier 2023</h2><h1>Exercise  2 - JavaScript</h1></div><div class="deadline"><p>28.9.2023</p><p class="deadline">Deadline: <b>6.10.2023</b></p></div><ul><li>Prof. Cesare Pautasso</li><li>Souhaila Serbout</li><li>Hassan Atwi</li><li>Diana Carolina Mu&ntilde;oz Hurtado</li><li>Joey Bevilacqua</li><li>Edoardo Riggio</li><li>Jacopo Di Ventura</li><li>Hun Rim</li></ul></header><h1 id="goal">Goal</h1>
+<p>The goal of these exercises is to improve your understanding of JavaScript as a functional scripting language for the Web browser.</p>
+<p>We assume you know how to program in some other programming language and would like to learn how to program in JavaScript.</p>
+<p>All the code should be written directly into the template (<code>script.js</code>) provided in the skeleton package. After completing the exercise, make sure all the tests are green and push your changes to your GitHub class repository.</p>
+<section class="submit">
+
+<h2 id="submitting-your-solution">Submitting your solution</h2>
+<p>Your project solution <strong>should</strong> be commited <strong>and pushed</strong> to your github repository. </p>
+<p>Make sure your name is written in every file you submit. Anonymous solutions will not be graded.</p>
+<p>See the <code>README.md</code> file for more details on how to commit <strong>and push</strong> your solution.</p>
+<p>Use the special commit message <code>&quot;completed ex2, please check&quot;</code> <strong>only once</strong> when you have completed the assignment and would like to submit it to be corrected.</p>
+</section>
+
+
+<h3 id="automated-tests">Automated tests</h3>
+<p>Open the <code>test.html</code> page in a Web browser to run the tests automatically. The source of the test cases is found in <code>js/test.js</code>, you are welcome to read them but should not modify them.</p>
+<p>Note: the tests for Task 3 work only when serving the <code>test.html</code> page from a Web server (e.g., using some VS Code extension to <a href="https://marketplace.visualstudio.com/items?itemName=yuichinukiyama.vscode-preview-server&amp;ssr=false#qna">Preview on Web Server</a>) and not when opening the page as a file. If you read the error <code>Error: SecurityError: Permission denied to access property &quot;document&quot; on cross-origin object</code> it means the <code>test.html</code> was opened as a file.</p>
+<p>The property-based tests will call your functions with lots of random input values. We recommend using the helper function <code>logFunctionArguments(arguments)</code> to print to the <code>console.log</code> the function parameter values used by the test so that you can manually reproduce the input of failed tests.</p>
+<h1 id="optional-features">Optional Features</h1>
+<p>The following tasks and functions have been marked with how many &star;s they allow to reach.</p>
+<p>For a maximum grade of &starf;&star;&star;, complete all tasks marked with &starf;&star;&star;.</p>
+<p>For a maximum grade of &starf;&starf;&star;, complete all tasks marked with &starf;&star;&star; and &starf;&starf;&star; </p>
+<p>For a maximum grade of &starf;&starf;&starf;, complete all tasks marked with &starf;&star;&star;, &starf;&starf;&star;, and &starf;&starf;&starf;.</p>
+<p><span style="font-style: italic; ">Please list in the <code>README.md</code> file the optional features you implemented.</span></p>
+<h2 id="task---functional-javascript"><span class='task'>Task 1.</span>  Functional JavaScript</h2>
+<p>In this task you will implement some functions. Notice that for each function inside the <code>js/script.js</code> template we give you a <a href="http://usejsdoc.org/">JSDoc</a> documentation of its <strong>arguments</strong> and and <strong>return</strong> value (these are known as the <em>signature</em> of the function). There are also test cases available to check your code.</p>
+<p>While you should be able to program from scratch all of the algorithms required to implement the following functions, it is ok to take advantage of the JavaScript built-in functions to speed up your development efforts. Still, no external modules or libraries are allowed.</p>
+<ol>
+<li><p><strong>Number Formatter</strong> (&starf;&star;&star;)</p>
+<pre><code class="language-js">function format_thousands(n)
+</code></pre>
+<p> Implement a function <code>format_thousands(n)</code> which converts a number into a string which represents the integer part of the number with the &#39; character as the separator for thousands, millions, billions, etc. The fractional part of the number should be returned unchanged after the &#39;.&#39; character.</p>
+ <section class="examples">
+
+<p> <code>format_thousands(999999)</code> should return <code>&quot;999&#39;999&quot;</code></p>
+<p> <code>format_thousands(1234567890)</code> should return <code>&quot;1&#39;234&#39;567&#39;890&quot;</code></p>
+<p> <code>format_thousands(999.99)</code> should return <code>&quot;999.99&quot;</code></p>
+<p> <code>format_thousands(-4200.420042)</code> should return <code>&quot;-4&#39;200.420042&quot;</code></p>
+ </section>
+</li>
+<li><p><strong>Scalar Product</strong>  (&starf;&star;&star;)</p>
+<pre><code class="language-js">function scalar_product(a, c)
+</code></pre>
+<p> Implement a function <code>scalar_product(a, c)</code> which returns an array computed by multiplying each element of the input array <code>a</code> with the input scalar value <code>c</code>.</p>
+ <section class="examples">
+
+<p> <code>scalar_product([1,2,3],0)</code> should return <code>[0,0,0]</code></p>
+<p> <code>scalar_product([1,2,3],-1)</code> should return <code>[-1,-2,-3]</code></p>
+ </section>
+ </li>
+<li><p><strong>Inner Product</strong>  (&starf;&star;&star;)</p>
+<pre><code class="language-js">function inner_product(a, b)
+</code></pre>
+<p> Implement a function <code>inner_product(a, b)</code> which returns a value computed by summing the products of each pair of elements of its input arrays <code>a</code>, <code>b</code> in the same position.</p>
+ <section class="examples">
+
+<p> <code>inner_product([1,2,3], [1,1,1])</code> should return <code>6</code></p>
+<p> <code>inner_product([1,2,3], [1,1,-1])</code> should return <code>0</code></p>
+<p> <code>inner_product([1,2,3], [3,2,1])</code> should return <code>10</code></p>
+ </section>
+</li>
+<li><p><strong>CSV String to Array Parser</strong>  (&starf;&star;&star;)</p>
+<pre><code class="language-js">function parseCSV(csv, drop_header = true, only_header = false)
+</code></pre>
+<p> Implement a function <code>parseCSV(csv, drop_header, only_header)</code> which transforms the input comma-separated value (CSV) string into an array of String arrays. </p>
+<p> The outer array of the result contains an entry for each line of the original csv string and the inner array contains the values found separated by commas on each line. </p>
+<p> Assume that:</p>
+<ol>
+<li><p>Lines are separated by the <code>&quot;\n&quot;</code> character.</p>
+</li>
+<li><p>The CSV values do not contain commas (<code>&quot;,&quot;</code>) themselves. </p>
+</li>
+<li><p>All rows have the same number of values.</p>
+</li>
+<li><p>Some of the values could be empty.</p>
+</li>
+<li><p>Completely empty lines should be skipped.</p>
+<p>The boolean parameters control how to handle the first line of the CSV which is usually a header with the titles of each column. When both are set to true the result should be an empty array.</p>
+<section class="examples">
+
+<p><code>parseCSV(&quot;A,B\n1,2\n3,4\n&quot;)</code> should return <code>[[&quot;1&quot;,&quot;2&quot;],[&quot;3&quot;,&quot;4&quot;]]</code></p>
+<p><code>parseCSV(&quot;A,B\n1,2\n3,4&quot;, false)</code> should return <code>[[&quot;A&quot;,&quot;B&quot;],[&quot;1&quot;,&quot;2&quot;],[&quot;3&quot;,&quot;4&quot;]]</code></p>
+<p><code>parseCSV(&quot;A,B\n1,2\n3,4\n&quot;, false)</code> should return <code>[[&quot;A&quot;,&quot;B&quot;],[&quot;1&quot;,&quot;2&quot;],[&quot;3&quot;,&quot;4&quot;]]</code></p>
+<p><code>parseCSV(&quot;A,B\n1,2\n3,4\n&quot;, false, true)</code> should return <code>[&quot;A&quot;,&quot;B&quot;]</code> (Note this array is not nested)</p>
+</section>
+</li>
+</ol>
+</li>
+<li><p><strong>CSV Array Cleaner</strong>  (&starf;&star;&star;)</p>
+<pre><code class="language-js">function clean(csv_array)
+</code></pre>
+<p> Some of the values of the CSV dataset are empty. This function will clean them up and produce an Array of lines which do not contain empty values.</p>
+<p> The <code>clean</code> function is meant be applied to clean the result of the <code>parseCSV</code> function.</p>
+ <section class="examples">
+
+<p> <code>clean([[&quot;1&quot;,&quot;2&quot;],[&quot;3&quot;,&quot;4&quot;],[&quot;5&quot;,&quot;6&quot;]])</code> should return <code>[[&quot;1&quot;,&quot;2&quot;],[&quot;3&quot;,&quot;4&quot;],[&quot;5&quot;,&quot;6&quot;]]</code></p>
+<p> <code>clean([[&quot;1&quot;,&quot;2&quot;],[&quot;3&quot;,&quot;&quot;],[&quot;&quot;,&quot;6&quot;]])</code> should return <code>[[&quot;1&quot;,&quot;2&quot;]]</code></p>
+ </section>
+</li>
+<li><p><strong>CSV Integer Column Extractor</strong>  (&starf;&star;&star;)</p>
+<pre><code class="language-js">function extractIntegers(csv_array, column)
+</code></pre>
+<p> Some of the CSV columns contain integer data. This function will transform the original Array of String arrays into an Array of Integers which are extracted from the same <code>column</code> of the input. Columns are indexed starting from 0. The result is <code>undefined</code> if the <code>column</code> does not exist in the <code>csv_array</code>.</p>
+<p> Values which cannot be parsed as Integer should be represented as <code>NaN</code> in the result.</p>
+<p> The <code>extractIntegers</code> function is meant be applied to refine the result of the <code>parseCSV</code> or <code>clean</code> function.</p>
+ <section class="examples">
+
+<p> <code>extractIntegers([[&quot;1&quot;,&quot;2&quot;],[&quot;3&quot;,&quot;4&quot;],[&quot;5&quot;,&quot;6&quot;]], 0)</code> should return <code>[1,3,5]</code></p>
+<p> <code>extractIntegers([[&quot;1&quot;,&quot;2&quot;],[&quot;3&quot;,&quot;4&quot;],[&quot;5&quot;,&quot;6&quot;]], 1)</code> should return <code>[2,4,6]</code></p>
+<p> <code>extractIntegers([[&quot;1&quot;,&quot;2&quot;],[&quot;3&quot;,&quot;4&quot;],[&quot;5&quot;,&quot;6&quot;]], 2)</code> should return <code>undefined</code></p>
+<p> <code>extractIntegers([[&quot;1&quot;,&quot;2&quot;,&quot;X&quot;],[&quot;3&quot;,&quot;4&quot;,&quot;Y&quot;],[&quot;5&quot;,&quot;6&quot;,&quot;Z&quot;]], 2)</code> should return <code>[NaN,NaN,NaN]</code></p>
+ </section>
+</li>
+<li><p><strong>Array Normalizer</strong>  (&starf;&starf;&star;)</p>
+<pre><code class="language-js">function normalize(a, max)
+</code></pre>
+<p> Implement a function <code>normalize(a, max)</code> for normalizing an array of values <code>a</code> to a specified range <code>[0,max]</code>. Normalization involves a linear scaling of the values in an array to fit within a specified range, where the smallest value of the input <code>a</code> is mapped to the <code>0</code> value and the largest value of the input <code>a</code> is mapped to the <code>max</code> value. By default <code>max</code> is set to 1. This way the function ensures that the values in the result array are within a specified range.</p>
+<p> Given:</p>
+<ul>
+<li><p><code>x</code> be an individual value in the original array <code>a</code></p>
+</li>
+<li><p><code>A</code> be the minimum value in <code>a</code></p>
+</li>
+<li><p><code>Z</code> be the maximum value in <code>a</code></p>
+<p>The normalized values in the range <code>[0, 1]</code> can be computed as follows:</p>
+<pre><code>(x - A) / (Z - A)
+</code></pre>
+<section class="examples">
+
+<p><code>normalize([1,101,51])</code> should return <code>[0, 1, 0.5]</code></p>
+<p><code>normalize([1,2,3,4,5,6,7,8,9,10,11])</code> should return <code>[0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]</code></p>
+<p><code>normalize([256,0.5,-255],10)</code> should return <code>[10, 5, 0]</code></p>
+<p><code>normalize([0, 0.001, 0.01, 0.1, 1],1000)</code> should return <code>[0, 1, 10, 100, 1000]</code></p>
+</section>
+</li>
+</ul>
+</li>
+<li><p><strong>GPS Location Formatter</strong> (&starf;&starf;&star;)</p>
+<pre><code class="language-js">function gps2str(gps)
+</code></pre>
+<p> Implement a function <code>gps2str(gps)</code> which converts a floating point number representing a GPS coordinate (latitude or longitude in decimal degrees) into a string representation with the DEG&deg; MIN&#39; SEC&quot; format (degrees, minutes and seconds).</p>
+<p> GPS coordinates typically have a valid range for latitude from -90 degrees (south pole) to +90 degrees (north pole) and for longitude from -180 degrees (180 degrees west) to +180 degrees (180 degrees east). Values outside of these ranges are not valid for standard GPS coordinates, and should be rejected with an <code>undefined</code> result.</p>
+ <section class="examples">
+
+<p> <code>gps2str(45.66)</code> should return <code>45&deg; 39&#39; 36&quot;</code></p>
+<p> <code>gps2str(0)</code> should return <code>0&deg; 0&#39; 0&quot;</code></p>
+<p> <code>gps2str(-106.9172)</code> should return <code>-106&deg; 55&#39; 2&quot;</code></p>
+<p> <code>gps2str(360)</code> should return <code>undefined</code></p>
+ </section>
+</li>
+<li><p><strong>GPS Location Parser</strong> (&starf;&starf;&starf;)</p>
+<pre><code class="language-js">function str2gps(dms)
+</code></pre>
+<p> Implement a function <code>str2gps(dms)</code> which converts a string representing a GPS coordinate (latitude or longitude) formatted with the DEG&deg; MIN&#39; SEC&quot; format (degrees, minutes and seconds) into the corresponding floating point number in decimal degrees, which can be used to control the map center.</p>
+ <section class="examples">
+
+<p> <code>str2gps(&quot;45&deg; 39&#39; 36\&quot;&quot;)</code> should return <code>45.66</code></p>
+<p> <code>str2gps(&#39;0&deg; 0\&#39; 0&quot;&#39;)</code> should return <code>0</code></p>
+<p> <code>str2gps(`-99&deg; 10&#39; 3&quot;`)</code> should return <code>-99.1675</code></p>
+ </section>
+
+
+
+</li>
+</ol>
+<h2 id="task---closures"><span class='task'>Task 2.</span>  Closures</h2>
+<p>In this task you will implement the following functions which return other functions as well as the functions which are returned by the following functions:</p>
+<ol>
+<li><p><strong>Iterator</strong>  (&starf;&star;&star;)</p>
+<pre><code class="language-js">function iterator(a)
+</code></pre>
+<p> Implement a function which given the Array <code>a</code> returns a function <code>next</code> which, starting from the first element of the array <code>a</code>, returns the next element every time it is called.</p>
+<p> The result is <code>undefined</code> if the parameter is not an Array.</p>
+ <section class="examples">
+
+<p> <code>iterator([1,2])</code> should return a function, which can be called as follows:</p>
+<p> <code>f = iterator([1,2])</code> assigns the result of <code>iterator</code> to the <code>f</code> variable, which can be called</p>
+<p> <code>f()</code> should return <code>1</code> (the first Array element)</p>
+<p> calling <code>f()</code> again should return <code>2</code> (the second Array element)</p>
+<p> calling <code>f()</code> again should throw an exception (there are no more Array elements)</p>
+ </section>
+</li>
+<li><p><strong>Next</strong>  (&starf;&star;&star;)</p>
+<pre><code class="language-js">function next(b)
+</code></pre>
+<p> This is the function returned by the <code>iterator(a)</code> function. Its behavior depends on the type of parameter.</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>b</td>
+<td><code>undefined</code></td>
+<td>By default, if called with no parameters, the iterator returns the value in the next position, or throws an exception if there are no more values left in the array.</td>
+</tr>
+<tr>
+<td>b</td>
+<td><code>Array</code></td>
+<td>If called with an array, the original array is replaced with the one passed as parameter. The iterator position is reset to the initial element of the new array. The result should be a reference to the function <code>next</code> itself.</td>
+</tr>
+<tr>
+<td>b</td>
+<td><code>integer</code></td>
+<td>If called with an integer, the current position is shifted by <code>b</code> elements. The result in this case is the updated position of the iterator, which corresponds to the element which would be returned by calling <code>next()</code> again with no parameters. You do not have to throw an exception if the new position would be out of range.</td>
+</tr>
+</tbody></table>
+ <section class="examples">
+
+<p> <code>f = iterator([1,2])</code> assigns the result of <code>iterator</code> to the <code>f</code> variable, which can be called</p>
+<p> <code>f()</code> should return <code>1</code> (the first Array element)</p>
+<p> <code>f([&quot;A&quot;,&quot;B&quot;,&quot;C&quot;])</code> should return the next function</p>
+<p> calling <code>f()</code> again should return <code>&quot;A&quot;</code> (the first element of the new Array)</p>
+<p> calling <code>f(0)</code> should return <code>1</code> (the position of the next element that will be returned)</p>
+<p> calling <code>f()</code> again should return <code>&quot;B&quot;</code> (the second element of the new Array)</p>
+<p> calling <code>f(-2)</code> should return <code>0</code> (the position of the first element that will be returned next)</p>
+<p> calling <code>f()</code> again should return <code>&quot;A&quot;</code> (the first element of the new Array)</p>
+<p> calling <code>f(1)</code> should return <code>2</code> (the position of the next element that will be returned)</p>
+<p> calling <code>f()</code> again should return <code>&quot;C&quot;</code> (the last element of the new Array)</p>
+ </section>
+</li>
+<li><p><strong>Make Delay</strong>  (&starf;&starf;&star;)</p>
+<pre><code class="language-js"> function make_delay(time)
+</code></pre>
+<p> This function returns a function which will delay the execution of a provided callback function
+ by a specified time duration.</p>
+ <section class="examples">
+
+<p> <code>f = make_delay(10000)</code> will assign the resulting function and configure the delay to 10 seconds (see below for how to use it)</p>
+ </section>
+</li>
+<li><p><strong>Delay</strong>  (&starf;&starf;&star;)</p>
+<pre><code class="language-js"> function delay(callback)
+</code></pre>
+<p> This function returned by the <code>make_delay</code> function accepts a <code>callback</code> function to be executed after the specified time has elapsed. 
+ If the <code>delay</code> function is called again before the time has elapsed, the previous <code>callback</code> function is
+ not executed.</p>
+ <section class="examples">
+
+<p> <code>f = make_delay(10000)</code> will assign the resulting function and configure the delay to 10 seconds (see above for how to use it)</p>
+<p> <code>c = () =&gt; { console.log(&quot;called back&quot;); }</code> will create a callback function</p>
+<p> <code>d = () =&gt; { console.log(&quot;called back again&quot;); }</code> will create another callback function</p>
+<p> <code>f(c)</code> will call <code>c</code> after 10 seconds and log the <code>called back</code> message on the console</p>
+<p> unless, while the 10 seconds are ticking, calling <code>f(d)</code> (once or multiple times) should only log the <code>called back again</code> message on the console once</p>
+ </section>
+</li>
+<li><p><strong>Make FIFO Pump</strong>  (&starf;&starf;&starf;)</p>
+<pre><code class="language-js"> function make_fifo_pump(callback, time)
+</code></pre>
+<p> The make FIFO (First-In-First-Out) pump function returns a function which stores incoming data into a FIFO array buffer and passes it to the provided <code>callback</code> function with a given delay indicated by the <code>time</code> parameter (in milliseconds).</p>
+ <section class="examples">
+
+<p> <code>c = (x) =&gt; { console.log(&quot;called back from the pump with &quot;, x); }</code> will create a callback function</p>
+<p> <code>pump = make_fifo_pump(c, 1000)</code> will create the pump function and configure it to pass the data to the given callback after 1 second (see below for how to use it)</p>
+ </section>
+</li>
+<li><p><strong>Pump</strong> (&starf;&starf;&starf;)</p>
+<pre><code class="language-js"> function pump(x)
+</code></pre>
+<p> This function returned by the <code>make_fifo_pump</code> function adds data <code>x</code> to the queue so that it can be processed asynchronously by passing it to the <code>callback</code> function that was passed to the <code>make_fifo_pump</code> function.</p>
+ <section class="examples">
+
+<p> <code>pump(41); pump(42)</code> will pass the value <code>41</code> to the callback function <code>c</code> after 1 second and the value <code>42</code> after 2 seconds.</p>
+<p> <code>[&quot;A&quot;,&quot;B&quot;,&quot;C&quot;,&quot;D&quot;].forEach(pump)</code> will pass each value of the array to the callback function, with a 1 second delay between each value</p>
+ </section>
+
+
+
+</li>
+</ol>
+<h2 id="task---map-visualization-"><span class='task'>Task 3.</span>  Map Visualization (&starf;&star;&star;)</h2>
+<p>Complete the map visualization functions <code>initMap</code> and <code>displayCities</code> so that you have a fully functioning map when opening the <code>map.html</code> page.</p>
+<p>The visualization should display the location of the world&#39;s cities with the population above a certain number of inhabitants.</p>
+<p>The visualization is interactive as the user can drag a slider to change the minimum population level and update the map accordingly.</p>
+<p><video width="100%" src="https://atelier.inf.usi.ch/~pautassc/2023/wa/ex2/map.mp4" controls></video></p>
+<p>To control the map use the functions</p>
+<ul>
+<li><code>createMap</code></li>
+<li><code>createMarker</code></li>
+<li><code>removeMarkers</code></li>
+</ul>
+<p>already implemented in the <code>map.js</code> script.</p>
+<p>The location of the cities and their population is found in the given <code>geocsv.js</code> file, which contains a global variable <code>cities_csv</code> with a CSV string with the following structure:</p>
+<pre><code class="language-csv">city,lat,lng,country,iso2,region,population
+Lugano,46.005,8.9525,Switzerland,CH,Ticino,63185
+</code></pre>
+<p>To parse and process the data use the functions you have implemented in the previous tasks.</p>
+<p>When the map page is loaded:</p>
+<ol>
+<li>Convert the CSV string into an Array of arrays using <code>parseCSV</code></li>
+<li>Clean the Array so that it does not contain empty elements using <code>clean</code></li>
+<li>Extract the population as an integer array using <code>extractIntegers</code></li>
+<li>Set up the <code>dom_range</code> minimum and maximum values based on the population data</li>
+<li>Initially, the population level is set to the center value of the range</li>
+<li>Display a marker for the selected cities on the map</li>
+</ol>
+<p>Whenever the user changes the minimum population value:</p>
+<ol>
+<li>Show the minimum population level value using the given <code>displayPopulationLevel</code> function</li>
+<li>Filter the cities that have a population above the level selected by the user</li>
+<li>Show the number of cities selected using the given <code>displayNumberOfCities</code> function</li>
+<li>Remove the markers from the map</li>
+<li>For every city display a marker at the corresponding location </li>
+</ol>
+<p>Hint: if the map is too slow, do not attempt to load the entire dataset</p>
+<h2 id="task---map-visualization--1"><span class='task'>Task 4.</span>  Map Visualization (&starf;&starf;&star;)</h2>
+<p>A randomly colored marker is not very informative. Set the marker color to represent the normalized population size of the city. </p>
+<p>After selecting the cities above the given population:</p>
+<ol>
+<li>Extract the integer array of their population values using <code>extractIntegers</code></li>
+<li>Normalize the values of the array within the 0-359 range using <code>normalize</code></li>
+<li>When creating a marker, set the <code>hue</code> parameter based on the normalized population value</li>
+</ol>
+<h2 id="task---map-visualization--2"><span class='task'>Task 5.</span>  Map Visualization (&starf;&starf;&starf;)</h2>
+<ol>
+<li><p>Search for cities on the map based on their name or country.</p>
+<ol>
+<li>Add a text input where the user can type the search string</li>
+<li>Filter the data based on the given search string (look for matching city or country names)</li>
+<li>Filter the matching cities by population as before</li>
+<li>Display only the resulting cities on the map</li>
+</ol>
+</li>
+<li><p>Integrate the HTML of the <code>map.html</code> into your existing Web application layout and navigation structure.</p>
+</li>
+</ol>
+<section class="topics">
+
+<h2 id="mastery-check-topics">Mastery Check Topics</h2>
+<p>Solving this exercise will demonstrate mastery for the following topics:</p>
+<ul>
+<li>3. JavaScript<ul>
+<li>3.1. Functional JavaScript<ul>
+<li>3.1.1. Inner Functions</li>
+<li>3.1.2. Arrow Functions</li>
+<li>3.1.3. Closures</li>
+</ul>
+</li>
+<li>3.2. Data Types<ul>
+<li>3.2.1. Strings<ul>
+<li>3.2.1.1. split</li>
+<li>3.2.1.2. trim</li>
+</ul>
+</li>
+<li>3.2.2. Arrays<ul>
+<li>3.2.2.1. forEach</li>
+<li>3.2.2.2. map</li>
+<li>3.2.2.3. join</li>
+<li>3.2.2.4. filter</li>
+<li>3.2.2.5. push/pop</li>
+<li>3.2.2.6. every/some</li>
+</ul>
+</li>
+<li>3.2.3. undefined</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>4. APIs<ul>
+<li>4.1. Browser<ul>
+<li>4.1.3. Timer</li>
+<li>4.1.4. Events<ul>
+<li>4.1.4.2. Input</li>
+<li>4.1.4.4. addEventListener</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>6. Development Tools<ul>
+<li>6.1. Browser<ul>
+<li>6.1.2. JavaScript Debugger</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+
+
+<h2 id="questions">Questions?</h2>
+<p>Please post them on our <a href="https://stackoverflowteams.com/c/usi-web-atelier/questions/ask?tags=ex2">private StackOverflow</a> using the <code>ex2</code> tag.</p>
+<footer></footer></body></html>
