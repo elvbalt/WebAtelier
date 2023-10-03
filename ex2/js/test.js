@@ -457,9 +457,9 @@ describe('★☆☆', function () {
 
                         let result = parseCSV(CSV.txt, true, false);
 
-                        should.equal(result.length, rows - 1);
+                        should.equal(result.length, rows);
 
-                        should.deepEqual(result, CSV.arr.slice(1, rows));
+                        should.deepEqual(result, CSV.arr.slice(1, rows + 1));
 
 
                     }));
@@ -572,7 +572,7 @@ describe('★☆☆', function () {
 
                         let result = extractIntegers(a, CSV.intCol);
 
-                        should.deepEqual(result, CSV.int.slice(0, CSV.int.length - 1));
+                        should.deepEqual(result, CSV.int);
 
                     }));
             });
@@ -1005,6 +1005,22 @@ describe('★★☆', function () {
             });
 
 
+            it("returns an array with same length as the original", function () {
+
+                fc.assert(fc.property(fc.array(fc.nat(), { minLength: 3, maxLength: 100 }),
+                    (a) => {
+
+                        let result = normalize(a, 1);
+
+                        result.should.be.an.Array();
+
+                        result.should.have.length(a.length);
+
+                    }));
+
+            });
+
+
             it("returns an array with values between 0 and 1", function () {
 
                 fc.assert(fc.property(fc.array(fc.nat(), { minLength: 3, maxLength: 100 }),
@@ -1107,6 +1123,19 @@ describe('★★☆', function () {
 
             });
 
+            it('should use the degree ° and minute \' separators followed by one space', function () {
+
+                fc.assert(fc.property(fc.float({ noNaN: true, min: -180, max: 180 }), (gps) => {
+
+                    let result = gps2str(gps);
+
+                    should(result).match(/° /);
+                    should(result).match(/' /);
+
+                }));
+
+            });
+
             it('should use the degree ° minute \' and seconds " separators in the correct sequence', function () {
 
                 fc.assert(fc.property(fc.float({ noNaN: true, min: -180, max: 180 }), (gps) => {
@@ -1141,7 +1170,7 @@ describe('★★☆', function () {
 
             it('should encode the right negative integer values', function () {
 
-                fc.assert(fc.property(fc.integer({ noNaN: true, min: -179, max: 0 }), fc.nat({ max: 59 }), fc.nat({ max: 59 }),
+                fc.assert(fc.property(fc.integer({ noNaN: true, min: -179, max: -1 }), fc.nat({ max: 59 }), fc.nat({ max: 59 }),
                     (deg, min, sec) => {
 
                         let gps = deg - min / 60 - sec / 3600;
@@ -1299,7 +1328,7 @@ describe('★★★', function () {
 
             it('should decode negative integer values', function () {
 
-                fc.assert(fc.property(fc.integer({ noNaN: true, min: -179, max: 0 }), fc.nat({ max: 59 }), fc.nat({ max: 59 }),
+                fc.assert(fc.property(fc.integer({ noNaN: true, min: -179, max: -1 }), fc.nat({ max: 59 }), fc.nat({ max: 59 }),
                     (deg, min, sec) => {
 
                         let gps = deg - min / 60 - sec / 3600;
