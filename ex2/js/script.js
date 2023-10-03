@@ -389,16 +389,16 @@ function initMap() {
 
     let dom_range = document.querySelector("#range-population");
 
-    createMap([0,0]);
-
-    let cities = parseCSV(cities_csv);
-    clean(cities);
-    extractIntegers(cities);
-
+    
     dom_range.min = 0; //TODO replace with the minimum population value
     dom_range.max = 37732000; //TODO replace with the maximum population value
     dom_range.value = (dom_range.min + dom_range.max) / 2;
 
+    createMap([0,0]);
+
+    let cities = parseCSV(cities_csv);
+    clean(cities);
+    let population = extractIntegers(cities);
 
 
     dom_range.addEventListener("input", e=>{
@@ -419,7 +419,12 @@ function initMap() {
         removeMarkers();
         //for de population y con el indice q cumpla 
         //la condicion saco de cities la long y lat
-        createMarker(lat, long);
+        for (let i =0; i < population.length; i++){
+            if (dom_range.min <= population[i] <= dom_range.max){
+                createMarker(cities[i][1], cities[i][2]);
+            }
+        }
+        
 
     }
 
