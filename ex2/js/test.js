@@ -1177,6 +1177,7 @@ describe('★★☆', function () {
 
                         let result = gps2str(gps);
 
+
                         should(result).match(new RegExp(deg + "°"));
                         should(result).match(new RegExp(min + "'"));
                         should(result).match(new RegExp(sec + '"'));
@@ -1316,9 +1317,10 @@ describe('★★★', function () {
                         let gps = deg + min / 60 + sec / 3600;
 
                         let result = gps2str(gps);
+
                         let gps2 = str2gps(result);
 
-                        // console.log(result, gps, gps2);
+                        //console.log(result, gps, gps2);
 
                         should(gps).match(gps2);
 
@@ -1336,7 +1338,7 @@ describe('★★★', function () {
                         let result = gps2str(gps);
                         let gps2 = str2gps(result);
 
-                        // console.log(result, gps, gps2);
+                        console.log(result, gps, gps2);
 
                         should(gps).match(gps2);
 

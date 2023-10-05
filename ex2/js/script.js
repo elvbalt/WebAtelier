@@ -144,22 +144,6 @@ function parseCSV(csv, drop_header = true, only_header = false) {
         res.shift();
     }
     return res;
-
-
-    /*if (arr[arr.length-1].length === 0){
-        arr.pop();
-    }
-    if(drop_header){
-        for (let i = 0; i < arr.length; i++){
-            res.push(arr[i+1].split(","));
-        }
-    }else if (only_header){
-        return arr[0].split(",");
-    }else{
-        for (let i = 0; i < arr.length; i++){
-            res.push(arr[i].split(","));
-        }
-    }*/
 }
 
 
@@ -228,20 +212,16 @@ function extractIntegers(csv_array, column) {
         const value = parseInt(line[column], 10);
         return isNaN(value) ? NaN : value; });
 
-    return integers;
-    /*for (let i = 0; i < csv_array.length; i++) {
-        
-        let value = parseInt(csv_array[i][column]);
-
-        
-        if (isNaN(value)) {
+    /*for (let i = 0; i < csv_array.length; i++){
+        if (isNaN(csv_array[i][column])){
             integers.push(NaN);
-        } else {
-            integers.push(value);
+        }else{
+            integers.push(parseInt(csv_array[i][column], 10));
         }
-    }
+    }*/
 
-    return integers;*/
+    return integers;
+
 }
 
 
@@ -257,6 +237,20 @@ function extractIntegers(csv_array, column) {
  * @returns a normalized array of numbers
  */
 function normalize(a, max) {
+    if (!Array.isArray(a)) {
+        return undefined;
+    }else if (a.length === 0){
+        return [];
+    }else{
+
+    //a min valor en a
+    //z max
+    // x-a / z-a
+    const min = Math.min(...a);
+    const max = Math.max(...a);
+
+    return a.map(x=> (x-min)/(max-min));
+    }
 }
 
 
@@ -269,6 +263,35 @@ function normalize(a, max) {
  * @returns a string with the DMS representation of the GPS coordinate
  */
 function gps2str(gps) {
+    if (-180 > gps > 180 || isNaN(gps)){
+        return undefined;
+    }
+
+    let degrees = Math.trunc(gps);
+    
+    let minutesFloat = (gps - degrees) * 60;
+    
+    let minutes = Math.trunc(minutesFloat);
+    minutes = Math.abs(minutes);
+    let secondsFl = (Math.abs(gps) - Math.abs(degrees) - minutes/60) * 3600;
+    let seconds = Math.round(secondsFl)
+    seconds = Math.abs(seconds);
+
+    if (seconds === 60){
+        minutes++;
+        seconds = 0;
+    }
+    if (minutes === 60){
+        if (degrees < 0){
+            degrees--;
+        }else{
+            degrees++;
+        }
+
+        minutes = 0;
+    }
+  // Format the result as a string
+    return `${degrees}° ${minutes}' ${seconds}"`;
 }
 
 
@@ -284,8 +307,35 @@ function gps2str(gps) {
  * @returns A floating point number representing a GPS coordinate.
  */
 function str2gps(dms) {
-}
+    if (dms === undefined){
+        return undefined;
+    }
 
+    //console.log(dms);
+
+    const regex = /(-?\d+)° (\d+)\' (\d+)"/;
+    const match = dms.match(regex);
+
+    if (match) {
+        // Los valores extraídos están en las posiciones 1, 2 y 3 del arreglo match
+        const grados = parseInt(match[1]);
+        const minutos = parseInt(match[2]);
+        const segundos = parseInt(match[3]);
+
+        let res;
+
+        if (grados >= 0){
+            res = grados + minutos / 60 + segundos / 3600;
+        }else{
+            res = grados - minutos / 60 - segundos / 3600;
+        }
+
+        return res;
+
+    }else{
+        return undefined;
+    }
+}
 
 
 
@@ -349,6 +399,25 @@ function iterator(a) {
  *     not executed.
  */
 function make_delay(time = 500) {
+    let timeoutId; // Store the timeout ID
+    if (time < 0){
+        throw new Error();
+    }
+
+    return function (callback) {
+    if (timeoutId) {
+      clearTimeout(timeoutId); // Clear any previous timeout
+    }
+
+    timeoutId = setTimeout(() => {
+      callback();
+      timeoutId = null; // Reset the timeout ID after callback execution
+    }, time);
+  };
+}
+
+function delay(callback) {
+  return make_delay(10000)(callback);
 };
 
 
@@ -370,6 +439,7 @@ function make_delay(time = 500) {
  * @returns {function} A pump function that adds data to the queue and processes it.
  */
 function make_fifo_pump(callback, time = 0) {
+    
 }
 
 
@@ -389,6 +459,9 @@ function initMap() {
 
     let dom_range = document.querySelector("#range-population");
 
+    let cont = document.getElementById("cities-count");
+    let min = document.getElementById("cities-population");
+    
     
     dom_range.min = 0; //TODO replace with the minimum population value
     dom_range.max = 37732000; //TODO replace with the maximum population value
@@ -396,15 +469,20 @@ function initMap() {
 
     createMap([0,0]);
 
+    cont.innerHTML = "12";
+    min.innerHTML = format_thousands(dom_range.value);
+
     let cities = parseCSV(cities_csv);
-    clean(cities);
-    let population = extractIntegers(cities);
+
+    cities = clean(cities);
+
+    let population = extractIntegers(cities, 6);
+
+    displayCities(dom_range.value);
 
 
     dom_range.addEventListener("input", e=>{
-
         displayCities(e.target.value);
-
     })
 
     
@@ -417,14 +495,19 @@ function initMap() {
      */
     function displayCities(minpop) {
         removeMarkers();
+
+        let c = 0;
+        cont.innerHTML = "0";
+        min.innerHTML = format_thousands(minpop);
         //for de population y con el indice q cumpla 
         //la condicion saco de cities la long y lat
         for (let i =0; i < population.length; i++){
-            if (dom_range.min <= population[i] <= dom_range.max){
+            if (minpop <= population[i]){
                 createMarker(cities[i][1], cities[i][2]);
+                c++;
             }
         }
-        
+        cont.innerHTML = c;
 
     }
 
