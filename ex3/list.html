@@ -1,0 +1,97 @@
+<!--
+    Web Atelier 2023
+    Exercise 3
+    Object-Oriented JavaScript
+
+    Map List Page
+
+    Author: __Student Name__
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>USIMAP - Map List</title>
+        <meta name="author" content="__Student Name__">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+    <link rel="stylesheet" href="css/style.css" />  <!-- ex1 -->
+
+    <style>
+        .thumb { width: 200px; height: 200px}
+    </style>
+
+    </head>
+    <body onload="initMapList()">
+
+        <!-- You can modify the code above this line, but do not remove it -->
+
+        <main class="map-index">
+
+
+        </main>
+
+        <!-- Do not modify the code below this line -->
+
+        <template id="view-map-list">
+
+            <header>
+                <h4>Title</h4>
+                <span>Thumbnail</span>
+                <span class="lat">Latitude</span>
+                <span class="lng">Longitude</span>
+                <span class="zoom">Zoom</span>
+                <span class="tiles">Tile Source</span>
+                <span class="actions">Actions</span>
+            </header>
+
+            <% maps.forEach(map=> { %>
+
+            <%
+            let fav_button = "&starf;";
+            let fav_value = "true"
+            if (!map.fav) {
+                fav_value = "false";
+                fav_button = "&star;";
+            }
+            %>
+            <section id="map-<%=map.id%>" data-mapid="<%=map.id%>">
+                <h4 class="name"><%=map.title%></h4>
+                <a href="editor.html?id=<%=map.id%>&action=view" target="view">
+                   <div id="map-thumb-<%=map.id%>" class="thumb"></div>
+                </a>
+
+                <span class="lat"><%=gps2str(map.center.lat) || map.center.lat%></span>
+                <span class="lng"><%=gps2str(map.center.lng) || map.center.lng%></span>
+                <span class="zoom"><%=map.zoom%></span>
+                <span class="tiles"><%=map.tiles%></span>
+                <a href="editor.html?id=<%=map.id%>&action=edit" target="editor">Edit</a>
+                <form action="/map/<%=map.id%>/clone" method="POST">
+                    <button>Clone</button>
+                </form>
+                <form action="/map/<%=map.id%>?_method=PATCH" method="POST">
+                    <input type="hidden" name="fav" value="<%=fav_value%>">
+                    <button><%-fav_button%></button>
+                </form>
+                <form action="/map/<%=map.id%>?_method=DELETE" method="POST">
+                    <button>Delete</button>
+                </form>
+            </section>
+
+            <%})%>
+          </template>
+
+          <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+          <script src="js/script.js"></script> <!-- ex2 -->
+          <script src="js/map-util.js"></script>
+          <script src="js/ejs.min.js"></script>
+          <script src="js/map-list.js"></script> <!-- task 1 -->
+          <script src="js/map-script.js"></script> <!-- task 2 -->
+
+    </body>
+</html>

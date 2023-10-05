@@ -1,0 +1,228 @@
+<html><head><title>exercises/3-js-oo</title><link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Fira+Sans|Fira+Mono"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.0/build/styles/default.min.css"><style>body,* {font-family: "Fira Sans";scroll-behavior: smooth;}body {margin: 1em;}#usi-logo {width: 75px;height: 75px;}header {display: flex;align-content: space-between;width: 100%;justify-items: center;}header ul {list-style: none;}header .title {flex: 1;margin-left: 1em;}html {min-height: 100vh;}pre,code {font-family: "Fira Mono"}pre {background: rgb(202, 227, 255);padding: 1em;}td {text-align: center}td:last-child {text-align: left;}th {font-weight: normal;color: rgb(0, 61, 131);}thead {border-bottom: 2px solid rgb(202, 227, 255);}table {width: 100%}table tr:hover {background-color: rgb(151, 195, 236);}span.task {display: inline-flex;border-radius: 50%;border: 1px solid white;background: #ffbc00;width: 4em;height: 4em;justify-content: center;align-items: center;font-weight: normal;margin-top: 2em;}.deadline {text-align: right;}p.deadline {font-size: 2em;}.deadline b {border-bottom: 1px solid black;}span.get {font-weight: bold; color: #43a047;}span.post {font-weight: bold; color: #F3C142;}span.delete {font-weight: bold; color: #FF0000;}span.put {font-weight: bold; color: #4a90e2;}span.patch {font-weight: bold; color: #666666;}section.submit,section.topics {border: 1px dashed rgb(202, 227, 255);padding: 1em;padding-top: 0;border-right: 1em solid rgb(202, 227,255);border-left: 1em solid rgb(202, 227,255);}section.topics {margin-top: 5em;margin-bottom: 3em;border-color: #00b2ff;}section.examples {border: 2px dashed rgb(202, 227, 255);padding: 1em;padding-bottom: 0;}section.examples:before {content: "Examples";text-shadow: 0 0 1em #6aa9f0;font-weight: bold;}</style></head><body><header>    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="usi-logo" x="0px" y="0px" width="200" height="200" viewBox="0 0 200 200" style="enable-background:new 0 0 200 200;" xml:space="preserve" class="injected-svg svg"><g><path d="M180,41.7h-51.1V31.1h42.2C153.1,12.5,127.8,1,99.9,1C45.2,1.1,0.9,45.4,1,100.1c0,26.8,10.7,51.1,28.1,68.9   c-1.4-2-2.4-4.1-3-6.1c-1-3.5-1-5.9-1.1-15.8v-47.1h14.8v48.5c0,3.4-0.1,6.6,1,9.6c3,7.6,11.3,8.5,16,8.5c2.3,0,8.3-0.1,12.6-3.9   c4.4-3.9,4.4-8.4,4.4-15v-47.7h14.9v49.7c-0.1,8.9-0.1,16.3-8.5,23.5c-8,7-18.4,7.7-23.8,7.7c-4.8,0-9.5-0.6-14-2.1   c-1.8-0.6-3.5-1.4-5-2.3c17.1,14,39,22.4,62.8,22.4c54.7-0.1,99-44.4,98.9-99.1C199,78.1,191.9,58,180,41.7z M175.3,94.4l-6.3-9   c2.1-1.4,8.7-5.7,8.7-17.7c0-2-0.2-4.1-1-6.2c-1.7-4.1-4.6-4.9-6.6-4.9c-3.6,0-4.9,2.5-5.7,4.3c-0.5,1.3-0.6,1.5-1.8,6.6l-1.5,6.9   c-0.9,3.6-1.3,5.4-2,7.2c-1.1,2.6-4.5,9.6-14,9.6c-10.9,0-17.8-9.2-17.8-22.6c0-12.3,6.1-19,11.6-23l6.6,8.8   c-2.8,1.9-8.5,5.7-8.5,14.8c0,5.8,2.6,10.8,7,10.8c4.9,0,5.8-5.3,6.8-10.5l1.3-5.9c1.6-7.7,4.8-18.6,17-18.6   c13.1,0,18.4,12.2,18.4,24.3c0,3.2-0.3,6.7-1.3,10.2C185.1,83.4,182.3,90.1,175.3,94.4z"></path></g></svg><div class="title"><h2>Web Atelier 2023</h2><h1>Exercise  3 - Object-Oriented JavaScript</h1></div><div class="deadline"><p>5.10.2023</p><p class="deadline">Deadline: <b>13.10.2023</b></p></div><ul><li>Prof. Cesare Pautasso</li><li>Souhaila Serbout</li><li>Hassan Atwi</li><li>Diana Carolina Mu&ntilde;oz Hurtado</li><li>Joey Bevilacqua</li><li>Edoardo Riggio</li><li>Jacopo Di Ventura</li><li>Hun Rim</li></ul></header><h1 id="goal">Goal</h1>
+<p>The goal of these exercises is to build your understanding of JavaScript as an object-oriented programming language for the Web browser.</p>
+<p>We assume you know how to program in some other object-oriented programming language and would like to learn how to program in JavaScript.</p>
+<p>All the code should be written directly into the templates (<code>map-script.js</code> and <code>map-list.js</code>) provided in the skeleton package. After completing the exercise, <mark>make sure all the tests are green</mark> and push your changes to your GitHub class repository.</p>
+<section class="submit">
+
+<h2 id="submitting-your-solution">Submitting your solution</h2>
+<p>Your project solution <strong>should</strong> be commited <strong>and pushed</strong> to your github repository. </p>
+<p>Make sure your name is written in every file you submit. Anonymous solutions will not be graded.</p>
+<p>See the <code>README.md</code> file for more details on how to commit <strong>and push</strong> your solution.</p>
+<p>Use the special commit message <code>&quot;completed ex3, please check&quot;</code> <strong>only once</strong> when you have completed the assignment and would like to submit it to be corrected.</p>
+</section>
+
+
+<h3 id="automated-tests">Automated tests</h3>
+<p>Open the <code>test.html</code> page in a Web browser to run the tests automatically. The source of the test cases is found in <code>js/test.js</code>, you are welcome to read them but should not modify them.</p>
+<p>Note: the tests work only when serving the <code>test.html</code> page from a Web server (e.g., using some VS Code extension to <a href="https://marketplace.visualstudio.com/items?itemName=yuichinukiyama.vscode-preview-server&amp;ssr=false#qna">Preview on Web Server</a>) and not when opening the page as a file. If you read the error <code>Error: SecurityError: Permission denied to access property &quot;document&quot; on cross-origin object</code> it means the <code>test.html</code> was opened as a file.</p>
+<p>The property-based tests will call your functions with lots of random input values. We recommend printing to the <code>console.log</code> the function parameter values used by the test so that you can manually reproduce the input of failed tests.</p>
+<h3 id="dependencies-to-previous-assignments">Dependencies to previous assignments</h3>
+<p>Bring your previous assignments code into this project as it will be reused.</p>
+<p>The HTML skeletons of the <code>list.html</code> and <code>editor.html</code> should be adjusted so that you can apply to them your <code>css/style.css</code> from <code>ex1</code> . Make sure you can navigate to these two new pages from your existing ones.</p>
+<p>Some of the functions of the <code>js/script.js</code> from <code>ex2</code> will be reused.</p>
+<h2 id="required-requirements-">Required Requirements (&starf;&star;&star;)</h2>
+<p>Your Web application will let users create, collect, share, duplicate, edit, and delete their maps.</p>
+<p>Maps are identified by:</p>
+<ul>
+<li>the GPS coordinates (latitude and longitude) of their central position</li>
+<li>the zoom level (a positive integer)</li>
+<li>the tiles used to display the map in the given location</li>
+</ul>
+<p>Users would also like to provide a title for their maps, as well as to flag their favourite ones.</p>
+<p>Your Web application will feature a map gallery, displayed in the <code>list.html</code> page. </p>
+<p>The parameters of individual maps can be edited in the <code>editor.html</code>.</p>
+<p>Your Web application will use <code>localStorage</code> to persist the state of the maps so that any changes will be present after reopening the browser. </p>
+<p>Changes applied in the <code>editor.html</code> should be saved in <code>localStorage</code> and the <code>gallery.html</code> should be automatically refreshed to display the changes.</p>
+<h2 id="optional-requirements-">Optional Requirements (&starf;&starf;&star;)</h2>
+<p>Pick <em>one</em> of the following use cases (or <em>two</em> if you are working in pairs):</p>
+<ol>
+<li><p>Users would like to preview different map tiles in the editor as opposed to select the names of the tile provider from a drop-down list to discover the visual effect on the map</p>
+</li>
+<li><p>Add a button on the editor to center the map on the user GPS location. Note that this can only be tested when the page is served from HTTPS. Deploy your Web application on the atelier.inf.usi.ch server for this to work.</p>
+</li>
+<li><p>When clicking on the gallery <code>&lt;section&gt;</code> users would like to display more details about the map in the <code>&lt;sidebar&gt;</code>. In particular, in additon the title, center position and zoom, they would like to see an interactive map which can be zoomed and panned.</p>
+</li>
+<li><p>Filter the gallery to show maps having a title matching the user search query and/or being favourite</p>
+</li>
+</ol>
+<!--
+1. When editing the map, users would like to click on the map to create markers at specific locations. Markers can be dragged to relocate them. Markers can be deleted by clicking them with the right mouse button.
+-->
+
+<p><span style="font-style: italic; ">Please list in the <code>README.md</code> file the optional features you implemented.</span></p>
+<h2 id="optional-requirements--1">Optional Requirements (&starf;&starf;&starf;)</h2>
+<p>For additional bonus points, in addition to the above chosen optional features, implement also <em>one</em> (or <em>two</em> when working in pairs) of the following: </p>
+<ol>
+<li><p>Users would like to search for maps centered around a given city as opposed to manually locate them by panning and zooming the map. In the editor, provide them with a search text input box. Display a list of cities matching the search and fly the map to the city location as the user selects it. Use the cities gps locations from the previous assignment.</p>
+</li>
+<li><p>Users would like to search for maps of a given country as opposed to manually locate them by panning and zooming the map. Extract a list of distinct countries from the city location CSV. Calculate the approximate center of the country by aggregating the locations of the cities found within the given country. When the user selects a country, fly the map to display it with the appropriate zoom level.</p>
+</li>
+<li><p>Users would like to adjust the map color scheme by using <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter">CSS filters</a> (e.g., make it grayscale or rotate the hue). They would like to preview the effect in the editor on map thumbnails, which can be selected or deselected to apply the filter.</p>
+</li>
+<li><p>Sort the gallery based on at least one of the following criteria which should be chosen by the user: the map center location (by longitude or by latitude), the map zoom level, or the title of the map</p>
+</li>
+</ol>
+<!--
+1. Users would like to edit the marker properties, such as their title, description and color
+-->
+
+<p><span style="font-style: italic; ">Please list in the <code>README.md</code> file the optional features you implemented.</span></p>
+<h2 id="task---map-list"><span class='task'>Task 1.</span>  Map List</h2>
+<p>The maps in your Web application are managed by the Map List, an object which is created by the <code>make_map_list</code> function with the following methods:</p>
+<ul>
+<li><code>getMaps</code></li>
+<li><code>getMap(id)</code></li>
+<li><code>addMap(map)</code></li>
+<li><code>cloneMap(id)</code></li>
+<li><code>replaceMap(id, map)</code></li>
+<li><code>deleteMap(id)</code></li>
+<li><code>toggleFav(id)</code></li>
+<li><code>count()</code></li>
+<li><code>save()</code></li>
+<li><code>load()</code></li>
+<li><code>reset()</code></li>
+<li><code>render(where)</code></li>
+</ul>
+<p>Implement the methods by completing the code in the <code>map-list.js</code>, where additional documentation can be found.</p>
+<p>The structure of the map objects is as follows:</p>
+<pre><code class="language-js">{
+  &quot;id&quot;: &quot;0&quot;,
+  &quot;title&quot;: &quot;Konkordiaplatz&quot;,
+  &quot;zoom&quot;: 7,
+  &quot;center&quot;: {
+    &quot;lat&quot;: 46.807098698384735,
+    &quot;lng&quot;: 9.956003765810221
+  },
+  &quot;tiles&quot;: &quot;natgeo&quot;,
+  &quot;fav&quot;: true,
+}
+</code></pre>
+<p>We will use the Map List object in the <code>map-scripts.js</code> code used both in the <code>list.html</code> and the <code>editor.html</code>.</p>
+<h2 id="task---map-gallery"><span class='task'>Task 2.</span>  Map Gallery</h2>
+<p>The <code>list.html</code> contains a skeleton of an HTML page whose content should look like the <code>gallery.html</code> page from ex1. The content however will be rendered from the map objects stored in the map-list.</p>
+<p>Complete the <code>initMapList()</code> function in the <code>map.js</code> script so that:</p>
+<ol>
+<li><p>the map list is loaded from localStorage</p>
+</li>
+<li><p>the map list is rendered into the HTML <code>&lt;main&gt;</code> empty container</p>
+</li>
+<li><p>the buttons on the map list items work so that users can:</p>
+<ul>
+<li>delete maps</li>
+<li>clone maps</li>
+<li>toggle their favorite bit</li>
+</ul>
+</li>
+</ol>
+<p>The content of the page should be refreshed whenever the <code>localStorage</code> changes.</p>
+<h3 id="selectors-used-in-the-tests">Selectors used in the tests</h3>
+<p>The tests assume the existence of the following HTML elements.</p>
+<pre><code>main.map-index section
+main.map-index header
+</code></pre>
+<p>Likewise the content of the map gallery items should be the one generated from the <code>view-map-list</code> template.</p>
+<p>You may adjust the HTML of the <code>list.html</code> page without breaking the above selectors.</p>
+<h2 id="task---map-editor"><span class='task'>Task 3.</span>  Map Editor</h2>
+<p>The <code>editor.html?id=X</code> page will display the map corresponding to the map object with the given ID found in the URL of the <code>window.location</code> address.</p>
+<p>If the ID is not found then a default map should be created with the following object:</p>
+<pre><code class="language-js">{
+    zoom: 2,
+    center: { lat: 0, lng: 0},
+    tiles: &quot;osm&quot;,
+    title: &quot;New Map&quot;
+}
+</code></pre>
+<p>In addition to the map, the editor page will also display a form so that the main map parameters can be configured:</p>
+<ul>
+<li>title (text input)</li>
+<li>zoom (integer from 0 to 19)</li>
+<li>center latitude (numeric input)</li>
+<li>center longitude (numeric input)</li>
+<li>tiles (selection of predefined options)</li>
+</ul>
+<p>The form can be placed in the sidebar.</p>
+<p>When the data entered in the form input fields changes the map is updated to reflect their values.</p>
+<p>When the map center coordinates or the zoom level change because the user is interacting with the map, the form fields should be updated to reflect the updates. Hint: listen to the <code>zoomend</code> and <code>moveend</code> events from the map.</p>
+<p>The form includes two action buttons:</p>
+<ul>
+<li>Create New Map</li>
+<li>Update Map</li>
+</ul>
+<p>Implement the corresponding form submission handlers so that the underlying map object is updated from the form input value content. Add or replace the map object into the map_list so that it is saved to <code>localStorage</code> and the map gallery displayed in the <code>list.html</code> is refreshed accordingly.</p>
+<h3 id="selectors-used-in-the-tests-1">Selectors used in the tests</h3>
+<pre><code>form #title
+form #lat
+form #lng
+form #zoom
+form #tiles
+form button[data-action=&quot;create&quot;]
+form button[data-action=&quot;update&quot;]
+</code></pre>
+<p>Likewise the content of the map gallery items should be the one generated from the <code>view-map-list</code> template.</p>
+<p>You may adjust the HTML of the <code>list.html</code> page without breaking the above selectors.</p>
+<section class="topics">
+
+<h2 id="mastery-check-topics">Mastery Check Topics</h2>
+<p>Solving this exercise will demonstrate mastery for the following topics:</p>
+<ul>
+<li>3. JavaScript<ul>
+<li>3.2. Data Types<ul>
+<li>3.2.1. Strings<ul>
+<li>3.2.1.3. backticks</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>3.3. Objects Data Types<ul>
+<li>3.3.1. Fields</li>
+<li>3.3.2. Methods</li>
+<li>3.3.3. Constructors</li>
+<li>3.3.4. this</li>
+<li>3.3.5. bind, call, apply</li>
+<li>3.3.6. JSON</li>
+<li>3.3.7. JSON Parse/Stringify</li>
+<li>3.3.8. Inheritance (class)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>4. APIs<ul>
+<li>4.1. Browser<ul>
+<li>4.1.2. DOM<ul>
+<li>4.1.2.1. getElementByID</li>
+<li>4.1.2.2. innerHTML</li>
+<li>4.1.2.3. querySelector</li>
+<li>4.1.2.4. contentEditable</li>
+<li>4.1.2.5. classList</li>
+<li>4.1.2.6. dataset</li>
+</ul>
+</li>
+<li>4.1.4. Events<ul>
+<li>4.1.4.1. Mouse</li>
+<li>4.1.4.5. CustomEvent</li>
+</ul>
+</li>
+<li>4.1.6. Local Storage</li>
+<li>4.1.7. Leaflet.js</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>6. Development Tools<ul>
+<li>6.1. Browser<ul>
+<li>6.1.2. JavaScript Debugger</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+
+
+<h2 id="questions">Questions?</h2>
+<p>Please post them on our <a href="https://stackoverflowteams.com/c/usi-web-atelier/questions/ask?tags=ex3">private StackOverflow</a> using the <code>ex3</code> tag.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://leafletjs.com/reference.html">Leaflet</a></li>
+</ul>
+<footer></footer></body></html>
