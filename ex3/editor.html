@@ -1,0 +1,83 @@
+<!--
+    Web Atelier 2023
+    Exercise 3
+    Object-Oriented JavaScript
+
+    Map Editor
+
+    Author: __Student Name__
+
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>USIMAP - Map Editor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+    <link rel="stylesheet" href="css/style.css" />  <!-- ex1 -->
+
+</head>
+
+<body onload="initMapEditor()">
+
+    <!-- integrate the following elements into your own HTML page template -->
+
+    <header>
+        <h1>Map Editor</h1>
+    </header>
+
+    <main>
+
+        <aside class="controls">
+
+            <form action="/map" method="POST">
+
+                <!-- make sure the form has at least the following elements -->
+                <!-- do not change the id attributes of the form elements -->
+
+                <input id="title" type="text" name="title" value="New Map" />
+                <input id="lat" type="text" name="lat" value="46.01194069320304" />
+                <input id="lng" type="text" name="lng" value="8.961061835289003" />
+                <input id="zoom" type="number" name="zoom" value="13" />
+                <select name="tiles" id="tiles">
+
+                    <option value="watercolor" selected>watercolor</option>
+                    <option value="osm">osm</option>
+                    <option value="natgeo">natgeo</option>
+                    <option value="ESRI_world_imagery">ESRI_world_imagery</option>
+                    <option value="Swiss_Color">Swiss_Color</option>
+                    <option value="Swiss_Imagery">Swiss_Imagery</option>
+                    <option value="topo">topo</option>
+                    <option value="toner">toner</option>
+
+                </select>
+
+                <button data-action="create">Create New Map</button>
+
+                <button data-action="update">Update Map</button>
+
+            </form>
+
+        </aside>
+
+        <!-- leaflet needs this div#map element to display the map -->
+
+        <div id="map" style="width:99vw; height:80vh"></div>
+
+    </main>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <script src="js/map-util.js"></script>
+    <script src="js/map-list.js"></script> <!-- task 1 -->
+    <script src="js/map-script.js"></script> <!-- task 3 -->
+
+</body>
+
+</html>
