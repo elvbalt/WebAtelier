@@ -236,20 +236,17 @@ function extractIntegers(csv_array, column) {
  * @param {Number} max - the maximum value to be used for normalization (default 1)
  * @returns a normalized array of numbers
  */
-function normalize(a, max) {
+function normalize(a, max = 1) {
     if (!Array.isArray(a)) {
         return undefined;
     }else if (a.length === 0){
         return [];
     }else{
 
-    //a min valor en a
-    //z max
-    // x-a / z-a
-    const min = Math.min(...a);
-    const max = Math.max(...a);
+    const a_min = Math.min(...a);
+    const a_max = Math.max(...a);
 
-    return a.map(x=> (x-min)/(max-min));
+    return a.map(x=> Math.trunc(max*(x-a_min)/(a_max-a_min)));
     }
 }
 
@@ -439,7 +436,42 @@ function delay(callback) {
  * @returns {function} A pump function that adds data to the queue and processes it.
  */
 function make_fifo_pump(callback, time = 0) {
+    if(callback === undefined){
+        return undefined;
+    }
+    if (time < 0){
+        throw new Error();
+    }
     
+    let queue = [];
+    let stop = false;
+
+    let timer;
+
+    function pump(x){
+        if (x === undefined){
+            if (timer !== undefined){
+                clearInterval(timer);
+                timer = undefined;
+            }
+            queue = [];
+        }else{
+            queue.push(x);
+            if (timer === undefined){
+                timer = setInterval(() =>{
+                    const d = queue.shift();
+                    if(d !== undefined){
+                        callback(d);
+                    }else{
+                        queue = [];
+                        clearInterval(timer);
+                        timer = undefined;
+                    }
+            }, time);
+    }
+        }
+    }
+return pump;
 }
 
 
@@ -477,13 +509,23 @@ function initMap() {
     cities = clean(cities);
 
     let population = extractIntegers(cities, 6);
+    let pop = extractIntegers(cities, 6);
+    pop2 = normalize(pop, 360);
 
     displayCities(dom_range.value);
 
+    let defined_c = document.getElementById("defined_c");
 
     dom_range.addEventListener("input", e=>{
+        defined_c.value="";
         displayCities(e.target.value);
     })
+
+    
+    defined_c.addEventListener("input", e=>{
+        displayCities2(e.target.value);
+    })
+
 
     
 
@@ -497,16 +539,42 @@ function initMap() {
         removeMarkers();
 
         let c = 0;
-        cont.innerHTML = "0";
         min.innerHTML = format_thousands(minpop);
         //for de population y con el indice q cumpla 
         //la condicion saco de cities la long y lat
         for (let i =0; i < population.length; i++){
             if (minpop <= population[i]){
-                createMarker(cities[i][1], cities[i][2]);
+                
+                createMarker(cities[i][1], cities[i][2], pop2[i]);
                 c++;
             }
         }
+        cont.innerHTML = c;
+
+    }
+
+    function displayCities2(name) {
+        removeMarkers();
+
+        let c = 0;
+        let pop = 37732000;
+
+        //for de population y con el indice q cumpla 
+        //la condicion saco de cities la long y lat
+        for (let i =0; i < population.length; i++){
+  
+            if (cities[i][3] === name){
+
+                createMarker(cities[i][1], cities[i][2], pop2[i]);
+                c++;
+                pop = Math.min(cities[i][6], pop);
+            }else if (cities[i][0] === name){
+                createMarker(cities[i][1], cities[i][2], pop2[i]);
+                c++;
+                pop = Math.min(cities[i][6], pop);
+            }
+        }
+        min.innerHTML = format_thousands(pop);
         cont.innerHTML = c;
 
     }
