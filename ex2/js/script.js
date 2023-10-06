@@ -157,21 +157,7 @@ function clean(csv_array) {
     }
 
     return csv_array.filter(line => line.every(value => value !== ''));
-    //return csv_array.filter(line => !line.includes("")); //some(value => value.trim() === ''));
-
-    //return csv_array.filter(line => !line.contais(" "));
-
-    /*let clean_array = csv_array.filter((arr) => {
-        let dejar = true;
-        for (let i= 0; i != arr.length; i++){
-            if(!arr[i]){
-                dejar = false;
-            }
-        }
-        return dejar;
-    })*/
-
-    //return clean_array;
+    
 }
 
 /**
@@ -181,23 +167,6 @@ function clean(csv_array) {
  * @return {Integer[]} - an array with the content of the selected column converted to integer.
  */
 function extractIntegers(csv_array, column) {
-    /*if (csv_array === undefined || !Array.isArray(csv_array) || csv_array.length === 0){ // || !Array.isArray(csv_array)
-        return undefined;
-    }
-    if (column > csv_array[0].length -1 || column < 0){
-        return undefined;
-    }
-
-    let integers = [];
-
-    for (let i = 0; i < csv_array.length; i++){
-        if (isNaN(csv_array[i][column])){
-            integers.push(NaN);
-        }else{
-            integers.push(parseInt(csv_array[i][column], 10));
-        }
-    }
-    return integers;*/
 
     if (!Array.isArray(csv_array) || column === undefined || column < 0 || column >= csv_array[0].length) {
         return undefined;
@@ -211,14 +180,6 @@ function extractIntegers(csv_array, column) {
     integers = csv_array.map(line => {
         const value = parseInt(line[column], 10);
         return isNaN(value) ? NaN : value; });
-
-    /*for (let i = 0; i < csv_array.length; i++){
-        if (isNaN(csv_array[i][column])){
-            integers.push(NaN);
-        }else{
-            integers.push(parseInt(csv_array[i][column], 10));
-        }
-    }*/
 
     return integers;
 
@@ -307,8 +268,6 @@ function str2gps(dms) {
     if (dms === undefined){
         return undefined;
     }
-
-    //console.log(dms);
 
     const regex = /(-?\d+)° (\d+)\' (\d+)"/;
     const match = dms.match(regex);
