@@ -2,7 +2,7 @@
 
 If you can read this file on your computer, you have successfully checked out the skeleton of the first Exercise.
 
-Write your full name here: ________
+Write your full name here: Elvira Baltasar
 
 In case you work in pair, write the name of both students here:
 
