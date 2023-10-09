@@ -5,8 +5,22 @@
  *
  * Read-only file (do not edit)
  *
+ * Update 9.10.23
+ *
+ * - test storage key is now random
+ * - map ids are now strings
+ * - 2 minute timeout for the list.html tests
+ *
  */
 
+
+function makeInvalidJSON(obj) {
+    return JSON.stringify(obj).replace(/"/g, "'").replace(/,/g, "\t").replace(/:/g, ",").replace(/}/g, ")").replace(/{/g, "(");
+}
+
+function makeRandomStorageKey() {
+    return "test-map-"+Math.floor(Math.random() * 1000000);
+}
 
 function makeRandomMap(title = "Random Map") {
     return {
@@ -24,13 +38,15 @@ function makeRandomMap(title = "Random Map") {
 
 describe('★☆☆', function () {
 
+    let storageKey = makeRandomStorageKey();
+
     describe('Task 1', function () {
 
         describe('map_list', function () {
 
             it('getMap(id) should return undefined maps when empty', function () {
 
-                let test_map_list = make_map_list("test-maps");
+                let test_map_list = make_map_list(storageKey);
 
                 fc.assert(fc.property(fc.integer({ min: -999, max: 999 }), (id) => {
 
@@ -42,158 +58,158 @@ describe('★☆☆', function () {
 
             it('getMap(id) should return predefined maps after reset', function () {
 
-                let test_map_list = make_map_list("test-maps");
+                let test_map_list = make_map_list(storageKey);
 
                 test_map_list.reset();
                 {
-                    let map = test_map_list.getMap(0);
+                    let map = test_map_list.getMap("0");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
                     should(map.center).be.an.Object();
                     should(map).be.deepEqual({"zoom":7,"title":"Konkordiaplatz","tiles":"natgeo","fav":true,"desc":"","id":"0","center":{"lat":46.807098698384735,"lng":9.956003765810221}});
                 }
                 {
-                    let map = test_map_list.getMap(1);
+                    let map = test_map_list.getMap("1");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
                     should(map.center).be.an.Object();
                     should(map).be.deepEqual({"zoom":15,"title":"Lugano Satellite","tiles":"ESRI_world_imagery","id":"1","center":{"lat":46.00976488037914,"lng":8.967461585998537}});
                 }
                 {
-                    let map = test_map_list.getMap(2);
+                    let map = test_map_list.getMap("2");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
                     should(map.center).be.an.Object();
                     should(map).be.deepEqual({"zoom":5,"title":"Europe","tiles":"watercolor","id":"2","center":{"lat":45.166547157856016,"lng":16.523437500000004}});
                 }
                 {
-                    let map = test_map_list.getMap(3);
+                    let map = test_map_list.getMap("3");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
                     should(map.center).be.an.Object();
                     should(map).be.deepEqual({"zoom":15,"title":"Ritom","tiles":"ESRI_world_imagery","desc":"Beautiful Ticino Lake","id":"3","center":{"lat":46.539307083117805,"lng":8.691687583923342}});
                 }
                 {
-                    let map = test_map_list.getMap(4);
+                    let map = test_map_list.getMap("4");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
                     should(map.center).be.an.Object();
                     should(map).be.deepEqual({"zoom":8,"title":"Switzerland","tiles":"natgeo","desc":"","id":"4","center":{"lat":46.5854469512097,"lng":8.189412981840018}});
                 }
                 {
-                    let map = test_map_list.getMap(5);
+                    let map = test_map_list.getMap("5");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
                     should(map.center).be.an.Object();
                     should(map).be.deepEqual({"zoom":9,"title":"Corse","tiles":"ESRI_world_imagery","id":"5","center":{"lat":42.07478160216737,"lng":9.396057128906252}});
                 }
                 {
-                    let map = test_map_list.getMap(6);
+                    let map = test_map_list.getMap("6");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
                     should(map.center).be.an.Object();
                     should(map).be.deepEqual({"zoom":8,"title":"Alps","tiles":"ESRI_world_imagery","id":"6","center":{"lat":45.71193311776845,"lng":10.6512451171875}});
                 }
                 {
-                    let map = test_map_list.getMap(7);
+                    let map = test_map_list.getMap("7");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
                     should(map.center).be.an.Object();
                     should(map).be.deepEqual({"zoom":13,"title":"Zurich","tiles":"osm","desc":"","id":"7","center":{"lat":47.38451105175862,"lng":8.526077968100157}});
                 }
                 {
-                    let map = test_map_list.getMap(8);
+                    let map = test_map_list.getMap("8");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
                     should(map.center).be.an.Object();
                     should(map).be.deepEqual({"zoom":8,"title":"Jyväskylä","tiles":"natgeo","desc":"","id":"8","center":{"lat":61.976396187471956,"lng":26.427612304687504}});
                 }
                 {
-                    let map = test_map_list.getMap(9);
+                    let map = test_map_list.getMap("9");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
                     should(map.center).be.an.Object();
                     should(map).be.deepEqual({"zoom":12,"title":"Interlaken","tiles":"Swiss_Imagery","id":"9","center":{"lat":46.68866222628092,"lng":7.859344482421876}});
                 }
                 {
-                    let map = test_map_list.getMap(10);
+                    let map = test_map_list.getMap("10");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
                     should(map.center).be.an.Object();
                     should(map).be.deepEqual({"zoom":11,"title":"Berlin","tiles":"topo","id":"10","center":{"lat":52.469605989368794,"lng":13.311309814453127}});
                 }
                 {
-                    let map = test_map_list.getMap(11);
+                    let map = test_map_list.getMap("11");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
                     should(map.center).be.an.Object();
                     should(map).be.deepEqual({"zoom":4,"title":"Down Under","tiles":"toner","id":"11","center":{"lat":-29.420460341013133,"lng":-221.13281250000003}});
                 }
                 {
-                    let map = test_map_list.getMap(12);
+                    let map = test_map_list.getMap("12");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
                     should(map.center).be.an.Object();
                     should(map).be.deepEqual({"zoom":14,"title":"Venice","tiles":"watercolor","fav":true,"desc":"","id":"12","center":{"lat":45.435021772040116,"lng":12.336096870057816}});
                 }
                 {
-                    let map = test_map_list.getMap(14);
+                    let map = test_map_list.getMap("14");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
                     should(map.center).be.an.Object();
                     should(map).be.deepEqual({"zoom":7,"title":"Iceland","tiles":"watercolor","fav":true,"desc":"","id":"14","center":{"lat":65.1091177513242,"lng":-18.962261537418925}});
                 }
                 {
-                    let map = test_map_list.getMap(16);
+                    let map = test_map_list.getMap("16");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
                     should(map.center).be.an.Object();
                     should(map).be.deepEqual({"zoom":13,"title":"Lugano","tiles":"Swiss_Color","id":"16","center":{"lat":46.01194069320304,"lng":8.961061835289003}});
                 }
                 {
-                    let map = test_map_list.getMap(17);
+                    let map = test_map_list.getMap("17");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
                     should(map.center).be.an.Object();
                     should(map).be.deepEqual({"zoom":7,"title":"New Zealand","tiles":"watercolor","fav":true,"desc":"","id":"17","center":{"lat":-40.9448215590864,"lng":173.37441762352876}});
                 }
                 {
-                    let map = test_map_list.getMap(19);
+                    let map = test_map_list.getMap("19");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
                     should(map.center).be.an.Object();
                     should(map).be.deepEqual({"zoom":8,"title":"Hawaii","tiles":"natgeo","id":"19","center":{"lat":20.223543059033542,"lng":-157.08251953125003}});
                 }
                 {
-                    let map = test_map_list.getMap(20);
+                    let map = test_map_list.getMap("20");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
                     should(map.center).be.an.Object();
                     should(map).be.deepEqual({"zoom":16,"title":"Tremola","tiles":"Swiss_Color","id":"20","center":{"lat":46.54505572291053,"lng":8.573026657104494}});
                 }
                 {
-                    let map = test_map_list.getMap(21);
+                    let map = test_map_list.getMap("21");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
                     should(map.center).be.an.Object();
                     should(map).be.deepEqual({"zoom":11,"title":"Netherlands","tiles":"osm","id":"21","center":{"lat":52.17793193118188,"lng":5.003585815429688}});
                 }
                 {
-                    let map = test_map_list.getMap(22);
+                    let map = test_map_list.getMap("22");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
                     should(map.center).be.an.Object();
                     should(map).be.deepEqual({"zoom":8,"title":"Colombia","tiles":"topo","id":"22","center":{"lat":4.631179340411012,"lng":-74.08905029296876}});
                 }
                 {
-                    let map = test_map_list.getMap(23);
+                    let map = test_map_list.getMap("23");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
                     should(map.center).be.an.Object();
                     should(map).be.deepEqual({"zoom":7,"title":"Great Lakes","tiles":"toner","desc":"","id":"23","center":{"lat":44.91753133529358,"lng":-84.56176757812501}});
                 }
                 {
-                    let map = test_map_list.getMap(24);
+                    let map = test_map_list.getMap("24");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
                     should(map.center).be.an.Object();
@@ -203,9 +219,9 @@ describe('★☆☆', function () {
             }); //it
 
 
-            it('addMap(id) should add maps generating their ids', function () {
+            it('addMap(map) should add maps generating their ids', function () {
 
-                let test_map_list = make_map_list("test-maps");
+                let test_map_list = make_map_list(storageKey);
 
                 fc.assert(fc.property(fc.integer({ min: 0, max: 10 }),
                 (add)=>{
@@ -237,7 +253,7 @@ describe('★☆☆', function () {
 
             it('addMap(id) should add maps preserving their ids', function () {
 
-                let test_map_list = make_map_list("test-maps");
+                let test_map_list = make_map_list(storageKey);
                 {
                     //map does not exist before add
                     let map = test_map_list.getMap("0");
@@ -658,9 +674,9 @@ describe('★☆☆', function () {
                 }
             }); //it
 
-            it('replaceMap(id) should change the map at the given id', function () {
+            it('replaceMap(id, map) should change the map at the given id', function () {
 
-                let test_map_list = make_map_list("test-maps");
+                let test_map_list = make_map_list(storageKey);
 
                 test_map_list.reset();
 
@@ -697,11 +713,11 @@ describe('★☆☆', function () {
 
             it('cloneMap(id) should duplicate maps', function () {
 
-                let test_map_list = make_map_list("test-maps");
+                let test_map_list = make_map_list(storageKey);
 
                 test_map_list.reset();
                 {
-                    //map exists before delete
+                    //map exists before clone
                     let map = test_map_list.getMap("0");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
@@ -709,7 +725,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    let newmap = test_map_list.cloneMap(0);
+                    let newmap = test_map_list.cloneMap("0");
 
                     should(size + 1).be.equal(test_map_list.count());
 
@@ -734,7 +750,7 @@ describe('★☆☆', function () {
 
                 }
                 {
-                    //map exists before delete
+                    //map exists before clone
                     let map = test_map_list.getMap("1");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
@@ -742,7 +758,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    let newmap = test_map_list.cloneMap(1);
+                    let newmap = test_map_list.cloneMap("1");
 
                     should(size + 1).be.equal(test_map_list.count());
 
@@ -767,7 +783,7 @@ describe('★☆☆', function () {
 
                 }
                 {
-                    //map exists before delete
+                    //map exists before clone
                     let map = test_map_list.getMap("2");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
@@ -775,7 +791,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    let newmap = test_map_list.cloneMap(2);
+                    let newmap = test_map_list.cloneMap("2");
 
                     should(size + 1).be.equal(test_map_list.count());
 
@@ -800,7 +816,7 @@ describe('★☆☆', function () {
 
                 }
                 {
-                    //map exists before delete
+                    //map exists before clone
                     let map = test_map_list.getMap("3");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
@@ -808,7 +824,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    let newmap = test_map_list.cloneMap(3);
+                    let newmap = test_map_list.cloneMap("3");
 
                     should(size + 1).be.equal(test_map_list.count());
 
@@ -833,7 +849,7 @@ describe('★☆☆', function () {
 
                 }
                 {
-                    //map exists before delete
+                    //map exists before clone
                     let map = test_map_list.getMap("4");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
@@ -841,7 +857,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    let newmap = test_map_list.cloneMap(4);
+                    let newmap = test_map_list.cloneMap("4");
 
                     should(size + 1).be.equal(test_map_list.count());
 
@@ -866,7 +882,7 @@ describe('★☆☆', function () {
 
                 }
                 {
-                    //map exists before delete
+                    //map exists before clone
                     let map = test_map_list.getMap("5");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
@@ -874,7 +890,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    let newmap = test_map_list.cloneMap(5);
+                    let newmap = test_map_list.cloneMap("5");
 
                     should(size + 1).be.equal(test_map_list.count());
 
@@ -899,7 +915,7 @@ describe('★☆☆', function () {
 
                 }
                 {
-                    //map exists before delete
+                    //map exists before clone
                     let map = test_map_list.getMap("6");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
@@ -907,7 +923,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    let newmap = test_map_list.cloneMap(6);
+                    let newmap = test_map_list.cloneMap("6");
 
                     should(size + 1).be.equal(test_map_list.count());
 
@@ -932,7 +948,7 @@ describe('★☆☆', function () {
 
                 }
                 {
-                    //map exists before delete
+                    //map exists before clone
                     let map = test_map_list.getMap("7");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
@@ -940,7 +956,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    let newmap = test_map_list.cloneMap(7);
+                    let newmap = test_map_list.cloneMap("7");
 
                     should(size + 1).be.equal(test_map_list.count());
 
@@ -965,7 +981,7 @@ describe('★☆☆', function () {
 
                 }
                 {
-                    //map exists before delete
+                    //map exists before clone
                     let map = test_map_list.getMap("8");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
@@ -973,7 +989,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    let newmap = test_map_list.cloneMap(8);
+                    let newmap = test_map_list.cloneMap("8");
 
                     should(size + 1).be.equal(test_map_list.count());
 
@@ -998,7 +1014,7 @@ describe('★☆☆', function () {
 
                 }
                 {
-                    //map exists before delete
+                    //map exists before clone
                     let map = test_map_list.getMap("9");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
@@ -1006,7 +1022,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    let newmap = test_map_list.cloneMap(9);
+                    let newmap = test_map_list.cloneMap("9");
 
                     should(size + 1).be.equal(test_map_list.count());
 
@@ -1031,7 +1047,7 @@ describe('★☆☆', function () {
 
                 }
                 {
-                    //map exists before delete
+                    //map exists before clone
                     let map = test_map_list.getMap("10");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
@@ -1039,7 +1055,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    let newmap = test_map_list.cloneMap(10);
+                    let newmap = test_map_list.cloneMap("10");
 
                     should(size + 1).be.equal(test_map_list.count());
 
@@ -1064,7 +1080,7 @@ describe('★☆☆', function () {
 
                 }
                 {
-                    //map exists before delete
+                    //map exists before clone
                     let map = test_map_list.getMap("11");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
@@ -1072,7 +1088,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    let newmap = test_map_list.cloneMap(11);
+                    let newmap = test_map_list.cloneMap("11");
 
                     should(size + 1).be.equal(test_map_list.count());
 
@@ -1097,7 +1113,7 @@ describe('★☆☆', function () {
 
                 }
                 {
-                    //map exists before delete
+                    //map exists before clone
                     let map = test_map_list.getMap("12");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
@@ -1105,7 +1121,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    let newmap = test_map_list.cloneMap(12);
+                    let newmap = test_map_list.cloneMap("12");
 
                     should(size + 1).be.equal(test_map_list.count());
 
@@ -1130,7 +1146,7 @@ describe('★☆☆', function () {
 
                 }
                 {
-                    //map exists before delete
+                    //map exists before clone
                     let map = test_map_list.getMap("14");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
@@ -1138,7 +1154,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    let newmap = test_map_list.cloneMap(14);
+                    let newmap = test_map_list.cloneMap("14");
 
                     should(size + 1).be.equal(test_map_list.count());
 
@@ -1163,7 +1179,7 @@ describe('★☆☆', function () {
 
                 }
                 {
-                    //map exists before delete
+                    //map exists before clone
                     let map = test_map_list.getMap("16");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
@@ -1171,7 +1187,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    let newmap = test_map_list.cloneMap(16);
+                    let newmap = test_map_list.cloneMap("16");
 
                     should(size + 1).be.equal(test_map_list.count());
 
@@ -1196,7 +1212,7 @@ describe('★☆☆', function () {
 
                 }
                 {
-                    //map exists before delete
+                    //map exists before clone
                     let map = test_map_list.getMap("17");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
@@ -1204,7 +1220,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    let newmap = test_map_list.cloneMap(17);
+                    let newmap = test_map_list.cloneMap("17");
 
                     should(size + 1).be.equal(test_map_list.count());
 
@@ -1229,7 +1245,7 @@ describe('★☆☆', function () {
 
                 }
                 {
-                    //map exists before delete
+                    //map exists before clone
                     let map = test_map_list.getMap("19");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
@@ -1237,7 +1253,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    let newmap = test_map_list.cloneMap(19);
+                    let newmap = test_map_list.cloneMap("19");
 
                     should(size + 1).be.equal(test_map_list.count());
 
@@ -1262,7 +1278,7 @@ describe('★☆☆', function () {
 
                 }
                 {
-                    //map exists before delete
+                    //map exists before clone
                     let map = test_map_list.getMap("20");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
@@ -1270,7 +1286,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    let newmap = test_map_list.cloneMap(20);
+                    let newmap = test_map_list.cloneMap("20");
 
                     should(size + 1).be.equal(test_map_list.count());
 
@@ -1295,7 +1311,7 @@ describe('★☆☆', function () {
 
                 }
                 {
-                    //map exists before delete
+                    //map exists before clone
                     let map = test_map_list.getMap("21");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
@@ -1303,7 +1319,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    let newmap = test_map_list.cloneMap(21);
+                    let newmap = test_map_list.cloneMap("21");
 
                     should(size + 1).be.equal(test_map_list.count());
 
@@ -1328,7 +1344,7 @@ describe('★☆☆', function () {
 
                 }
                 {
-                    //map exists before delete
+                    //map exists before clone
                     let map = test_map_list.getMap("22");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
@@ -1336,7 +1352,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    let newmap = test_map_list.cloneMap(22);
+                    let newmap = test_map_list.cloneMap("22");
 
                     should(size + 1).be.equal(test_map_list.count());
 
@@ -1361,7 +1377,7 @@ describe('★☆☆', function () {
 
                 }
                 {
-                    //map exists before delete
+                    //map exists before clone
                     let map = test_map_list.getMap("23");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
@@ -1369,7 +1385,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    let newmap = test_map_list.cloneMap(23);
+                    let newmap = test_map_list.cloneMap("23");
 
                     should(size + 1).be.equal(test_map_list.count());
 
@@ -1394,7 +1410,7 @@ describe('★☆☆', function () {
 
                 }
                 {
-                    //map exists before delete
+                    //map exists before clone
                     let map = test_map_list.getMap("24");
                     should(map).not.be.undefined();
                     should(map).be.an.Object();
@@ -1402,7 +1418,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    let newmap = test_map_list.cloneMap(24);
+                    let newmap = test_map_list.cloneMap("24");
 
                     should(size + 1).be.equal(test_map_list.count());
 
@@ -1431,7 +1447,7 @@ describe('★☆☆', function () {
 
             it('deleteMap(id) should remove maps', function () {
 
-                let test_map_list = make_map_list("test-maps");
+                let test_map_list = make_map_list(storageKey);
 
                 test_map_list.reset();
                 {
@@ -1443,7 +1459,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    test_map_list.deleteMap(0);
+                    test_map_list.deleteMap("0");
 
                     should(size - 1).be.equal(test_map_list.count());
 
@@ -1462,7 +1478,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    test_map_list.deleteMap(1);
+                    test_map_list.deleteMap("1");
 
                     should(size - 1).be.equal(test_map_list.count());
 
@@ -1481,7 +1497,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    test_map_list.deleteMap(2);
+                    test_map_list.deleteMap("2");
 
                     should(size - 1).be.equal(test_map_list.count());
 
@@ -1500,7 +1516,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    test_map_list.deleteMap(3);
+                    test_map_list.deleteMap("3");
 
                     should(size - 1).be.equal(test_map_list.count());
 
@@ -1519,7 +1535,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    test_map_list.deleteMap(4);
+                    test_map_list.deleteMap("4");
 
                     should(size - 1).be.equal(test_map_list.count());
 
@@ -1538,7 +1554,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    test_map_list.deleteMap(5);
+                    test_map_list.deleteMap("5");
 
                     should(size - 1).be.equal(test_map_list.count());
 
@@ -1557,7 +1573,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    test_map_list.deleteMap(6);
+                    test_map_list.deleteMap("6");
 
                     should(size - 1).be.equal(test_map_list.count());
 
@@ -1576,7 +1592,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    test_map_list.deleteMap(7);
+                    test_map_list.deleteMap("7");
 
                     should(size - 1).be.equal(test_map_list.count());
 
@@ -1595,7 +1611,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    test_map_list.deleteMap(8);
+                    test_map_list.deleteMap("8");
 
                     should(size - 1).be.equal(test_map_list.count());
 
@@ -1614,7 +1630,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    test_map_list.deleteMap(9);
+                    test_map_list.deleteMap("9");
 
                     should(size - 1).be.equal(test_map_list.count());
 
@@ -1633,7 +1649,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    test_map_list.deleteMap(10);
+                    test_map_list.deleteMap("10");
 
                     should(size - 1).be.equal(test_map_list.count());
 
@@ -1652,7 +1668,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    test_map_list.deleteMap(11);
+                    test_map_list.deleteMap("11");
 
                     should(size - 1).be.equal(test_map_list.count());
 
@@ -1671,7 +1687,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    test_map_list.deleteMap(12);
+                    test_map_list.deleteMap("12");
 
                     should(size - 1).be.equal(test_map_list.count());
 
@@ -1690,7 +1706,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    test_map_list.deleteMap(14);
+                    test_map_list.deleteMap("14");
 
                     should(size - 1).be.equal(test_map_list.count());
 
@@ -1709,7 +1725,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    test_map_list.deleteMap(16);
+                    test_map_list.deleteMap("16");
 
                     should(size - 1).be.equal(test_map_list.count());
 
@@ -1728,7 +1744,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    test_map_list.deleteMap(17);
+                    test_map_list.deleteMap("17");
 
                     should(size - 1).be.equal(test_map_list.count());
 
@@ -1747,7 +1763,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    test_map_list.deleteMap(19);
+                    test_map_list.deleteMap("19");
 
                     should(size - 1).be.equal(test_map_list.count());
 
@@ -1766,7 +1782,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    test_map_list.deleteMap(20);
+                    test_map_list.deleteMap("20");
 
                     should(size - 1).be.equal(test_map_list.count());
 
@@ -1785,7 +1801,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    test_map_list.deleteMap(21);
+                    test_map_list.deleteMap("21");
 
                     should(size - 1).be.equal(test_map_list.count());
 
@@ -1804,7 +1820,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    test_map_list.deleteMap(22);
+                    test_map_list.deleteMap("22");
 
                     should(size - 1).be.equal(test_map_list.count());
 
@@ -1823,7 +1839,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    test_map_list.deleteMap(23);
+                    test_map_list.deleteMap("23");
 
                     should(size - 1).be.equal(test_map_list.count());
 
@@ -1842,7 +1858,7 @@ describe('★☆☆', function () {
 
                     let size = test_map_list.count();
 
-                    test_map_list.deleteMap(24);
+                    test_map_list.deleteMap("24");
 
                     should(size - 1).be.equal(test_map_list.count());
 
@@ -1856,21 +1872,21 @@ describe('★☆☆', function () {
 
             it('toggleFav(id) should toggle the fav boolean flag', function () {
 
-                let test_map_list = make_map_list("test-maps");
+                let test_map_list = make_map_list(storageKey);
 
                 test_map_list.reset();
 
                 fc.assert(fc.property(fc.integer({ min: 0, max: test_map_list.count() - 1 }),
                 (id)=>{
-                    let map = test_map_list.getMap(id);
+                    let map = test_map_list.getMap(""+id);
 
                     if (map != undefined) {
 
                         let fav = map.fav;
 
-                        test_map_list.toggleFav(id);
+                        test_map_list.toggleFav(""+id);
 
-                        let amap = test_map_list.getMap(id);
+                        let amap = test_map_list.getMap(""+id);
 
                         should(amap.fav).be.equal(!fav);
 
@@ -1882,7 +1898,7 @@ describe('★☆☆', function () {
 
             it('count() should return the number of maps in the list', function () {
 
-                let test_map_list = make_map_list("test-maps");
+                let test_map_list = make_map_list(storageKey);
 
                 fc.assert(fc.property(fc.integer({ min: 0, max: 10 }),
                 fc.integer({ min: 0, max: 10 }),
@@ -1929,12 +1945,12 @@ describe('★☆☆', function () {
 
             it('save should store the map on localStorage as valid JSON', function () {
 
-                let test_map_list = make_map_list("test-maps");
+                let test_map_list = make_map_list(storageKey);
 
                 test_map_list.reset();
                 test_map_list.save();
 
-                let json = localStorage.getItem("test-maps");
+                let json = localStorage.getItem(storageKey);
 
                 should(json).not.be.undefined();
 
@@ -1944,9 +1960,9 @@ describe('★☆☆', function () {
 
             it('load should retrieve the map from localStorage', function () {
 
-                let test_map_list = make_map_list("test-maps");
+                let test_map_list = make_map_list(storageKey);
 
-                let json = localStorage.getItem("test-maps");
+                let json = localStorage.getItem(storageKey);
 
                 should(json).not.be.undefined();
 
@@ -1957,6 +1973,39 @@ describe('★☆☆', function () {
                 should(test_map_list.count()).be.equal(22);
 
             });
+
+            it('load should not affect the map when loading from invalid JSON', function () {
+
+                let test_map_list = make_map_list(storageKey);
+
+                localStorage.setItem(storageKey, makeInvalidJSON(makeRandomMap("Invalid JSON")));
+
+                should(test_map_list.count()).be.equal(0);
+
+                let json = localStorage.getItem(storageKey);
+
+                (()=>JSON.parse(json)).should.throw();
+
+                test_map_list.load();
+
+                should(test_map_list.count()).be.equal(0);
+
+                test_map_list.reset();
+
+                should(test_map_list.count()).be.equal(22);
+
+                localStorage.setItem(storageKey, makeInvalidJSON(test_map_list.getMaps()));
+
+                json = localStorage.getItem(storageKey);
+
+                (()=>JSON.parse(json)).should.throw();
+
+                test_map_list.load();
+
+                should(test_map_list.count()).be.equal(22);
+
+            });
+
 
         });
     });
@@ -1984,12 +2033,12 @@ describe('★☆☆', function () {
 
             it("should contain an empty map list", function(done) {
 
-                localStorage.removeItem("test-maps");
+                localStorage.removeItem(storageKey);
 
-                let test_map_list = make_map_list("test-maps");
+                let test_map_list = make_map_list(storageKey);
                 test_map_list.save();
 
-                loadMapList("list.html?test=test-maps", function (doc, w) {
+                loadMapList("list.html?test="+storageKey, function (doc, w) {
 
                     should(Array.from(doc.querySelectorAll("main.map-index section")).length).be.equal(0);
                     should(Array.from(doc.querySelectorAll("main.map-index header")).length).be.equal(1);
@@ -2002,13 +2051,13 @@ describe('★☆☆', function () {
 
             it("should contain the reset map list", function(done) {
 
-                localStorage.removeItem("test-maps");
+                localStorage.removeItem(storageKey);
 
-                let test_map_list = make_map_list("test-maps");
+                let test_map_list = make_map_list(storageKey);
                 test_map_list.reset();
                 test_map_list.save();
 
-                loadMapList("list.html?test=test-maps", function (doc, w) {
+                loadMapList("list.html?test="+storageKey, function (doc, w) {
 
                     should(Array.from(doc.querySelectorAll("main.map-index section")).length).be.equal(22);
                     should(Array.from(doc.querySelectorAll("main.map-index header")).length).be.equal(1);
@@ -2037,23 +2086,25 @@ describe('★☆☆', function () {
                     should(doc.querySelector("main.map-index section#map-24 h4").innerText).be.equal("Hainan");
                     done();
 
-                });
+                }); //load
 
-            });
+            }).timeout(120000);
 
             it("delete map button should work", function(done) {
 
-                localStorage.removeItem("test-maps");
+                localStorage.removeItem(storageKey);
 
-                let test_map_list = make_map_list("test-maps");
+                let test_map_list = make_map_list(storageKey);
                 test_map_list.reset();
                 test_map_list.save();
 
-                loadMapList("list.html?test=test-maps", function (doc, w) {
+                loadMapList("list.html?test="+storageKey, function (doc, w) {
 
                 {
                     let form = doc.querySelector("main.map-index section#map-0 form[action$='DELETE']");
                     should(form).be.not.undefined();
+
+                    console.log("deleting 0");
 
                     form.requestSubmit();
 
@@ -2066,6 +2117,8 @@ describe('★☆☆', function () {
                     let form = doc.querySelector("main.map-index section#map-1 form[action$='DELETE']");
                     should(form).be.not.undefined();
 
+                    console.log("deleting 1");
+
                     form.requestSubmit();
 
                     //assumes that the form submission event handler is handled synchronously
@@ -2076,6 +2129,8 @@ describe('★☆☆', function () {
                 {
                     let form = doc.querySelector("main.map-index section#map-2 form[action$='DELETE']");
                     should(form).be.not.undefined();
+
+                    console.log("deleting 2");
 
                     form.requestSubmit();
 
@@ -2088,6 +2143,8 @@ describe('★☆☆', function () {
                     let form = doc.querySelector("main.map-index section#map-3 form[action$='DELETE']");
                     should(form).be.not.undefined();
 
+                    console.log("deleting 3");
+
                     form.requestSubmit();
 
                     //assumes that the form submission event handler is handled synchronously
@@ -2098,6 +2155,8 @@ describe('★☆☆', function () {
                 {
                     let form = doc.querySelector("main.map-index section#map-4 form[action$='DELETE']");
                     should(form).be.not.undefined();
+
+                    console.log("deleting 4");
 
                     form.requestSubmit();
 
@@ -2110,6 +2169,8 @@ describe('★☆☆', function () {
                     let form = doc.querySelector("main.map-index section#map-5 form[action$='DELETE']");
                     should(form).be.not.undefined();
 
+                    console.log("deleting 5");
+
                     form.requestSubmit();
 
                     //assumes that the form submission event handler is handled synchronously
@@ -2120,6 +2181,8 @@ describe('★☆☆', function () {
                 {
                     let form = doc.querySelector("main.map-index section#map-6 form[action$='DELETE']");
                     should(form).be.not.undefined();
+
+                    console.log("deleting 6");
 
                     form.requestSubmit();
 
@@ -2132,6 +2195,8 @@ describe('★☆☆', function () {
                     let form = doc.querySelector("main.map-index section#map-7 form[action$='DELETE']");
                     should(form).be.not.undefined();
 
+                    console.log("deleting 7");
+
                     form.requestSubmit();
 
                     //assumes that the form submission event handler is handled synchronously
@@ -2142,6 +2207,8 @@ describe('★☆☆', function () {
                 {
                     let form = doc.querySelector("main.map-index section#map-8 form[action$='DELETE']");
                     should(form).be.not.undefined();
+
+                    console.log("deleting 8");
 
                     form.requestSubmit();
 
@@ -2154,6 +2221,8 @@ describe('★☆☆', function () {
                     let form = doc.querySelector("main.map-index section#map-9 form[action$='DELETE']");
                     should(form).be.not.undefined();
 
+                    console.log("deleting 9");
+
                     form.requestSubmit();
 
                     //assumes that the form submission event handler is handled synchronously
@@ -2164,6 +2233,8 @@ describe('★☆☆', function () {
                 {
                     let form = doc.querySelector("main.map-index section#map-10 form[action$='DELETE']");
                     should(form).be.not.undefined();
+
+                    console.log("deleting 10");
 
                     form.requestSubmit();
 
@@ -2176,6 +2247,8 @@ describe('★☆☆', function () {
                     let form = doc.querySelector("main.map-index section#map-11 form[action$='DELETE']");
                     should(form).be.not.undefined();
 
+                    console.log("deleting 11");
+
                     form.requestSubmit();
 
                     //assumes that the form submission event handler is handled synchronously
@@ -2186,6 +2259,8 @@ describe('★☆☆', function () {
                 {
                     let form = doc.querySelector("main.map-index section#map-12 form[action$='DELETE']");
                     should(form).be.not.undefined();
+
+                    console.log("deleting 12");
 
                     form.requestSubmit();
 
@@ -2198,6 +2273,8 @@ describe('★☆☆', function () {
                     let form = doc.querySelector("main.map-index section#map-14 form[action$='DELETE']");
                     should(form).be.not.undefined();
 
+                    console.log("deleting 14");
+
                     form.requestSubmit();
 
                     //assumes that the form submission event handler is handled synchronously
@@ -2208,6 +2285,8 @@ describe('★☆☆', function () {
                 {
                     let form = doc.querySelector("main.map-index section#map-16 form[action$='DELETE']");
                     should(form).be.not.undefined();
+
+                    console.log("deleting 16");
 
                     form.requestSubmit();
 
@@ -2220,6 +2299,8 @@ describe('★☆☆', function () {
                     let form = doc.querySelector("main.map-index section#map-17 form[action$='DELETE']");
                     should(form).be.not.undefined();
 
+                    console.log("deleting 17");
+
                     form.requestSubmit();
 
                     //assumes that the form submission event handler is handled synchronously
@@ -2230,6 +2311,8 @@ describe('★☆☆', function () {
                 {
                     let form = doc.querySelector("main.map-index section#map-19 form[action$='DELETE']");
                     should(form).be.not.undefined();
+
+                    console.log("deleting 19");
 
                     form.requestSubmit();
 
@@ -2242,6 +2325,8 @@ describe('★☆☆', function () {
                     let form = doc.querySelector("main.map-index section#map-20 form[action$='DELETE']");
                     should(form).be.not.undefined();
 
+                    console.log("deleting 20");
+
                     form.requestSubmit();
 
                     //assumes that the form submission event handler is handled synchronously
@@ -2252,6 +2337,8 @@ describe('★☆☆', function () {
                 {
                     let form = doc.querySelector("main.map-index section#map-21 form[action$='DELETE']");
                     should(form).be.not.undefined();
+
+                    console.log("deleting 21");
 
                     form.requestSubmit();
 
@@ -2264,6 +2351,8 @@ describe('★☆☆', function () {
                     let form = doc.querySelector("main.map-index section#map-22 form[action$='DELETE']");
                     should(form).be.not.undefined();
 
+                    console.log("deleting 22");
+
                     form.requestSubmit();
 
                     //assumes that the form submission event handler is handled synchronously
@@ -2274,6 +2363,8 @@ describe('★☆☆', function () {
                 {
                     let form = doc.querySelector("main.map-index section#map-23 form[action$='DELETE']");
                     should(form).be.not.undefined();
+
+                    console.log("deleting 23");
 
                     form.requestSubmit();
 
@@ -2286,6 +2377,8 @@ describe('★☆☆', function () {
                     let form = doc.querySelector("main.map-index section#map-24 form[action$='DELETE']");
                     should(form).be.not.undefined();
 
+                    console.log("deleting 24");
+
                     form.requestSubmit();
 
                     //assumes that the form submission event handler is handled synchronously
@@ -2296,23 +2389,25 @@ describe('★☆☆', function () {
 
                     done();
 
-                });
+                }); //load
 
-            });
+            }).timeout(120000);
 
             it("clone map button should work", function(done) {
 
-                localStorage.removeItem("test-maps");
+                localStorage.removeItem(storageKey);
 
-                let test_map_list = make_map_list("test-maps");
+                let test_map_list = make_map_list(storageKey);
                 test_map_list.reset();
                 test_map_list.save();
 
-                loadMapList("list.html?test=test-maps", function (doc, w) {
+                loadMapList("list.html?test="+storageKey, function (doc, w) {
 
                 {
                     let form = doc.querySelector("main.map-index section#map-0 form[action$='clone']");
                     should(form).be.not.undefined();
+
+                    console.log("cloning 0");
 
                     form.requestSubmit();
 
@@ -2325,6 +2420,8 @@ describe('★☆☆', function () {
                     let form = doc.querySelector("main.map-index section#map-1 form[action$='clone']");
                     should(form).be.not.undefined();
 
+                    console.log("cloning 1");
+
                     form.requestSubmit();
 
                     //assumes that the form submission event handler is handled synchronously
@@ -2335,6 +2432,8 @@ describe('★☆☆', function () {
                 {
                     let form = doc.querySelector("main.map-index section#map-2 form[action$='clone']");
                     should(form).be.not.undefined();
+
+                    console.log("cloning 2");
 
                     form.requestSubmit();
 
@@ -2347,6 +2446,8 @@ describe('★☆☆', function () {
                     let form = doc.querySelector("main.map-index section#map-3 form[action$='clone']");
                     should(form).be.not.undefined();
 
+                    console.log("cloning 3");
+
                     form.requestSubmit();
 
                     //assumes that the form submission event handler is handled synchronously
@@ -2357,6 +2458,8 @@ describe('★☆☆', function () {
                 {
                     let form = doc.querySelector("main.map-index section#map-4 form[action$='clone']");
                     should(form).be.not.undefined();
+
+                    console.log("cloning 4");
 
                     form.requestSubmit();
 
@@ -2369,6 +2472,8 @@ describe('★☆☆', function () {
                     let form = doc.querySelector("main.map-index section#map-5 form[action$='clone']");
                     should(form).be.not.undefined();
 
+                    console.log("cloning 5");
+
                     form.requestSubmit();
 
                     //assumes that the form submission event handler is handled synchronously
@@ -2379,6 +2484,8 @@ describe('★☆☆', function () {
                 {
                     let form = doc.querySelector("main.map-index section#map-6 form[action$='clone']");
                     should(form).be.not.undefined();
+
+                    console.log("cloning 6");
 
                     form.requestSubmit();
 
@@ -2391,6 +2498,8 @@ describe('★☆☆', function () {
                     let form = doc.querySelector("main.map-index section#map-7 form[action$='clone']");
                     should(form).be.not.undefined();
 
+                    console.log("cloning 7");
+
                     form.requestSubmit();
 
                     //assumes that the form submission event handler is handled synchronously
@@ -2401,6 +2510,8 @@ describe('★☆☆', function () {
                 {
                     let form = doc.querySelector("main.map-index section#map-8 form[action$='clone']");
                     should(form).be.not.undefined();
+
+                    console.log("cloning 8");
 
                     form.requestSubmit();
 
@@ -2413,6 +2524,8 @@ describe('★☆☆', function () {
                     let form = doc.querySelector("main.map-index section#map-9 form[action$='clone']");
                     should(form).be.not.undefined();
 
+                    console.log("cloning 9");
+
                     form.requestSubmit();
 
                     //assumes that the form submission event handler is handled synchronously
@@ -2423,6 +2536,8 @@ describe('★☆☆', function () {
                 {
                     let form = doc.querySelector("main.map-index section#map-10 form[action$='clone']");
                     should(form).be.not.undefined();
+
+                    console.log("cloning 10");
 
                     form.requestSubmit();
 
@@ -2435,6 +2550,8 @@ describe('★☆☆', function () {
                     let form = doc.querySelector("main.map-index section#map-11 form[action$='clone']");
                     should(form).be.not.undefined();
 
+                    console.log("cloning 11");
+
                     form.requestSubmit();
 
                     //assumes that the form submission event handler is handled synchronously
@@ -2445,6 +2562,8 @@ describe('★☆☆', function () {
                 {
                     let form = doc.querySelector("main.map-index section#map-12 form[action$='clone']");
                     should(form).be.not.undefined();
+
+                    console.log("cloning 12");
 
                     form.requestSubmit();
 
@@ -2457,6 +2576,8 @@ describe('★☆☆', function () {
                     let form = doc.querySelector("main.map-index section#map-14 form[action$='clone']");
                     should(form).be.not.undefined();
 
+                    console.log("cloning 14");
+
                     form.requestSubmit();
 
                     //assumes that the form submission event handler is handled synchronously
@@ -2467,6 +2588,8 @@ describe('★☆☆', function () {
                 {
                     let form = doc.querySelector("main.map-index section#map-16 form[action$='clone']");
                     should(form).be.not.undefined();
+
+                    console.log("cloning 16");
 
                     form.requestSubmit();
 
@@ -2479,6 +2602,8 @@ describe('★☆☆', function () {
                     let form = doc.querySelector("main.map-index section#map-17 form[action$='clone']");
                     should(form).be.not.undefined();
 
+                    console.log("cloning 17");
+
                     form.requestSubmit();
 
                     //assumes that the form submission event handler is handled synchronously
@@ -2489,6 +2614,8 @@ describe('★☆☆', function () {
                 {
                     let form = doc.querySelector("main.map-index section#map-19 form[action$='clone']");
                     should(form).be.not.undefined();
+
+                    console.log("cloning 19");
 
                     form.requestSubmit();
 
@@ -2501,6 +2628,8 @@ describe('★☆☆', function () {
                     let form = doc.querySelector("main.map-index section#map-20 form[action$='clone']");
                     should(form).be.not.undefined();
 
+                    console.log("cloning 20");
+
                     form.requestSubmit();
 
                     //assumes that the form submission event handler is handled synchronously
@@ -2511,6 +2640,8 @@ describe('★☆☆', function () {
                 {
                     let form = doc.querySelector("main.map-index section#map-21 form[action$='clone']");
                     should(form).be.not.undefined();
+
+                    console.log("cloning 21");
 
                     form.requestSubmit();
 
@@ -2523,6 +2654,8 @@ describe('★☆☆', function () {
                     let form = doc.querySelector("main.map-index section#map-22 form[action$='clone']");
                     should(form).be.not.undefined();
 
+                    console.log("cloning 22");
+
                     form.requestSubmit();
 
                     //assumes that the form submission event handler is handled synchronously
@@ -2534,6 +2667,8 @@ describe('★☆☆', function () {
                     let form = doc.querySelector("main.map-index section#map-23 form[action$='clone']");
                     should(form).be.not.undefined();
 
+                    console.log("cloning 23");
+
                     form.requestSubmit();
 
                     //assumes that the form submission event handler is handled synchronously
@@ -2544,6 +2679,8 @@ describe('★☆☆', function () {
                 {
                     let form = doc.querySelector("main.map-index section#map-24 form[action$='clone']");
                     should(form).be.not.undefined();
+
+                    console.log("cloning 24");
 
                     form.requestSubmit();
 
@@ -2564,20 +2701,20 @@ describe('★☆☆', function () {
 
                     done();
 
-                });
+                }); //load
 
-            });
+            }).timeout(120000);
 
 
             it("favourite map button should work", function(done) {
 
-                localStorage.removeItem("test-maps");
+                localStorage.removeItem(storageKey);
 
-                let test_map_list = make_map_list("test-maps");
+                let test_map_list = make_map_list(storageKey);
                 test_map_list.reset();
                 test_map_list.save();
 
-                loadMapList("list.html?test=test-maps", function (doc, w) {
+                loadMapList("list.html?test="+storageKey, function (doc, w) {
 
                 {
                     let form = doc.querySelector("main.map-index section#map-0 form[action$='PATCH']");
@@ -2587,6 +2724,8 @@ describe('★☆☆', function () {
                     should(button).be.not.undefined();
 
                     let original_button = button.innerText;
+
+                    console.log("fav click on 0");
 
                     form.requestSubmit();
                     //assumes that the form submission event handler is handled synchronously
@@ -2608,6 +2747,8 @@ describe('★☆☆', function () {
 
                     let original_button = button.innerText;
 
+                    console.log("fav click on 1");
+
                     form.requestSubmit();
                     //assumes that the form submission event handler is handled synchronously
 
@@ -2627,6 +2768,8 @@ describe('★☆☆', function () {
                     should(button).be.not.undefined();
 
                     let original_button = button.innerText;
+
+                    console.log("fav click on 2");
 
                     form.requestSubmit();
                     //assumes that the form submission event handler is handled synchronously
@@ -2648,6 +2791,8 @@ describe('★☆☆', function () {
 
                     let original_button = button.innerText;
 
+                    console.log("fav click on 3");
+
                     form.requestSubmit();
                     //assumes that the form submission event handler is handled synchronously
 
@@ -2667,6 +2812,8 @@ describe('★☆☆', function () {
                     should(button).be.not.undefined();
 
                     let original_button = button.innerText;
+
+                    console.log("fav click on 4");
 
                     form.requestSubmit();
                     //assumes that the form submission event handler is handled synchronously
@@ -2688,6 +2835,8 @@ describe('★☆☆', function () {
 
                     let original_button = button.innerText;
 
+                    console.log("fav click on 5");
+
                     form.requestSubmit();
                     //assumes that the form submission event handler is handled synchronously
 
@@ -2707,6 +2856,8 @@ describe('★☆☆', function () {
                     should(button).be.not.undefined();
 
                     let original_button = button.innerText;
+
+                    console.log("fav click on 6");
 
                     form.requestSubmit();
                     //assumes that the form submission event handler is handled synchronously
@@ -2728,6 +2879,8 @@ describe('★☆☆', function () {
 
                     let original_button = button.innerText;
 
+                    console.log("fav click on 7");
+
                     form.requestSubmit();
                     //assumes that the form submission event handler is handled synchronously
 
@@ -2747,6 +2900,8 @@ describe('★☆☆', function () {
                     should(button).be.not.undefined();
 
                     let original_button = button.innerText;
+
+                    console.log("fav click on 8");
 
                     form.requestSubmit();
                     //assumes that the form submission event handler is handled synchronously
@@ -2768,6 +2923,8 @@ describe('★☆☆', function () {
 
                     let original_button = button.innerText;
 
+                    console.log("fav click on 9");
+
                     form.requestSubmit();
                     //assumes that the form submission event handler is handled synchronously
 
@@ -2787,6 +2944,8 @@ describe('★☆☆', function () {
                     should(button).be.not.undefined();
 
                     let original_button = button.innerText;
+
+                    console.log("fav click on 10");
 
                     form.requestSubmit();
                     //assumes that the form submission event handler is handled synchronously
@@ -2808,6 +2967,8 @@ describe('★☆☆', function () {
 
                     let original_button = button.innerText;
 
+                    console.log("fav click on 11");
+
                     form.requestSubmit();
                     //assumes that the form submission event handler is handled synchronously
 
@@ -2827,6 +2988,8 @@ describe('★☆☆', function () {
                     should(button).be.not.undefined();
 
                     let original_button = button.innerText;
+
+                    console.log("fav click on 12");
 
                     form.requestSubmit();
                     //assumes that the form submission event handler is handled synchronously
@@ -2848,6 +3011,8 @@ describe('★☆☆', function () {
 
                     let original_button = button.innerText;
 
+                    console.log("fav click on 14");
+
                     form.requestSubmit();
                     //assumes that the form submission event handler is handled synchronously
 
@@ -2867,6 +3032,8 @@ describe('★☆☆', function () {
                     should(button).be.not.undefined();
 
                     let original_button = button.innerText;
+
+                    console.log("fav click on 16");
 
                     form.requestSubmit();
                     //assumes that the form submission event handler is handled synchronously
@@ -2888,6 +3055,8 @@ describe('★☆☆', function () {
 
                     let original_button = button.innerText;
 
+                    console.log("fav click on 17");
+
                     form.requestSubmit();
                     //assumes that the form submission event handler is handled synchronously
 
@@ -2907,6 +3076,8 @@ describe('★☆☆', function () {
                     should(button).be.not.undefined();
 
                     let original_button = button.innerText;
+
+                    console.log("fav click on 19");
 
                     form.requestSubmit();
                     //assumes that the form submission event handler is handled synchronously
@@ -2928,6 +3099,8 @@ describe('★☆☆', function () {
 
                     let original_button = button.innerText;
 
+                    console.log("fav click on 20");
+
                     form.requestSubmit();
                     //assumes that the form submission event handler is handled synchronously
 
@@ -2947,6 +3120,8 @@ describe('★☆☆', function () {
                     should(button).be.not.undefined();
 
                     let original_button = button.innerText;
+
+                    console.log("fav click on 21");
 
                     form.requestSubmit();
                     //assumes that the form submission event handler is handled synchronously
@@ -2968,6 +3143,8 @@ describe('★☆☆', function () {
 
                     let original_button = button.innerText;
 
+                    console.log("fav click on 22");
+
                     form.requestSubmit();
                     //assumes that the form submission event handler is handled synchronously
 
@@ -2987,6 +3164,8 @@ describe('★☆☆', function () {
                     should(button).be.not.undefined();
 
                     let original_button = button.innerText;
+
+                    console.log("fav click on 23");
 
                     form.requestSubmit();
                     //assumes that the form submission event handler is handled synchronously
@@ -3008,6 +3187,8 @@ describe('★☆☆', function () {
 
                     let original_button = button.innerText;
 
+                    console.log("fav click on 24");
+
                     form.requestSubmit();
                     //assumes that the form submission event handler is handled synchronously
 
@@ -3021,8 +3202,8 @@ describe('★☆☆', function () {
                 }
                 done();
 
-                });
-            });
+                }); //load
+            }).timeout(120000);
         });
     });
 
@@ -3049,12 +3230,12 @@ describe('★☆☆', function () {
 
             it("should contain the default map object with no id parameter", function(done) {
 
-                localStorage.removeItem("test-maps");
+                localStorage.removeItem(storageKey);
 
-                let test_map_list = make_map_list("test-maps");
+                let test_map_list = make_map_list(storageKey);
                 test_map_list.save();
 
-                loadMapEditor("editor.html?test=test-maps", function (doc, w) {
+                loadMapEditor("editor.html?test="+storageKey, function (doc, w) {
 
                     should(doc.querySelector("form #title").value).be.equal("New Map");
                     should(doc.querySelector("form #tiles").value).be.equal("osm");
@@ -3070,12 +3251,12 @@ describe('★☆☆', function () {
 
             it("update button should be hidden with no id parameter", function(done) {
 
-                localStorage.removeItem("test-maps");
+                localStorage.removeItem(storageKey);
 
-                let test_map_list = make_map_list("test-maps");
+                let test_map_list = make_map_list(storageKey);
                 test_map_list.save();
 
-                loadMapEditor("editor.html?test=test-maps", function (doc, w) {
+                loadMapEditor("editor.html?test="+storageKey, function (doc, w) {
 
                     should(doc.querySelector("form button[data-action='update']").style.display).be.equal("none");
                     should(doc.querySelector("form button[data-action='create']").style.display).not.be.equal("none");
@@ -3088,14 +3269,14 @@ describe('★☆☆', function () {
 
             it("should load the map with the given id", function(done) {
 
-                localStorage.removeItem("test-maps");
+                localStorage.removeItem(storageKey);
 
-                let test_map_list = make_map_list("test-maps");
+                let test_map_list = make_map_list(storageKey);
                 let rmap = makeRandomMap("Test Map Editor");
                 test_map_list.addMap(rmap);
                 test_map_list.save();
 
-                loadMapEditor(`editor.html?test=test-maps&id=${rmap.id}`, function (doc, w) {
+                loadMapEditor(`editor.html?test=${storageKey}&id=${rmap.id}`, function (doc, w) {
 
                     should(doc.querySelector("form #title").value).be.equal(rmap.title);
                     should(doc.querySelector("form #tiles").value).be.equal(rmap.tiles);
@@ -3111,12 +3292,12 @@ describe('★☆☆', function () {
 
             it("should sync form zoom with map zoom", function(done) {
 
-                localStorage.removeItem("test-maps");
+                localStorage.removeItem(storageKey);
 
-                let test_map_list = make_map_list("test-maps");
+                let test_map_list = make_map_list(storageKey);
                 test_map_list.save();
 
-                loadMapEditor(`editor.html?test=test-maps`, function (doc, w) {
+                loadMapEditor(`editor.html?test=`+storageKey, function (doc, w) {
 
                     //if this fails make sure that the map-util.js is loaded before the map.js script
                     should(w.L.maps).be.not.undefined();
@@ -3157,12 +3338,12 @@ describe('★☆☆', function () {
 
             it("should sync form lat, lng with map center", function(done) {
 
-                localStorage.removeItem("test-maps");
+                localStorage.removeItem(storageKey);
 
-                let test_map_list = make_map_list("test-maps");
+                let test_map_list = make_map_list(storageKey);
                 test_map_list.save();
 
-                loadMapEditor(`editor.html?test=test-maps`, function (doc, w) {
+                loadMapEditor(`editor.html?test=`+storageKey, function (doc, w) {
 
                     //if this fails make sure that the map-util.js is loaded before the map.js script
                     should(w.L.maps).be.not.undefined();
@@ -3216,13 +3397,13 @@ describe('★☆☆', function () {
 
             it("should create a new map", function(done) {
 
-                localStorage.removeItem("test-maps");
+                localStorage.removeItem(storageKey);
 
-                let test_map_list = make_map_list("test-maps");
+                let test_map_list = make_map_list(storageKey);
                 test_map_list.save();
                 should(test_map_list.count()).be.equal(0);
 
-                loadMapEditor(`editor.html?test=test-maps`, function (doc, w) {
+                loadMapEditor(`editor.html?test=${storageKey}`, function (doc, w) {
 
                     let amap = makeRandomMap("Test Map Editor "+new Date());
 
@@ -3237,7 +3418,7 @@ describe('★☆☆', function () {
 
                     button.click();
 
-                    let updated_map_list = make_map_list("test-maps");
+                    let updated_map_list = make_map_list(storageKey);
                     updated_map_list.load();
                     should(updated_map_list.count()).be.equal(1);
                     let umap = updated_map_list.getMaps()[0];
@@ -3257,14 +3438,14 @@ describe('★☆☆', function () {
 
             it("should update the map", function(done) {
 
-                localStorage.removeItem("test-maps");
+                localStorage.removeItem(storageKey);
 
-                let test_map_list = make_map_list("test-maps");
+                let test_map_list = make_map_list(storageKey);
                 let rmap = makeRandomMap("Test Map Editor");
                 test_map_list.addMap(rmap);
                 test_map_list.save();
 
-                loadMapEditor(`editor.html?test=test-maps&id=${rmap.id}`, function (doc, w) {
+                loadMapEditor(`editor.html?test=${storageKey}&id=${rmap.id}`, function (doc, w) {
 
                     let amap = makeRandomMap("Test Map Editor "+new Date());
 
@@ -3279,7 +3460,7 @@ describe('★☆☆', function () {
 
                     button.click();
 
-                    let updated_map_list = make_map_list("test-maps");
+                    let updated_map_list = make_map_list(storageKey);
                     updated_map_list.load();
                     let umap = updated_map_list.getMap(rmap.id);
 
@@ -3301,4 +3482,4 @@ describe('★☆☆', function () {
         });
 
     });
-});
+})
