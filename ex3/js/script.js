@@ -387,9 +387,9 @@ function delay(callback) {
   return make_delay(10000)(callback);
 };
 
-setTimeout((callback) => {
+/*setTimeout((callback) => {
  return make_delay(10000)(callback);
-}, timeout);
+}, timeout);*/
 
 
 

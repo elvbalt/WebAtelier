@@ -3,7 +3,7 @@
  *
  * Map list object
  *
- * Student: __STUDENT NAME__
+ * Student: __ELVIRA BALTASAR__
  *
  */
 
@@ -20,6 +20,7 @@ let make_map_list = function(storage_key = "maps") {
     //private variables of the map_list
     //the render function requires an array of maps
     let list = [];
+    let _id = 0;
 
     /**
      * Retrieves the list of maps.
@@ -37,6 +38,21 @@ let make_map_list = function(storage_key = "maps") {
      * @returns {Object|undefined} The map with the specified ID, or undefined if not found.
      */
     function getMap(id) {
+        if (list.length === 0 || id === undefined){
+            return undefined;
+        }
+
+        /*while (!find){
+            if (list[i].id === id.toString()){
+                console.log("dentro")
+                console.log(list[i].id);
+                return list[i];
+                find = true;
+            }
+            i++;
+        }*/
+        
+        return list.find((element) => element.id === id.toString());
     }
 
 
@@ -48,6 +64,21 @@ let make_map_list = function(storage_key = "maps") {
      * @returns {Object} The added map object, with an assigned or existing ID.
      */
     function addMap(map) {
+        if (map.id === undefined || getMap(map.id) !== undefined){ 
+            while (getMap(_id) !== undefined){
+                _id++;
+            }
+            map.id = _id.toString();
+            _id++;
+        }
+        //no tendria q revisar si el id q me pasan ya esta en la lista ?
+        list.push(map);
+        //Should save the updated list to local storage.
+        
+        save();
+
+        return map;
+
     }
 
     /**
@@ -58,6 +89,17 @@ let make_map_list = function(storage_key = "maps") {
      * @returns {Object|undefined} The cloned map object, or undefined if the source map doesn't exist.
      */
     function cloneMap(id) {
+        if (getMap(id) === undefined){
+            return undefined;
+        }
+
+        let map2 ={...getMap(id)};
+        map2.id = undefined;
+        addMap(map2);
+
+        save();
+
+        return map2;
     }
 
     /**
@@ -71,6 +113,18 @@ let make_map_list = function(storage_key = "maps") {
      * @param {Object} map - The new map object to replace or add.
      */
     function replaceMap(id, map) {
+        if (id === undefined){
+            addMap(map);
+        }
+        let m = list.findIndex((element) => element.id === id.toString());
+        if (m === -1){
+            addMap(map);
+        }
+        
+        map.id = id;
+        list[m] = map;
+
+        save();
     }
 
     /**
@@ -80,6 +134,16 @@ let make_map_list = function(storage_key = "maps") {
      * @param {string} id - The ID of the map to delete.
      */
     function deleteMap(id) {
+        if (id === undefined){
+            return undefined;
+        }
+        let m = list.findIndex((element) => element.id === id.toString());
+        if (m === -1){
+            return undefined;
+        }
+        _id = Math.min(list[m].id, _id);
+        list.splice(m, 1);
+        save();
     }
 
     /**
@@ -90,6 +154,12 @@ let make_map_list = function(storage_key = "maps") {
      * @param {string} id - The ID of the map to toggle favorited status.
      */
     function toggleFav(id) {
+        if (id === undefined || getMap(id) === undefined){
+            return undefined;
+        }
+
+        let fav = getMap(id).fav;
+        getMap(id).fav = !fav;
     }
 
     /**
@@ -98,6 +168,7 @@ let make_map_list = function(storage_key = "maps") {
      * @returns {number} The number of maps in the list.
      */
     function count() {
+        return list.length;
     }
 
     /**

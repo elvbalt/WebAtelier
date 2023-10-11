@@ -3,7 +3,7 @@
  *
  * Map list and editor behavior
  *
- * Student: __STUDENT NAME__
+ * Student: __Elvira Baltasar__
  *
  */
 

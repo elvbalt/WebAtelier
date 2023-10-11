@@ -1,0 +1,181 @@
+/*
+ * HTML and CSS1
+ *
+ * CSS Styles
+ *
+ * This stylesheet should be included in the form.html page
+ *
+ * Complete the form.html content based on the rules defined below
+ *
+ * Author: __Elvira Baltasar__
+ *
+ */
+
+main *, main input {
+    font-family: "Fira Sans";
+}
+
+main form[method="POST"],
+main form > section {
+    display: grid;
+    grid-template-columns: 8em 1fr;
+    justify-items: stretch;
+    grid-column-gap: 1em;
+    grid-row-gap: 0.5em;
+}
+
+main form label {
+    grid-column: 1;
+    text-align: right;
+}
+
+main form input,
+main form textarea,
+main form select {
+    grid-column: 2;
+}
+
+main form button,
+main form > section {
+    grid-column: 2 span;
+}
+
+main form section > h3 {
+    grid-column: 2 span;
+}
+
+
+label[for="title"] {
+    background-color: white;
+}
+input[id="title"][type="text"] {
+    background-color: white;
+}
+label[for="lat"] {
+    background-color: white;
+}
+input[id="lat"][type="text"] {
+    background-color: white;
+}
+label[for="lng"] {
+    background-color: white;
+}
+input[id="lng"][type="text"] {
+    background-color: white;
+}
+
+label[for="hue"] {
+    background-color: white;
+}
+
+input[id="hue"][type="range"][min="0"][max="360"] {
+    background-color: white;
+}
+
+label[for="email"] {
+    background-color: white;
+}
+
+input[id="email"][type="email"] {
+    background-color: white;
+}
+
+label[for="desc"] {
+    background-color: white;
+}
+
+textarea[id="desc"] {
+    background-color: white;
+    min-height: 5em;
+    resize: vertical;
+}
+
+label[for="poi"] {
+    background-color: white;
+}
+
+select[id="poi"] {
+    background-color: white;
+}
+
+select[id="poi"] > option[value="hotel"],
+select[id="poi"] > option[value="restaurant"],
+select[id="poi"] > option[value="shop"],
+select[id="poi"] > option[value="transport"],
+select[id="poi"] > option[value="education"],
+select[id="poi"] > option[value="custom"]
+{
+    font-weight: bold;
+}
+
+label[for="fav"] {
+    background-color: white;
+}
+
+
+input[id="fav"][type="checkbox"] { /*check box escondido con texto(la estrella encima)*/
+    visibility:hidden;
+    font-size:larger;
+    transform: translate(-1px, -15px);
+    overflow: visible;
+    font-size: xx-large;
+    /*cursor:pointer;*/
+}
+
+input[id="fav"][type="checkbox"]:before {
+    color: yellow;
+    content: "\2606";
+    position: absolute;
+    visibility:visible;
+ }
+
+ input[id="fav"][type="checkbox"]:checked:before {
+    content: "\2605";
+    position: absolute;
+ }
+
+button[id="submit"] {
+    font-weight: bold;
+    background-color: rgb(0, 102, 255);
+    color: white;
+    border: none;
+    padding: 0.5em;
+    margin-top: 0.5em;
+    border-radius: 0.25em;
+    box-shadow: 0 0 2px black;
+    font-size: 1.5em;
+}
+
+main form section.group {
+    border: 1px solid rgb(117, 163, 255);
+    padding: 1em;
+    padding-top: 1.5em;
+    position: relative;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border-radius: 0.25em;
+}
+
+main form section.group > h3 {
+    position: absolute;
+    top: 0em;
+    background: white;
+    padding-left: 0.33em;
+    padding-right: 0.33em;
+    left: 0.5em;
+    font-weight: normal;
+    border: 1px solid rgb(117, 163, 255);
+}
+
+main h1 {
+    font-size: 2em;
+    font-weight: bold;
+    text-align: left;
+    margin: 1em;
+}
+
+main img {
+    height: 2.5em;
+    float: left;
+}
+
