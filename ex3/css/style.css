@@ -166,6 +166,11 @@ footer{
     color:black;
 }
 
+body [id="editor"]{
+    display: grid;
+    
+    grid-column-gap: 1fr 7fr 7fr;
+}
 
 @media screen and (max-width: 768px) { /*desktop layout*/
     #general {
