@@ -100,7 +100,7 @@ function loadLeaflet(dom_id) {
         }).addTo(map);
 
         marker_layer = L.layerGroup().addTo(map);
-
+        return map
     }
 
     function createMarker(lat, lng, hue = Math.random()*360) {

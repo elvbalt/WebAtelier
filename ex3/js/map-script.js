@@ -23,9 +23,17 @@ function initMapList() {
 
     let map_list = make_map_list(storage_key);
 
+    let list = [];
+
     function reload() {
 
         //1. load maps from the localStorage and render the map list
+
+        map_list.load();
+        
+        list = map_list.getMaps(); //llamar a load de map.list
+
+        map_list.render("main.map-index");
 
         //2. setup event listeners
 
@@ -35,8 +43,11 @@ function initMapList() {
             form.addEventListener("submit", function (e) {
 
                 e.preventDefault();
-
+                console.log("delete")
                 let id = e.target.parentNode.dataset.mapid;
+
+                map_list.deleteMap(id);
+                reload();
 
                 //TODO delete the map and reload the page
             });
@@ -44,8 +55,39 @@ function initMapList() {
         });
 
         //2.1 setup the event listeners for the clone map button
+        //"form[action$='CLONE'] no es asi pq clone no es un metodo ?
+        document.querySelectorAll("form[action$='clone']").forEach(form => {
+
+            form.addEventListener("submit", function (e) {
+
+                e.preventDefault();
+
+                let id = e.target.parentNode.dataset.mapid;
+
+                map_list.cloneMap(id);
+                reload();
+
+                //TODO clone the map and reload the page
+            });
+
+        });
 
         //2.1 setup the event listeners for the favourite toggle button
+        document.querySelectorAll("form[action$='PATCH']").forEach(form => {
+
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                let id = e.target.parentNode.dataset.mapid;
+
+                map_list.toggleFav(id);
+
+                reload();
+
+                //TODO put favourite the map and reload the page
+            });
+
+        });
 
     }
 
@@ -78,9 +120,28 @@ function initMapEditor() {
 
     //TODO get the image from the list after loading it from the localStorage
 
+    map_list.load();
+  
     //TODO initialize the default map and hide the update button if the map is not found
-
+    let map
+    let map_obj;
+    if (id === undefined || map_list.getMap(id) === undefined){
+        map_obj = {
+                zoom: 2,
+                center: { lat: 0, lng: 0},
+                tiles: "osm",
+                title: "New Map"
+        }
+        document.querySelector("button[data-action='update']").style.display = "none";
+    }else{
+        map_obj = map_list.getMap(id);
+    }
+    map = createMap([map_obj.center.lat, map_obj.center.lng] , map_obj.zoom);
+    
+    console.log(map);
+    console.log("AQUI")
     //TODO initialize the leaflet map and the tiles layer using initMapTiles
+    let layer = initMapTiles(map_obj, map);
 
     /**
      * Initializes map tiles based on the data for a given map object.
@@ -105,6 +166,13 @@ function initMapEditor() {
 
         return {
             //TODO construct the map object from the above values
+            "zoom": zoom,
+            "title": title,
+            "tiles": tiles,
+            "center": {
+                "lat": lat,
+                "lng": lng
+            }
         }
     }
 
@@ -113,7 +181,7 @@ function initMapEditor() {
      */
     function SyncFormToMap() {
         let map_obj = form2obj();
-        map.setView(map_obj.center, map_obj.zoom);
+        //map.setView([0 ,0], 0);
     }
 
     /**
@@ -123,6 +191,9 @@ function initMapEditor() {
         var zoom = map.getZoom();
         var center = map.getCenter();
         //TODO update the values of the corresponding form input fields
+        document.getElementById("zoom").value = zoom;
+        document.getElementById("lat").value = center.lat;
+        document.getElementById("lng").value = center.lng;
     }
 
     //Initialize the form input fields from the map object
@@ -135,6 +206,9 @@ function initMapEditor() {
 
     //TODO setup the change event listeners for the form input fields
     document.getElementById("zoom").addEventListener("change", SyncFormToMap);
+    document.getElementById("tiles").addEventListener("change", SyncFormToMap);
+    document.getElementById("lat").addEventListener("change", SyncFormToMap);
+    document.getElementById("lng").addEventListener("change", SyncFormToMap);
 
 
     let createBtn = document.querySelector("button[data-action='create']");
@@ -145,16 +219,26 @@ function initMapEditor() {
             e.preventDefault();
 
             //TODO create a new map from the form input data and add it to the list
+            map_list.addMap(form2obj());
 
+            reload();
+        });
 
+    }
+
+    let updateBtn = document.querySelector("button[data-action='update']");
+    if (updateBtn) {
+
+        updateBtn.addEventListener("click", function (e) {
+
+            e.preventDefault();
+            map_list.replaceMap(id, form2obj());
+
+            reload();
+            
         });
 
     }
 
     //TODO add the update button event listener and replace the map object in the list
 }
-
-
-
-
-

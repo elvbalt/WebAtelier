@@ -160,6 +160,7 @@ let make_map_list = function(storage_key = "maps") {
 
         let fav = getMap(id).fav;
         getMap(id).fav = !fav;
+        save();
     }
 
     /**
@@ -176,6 +177,17 @@ let make_map_list = function(storage_key = "maps") {
      * using the storage_key as the key.
      */
     function save() {
+        try {
+            // Convert the list to a JSON string
+            const listJson = JSON.stringify(list);
+            
+            // Save the JSON string to local storage with the specified key
+            localStorage.setItem(storage_key, listJson);
+            
+            console.log(`List saved: ${storage_key}`);
+          } catch (error) {
+            console.error(`Error: ${error.message}`);
+          }
     }
 
     /**
@@ -183,9 +195,30 @@ let make_map_list = function(storage_key = "maps") {
      * If no data is found in local storage, it resets the state.
      */
     function load() {
-        let json = localStorage.getItem(storage_key);
+        //let json = localStorage.getItem(storage_key);
         //TODO attempt to parse the json string and initialize the list
+        try {
+            // Get the JSON string from local storage using the specified key
+            const listJson = localStorage.getItem(storage_key);
+            
+            // If no data is found, it resets the state
+            if (!listJson) {
+              list = reset();
+            }else{
+            try{
+                list = JSON.parse(listJson);
+                //return list;
+            }catch (error){//inalid json
+                //dont do anything
+            }
+        }
+
+    
+        } catch (storageError) {     
+            list = reset();
+        }
     }
+    
 
     /**
      * Resets the state by initializing the list with some test data.
@@ -440,7 +473,6 @@ let make_map_list = function(storage_key = "maps") {
      * @param {string} where - The selector for the HTML element where the map list will be rendered.
      */
     function render(where) {
-
         let templateHTML = document.getElementById("view-map-list");
 
         if (templateHTML) {
