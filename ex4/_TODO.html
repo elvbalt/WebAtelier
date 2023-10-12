@@ -1,0 +1,317 @@
+<html><head><title>exercises/4-node</title><link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Fira+Sans|Fira+Mono"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.0/build/styles/default.min.css"><style>body,* {font-family: "Fira Sans";scroll-behavior: smooth;}body {margin: 1em;}#usi-logo {width: 75px;height: 75px;}header {display: flex;align-content: space-between;width: 100%;justify-items: center;}header ul {list-style: none;}header .title {flex: 1;margin-left: 1em;}html {min-height: 100vh;}pre,code {font-family: "Fira Mono"}pre {background: rgb(202, 227, 255);padding: 1em;}td {text-align: center}td:last-child {text-align: left;}th {font-weight: normal;color: rgb(0, 61, 131);}thead {border-bottom: 2px solid rgb(202, 227, 255);}table {width: 100%}table tr:hover {background-color: rgb(151, 195, 236);}span.task {display: inline-flex;border-radius: 50%;border: 1px solid white;background: #ffbc00;width: 4em;height: 4em;justify-content: center;align-items: center;font-weight: normal;margin-top: 2em;}.deadline {text-align: right;}p.deadline {font-size: 2em;}.deadline b {border-bottom: 1px solid black;}span.get {font-weight: bold; color: #43a047;}span.post {font-weight: bold; color: #F3C142;}span.delete {font-weight: bold; color: #FF0000;}span.put {font-weight: bold; color: #4a90e2;}span.patch {font-weight: bold; color: #666666;}section.submit,section.topics {border: 1px dashed rgb(202, 227, 255);padding: 1em;padding-top: 0;border-right: 1em solid rgb(202, 227,255);border-left: 1em solid rgb(202, 227,255);}section.topics {margin-top: 5em;margin-bottom: 3em;border-color: #00b2ff;}section.examples {border: 2px dashed rgb(202, 227, 255);padding: 1em;padding-bottom: 0;}section.examples:before {content: "Examples";text-shadow: 0 0 1em #6aa9f0;font-weight: bold;}section.loc {border: 2px dashed rgb(20, 227, 255);background: rgba(20, 227, 255, 0.1);padding: 1em;padding-bottom: 1em;font-weight: bold;}section.loc:before {content: "Lines of Code of the solution: ";font-weight: normal;}</style></head><body><header>    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="usi-logo" x="0px" y="0px" width="200" height="200" viewBox="0 0 200 200" style="enable-background:new 0 0 200 200;" xml:space="preserve" class="injected-svg svg"><g><path d="M180,41.7h-51.1V31.1h42.2C153.1,12.5,127.8,1,99.9,1C45.2,1.1,0.9,45.4,1,100.1c0,26.8,10.7,51.1,28.1,68.9   c-1.4-2-2.4-4.1-3-6.1c-1-3.5-1-5.9-1.1-15.8v-47.1h14.8v48.5c0,3.4-0.1,6.6,1,9.6c3,7.6,11.3,8.5,16,8.5c2.3,0,8.3-0.1,12.6-3.9   c4.4-3.9,4.4-8.4,4.4-15v-47.7h14.9v49.7c-0.1,8.9-0.1,16.3-8.5,23.5c-8,7-18.4,7.7-23.8,7.7c-4.8,0-9.5-0.6-14-2.1   c-1.8-0.6-3.5-1.4-5-2.3c17.1,14,39,22.4,62.8,22.4c54.7-0.1,99-44.4,98.9-99.1C199,78.1,191.9,58,180,41.7z M175.3,94.4l-6.3-9   c2.1-1.4,8.7-5.7,8.7-17.7c0-2-0.2-4.1-1-6.2c-1.7-4.1-4.6-4.9-6.6-4.9c-3.6,0-4.9,2.5-5.7,4.3c-0.5,1.3-0.6,1.5-1.8,6.6l-1.5,6.9   c-0.9,3.6-1.3,5.4-2,7.2c-1.1,2.6-4.5,9.6-14,9.6c-10.9,0-17.8-9.2-17.8-22.6c0-12.3,6.1-19,11.6-23l6.6,8.8   c-2.8,1.9-8.5,5.7-8.5,14.8c0,5.8,2.6,10.8,7,10.8c4.9,0,5.8-5.3,6.8-10.5l1.3-5.9c1.6-7.7,4.8-18.6,17-18.6   c13.1,0,18.4,12.2,18.4,24.3c0,3.2-0.3,6.7-1.3,10.2C185.1,83.4,182.3,90.1,175.3,94.4z"></path></g></svg><div class="title"><h2>Web Atelier 2023</h2><h1>Exercise  4 - JavaScript on the Server-side</h1></div><div class="deadline"><p>12.10.2023</p><p class="deadline">Deadline: <b>20.10.2023</b></p></div><ul><li>Prof. Cesare Pautasso</li><li>Souhaila Serbout</li><li>Hassan Atwi</li><li>Diana Carolina Mu&ntilde;oz Hurtado</li><li>Joey Bevilacqua</li><li>Edoardo Riggio</li><li>Jacopo Di Ventura</li><li>Hun Rim</li></ul></header><h1 id="goal">Goal</h1>
+<p>The goal of these exercises is to improve your understanding of JavaScript as a server-side programming language and become familiar with the HTTP protocol.</p>
+<p>You will learn how to use node.js to build a simple Web server hosting the Map Web application and providing the map with home-made tiles obtained by slicing a large image.</p>
+<section class="submit">
+
+<h2 id="submitting-your-solution">Submitting your solution</h2>
+<p>Your project solution <strong>should</strong> be commited <strong>and pushed</strong> to your github repository. </p>
+<p>Make sure your name is written in every file you submit. Anonymous solutions will not be graded.</p>
+<p>See the <code>README.md</code> file for more details on how to commit <strong>and push</strong> your solution.</p>
+<p>Use the special commit message <code>&quot;completed ex4, please check&quot;</code> <strong>only once</strong> when you have completed the assignment and would like to submit it to be corrected.</p>
+</section>
+
+
+<h3 id="automated-tests">Automated tests</h3>
+<p>As you develop your code, please run the automated tests to check your solution. Only submit solutions which pass as many tests as possible. If your solution is correct but not compatible with the tests, please indicate the nature of the incompatibility in the `README.md` with as much detail as possible.</p>
+<p>Thank you in advance for <a href="https://stackoverflowteams.com/c/usi-web-atelier/questions/ask?tags=ex4,test&amp;title=Test%20Bug%20Report...">reporting any bugs in the tests</a>.</p>
+<h4 id="getting-started"><strong>Getting Started</strong>:</h4>
+<p>To install the dependencies for the tests use:</p>
+<pre><code class="language-bash">yarn install
+</code></pre>
+<p><strong>Important</strong>: Make sure your Web server is already started before running the test. 
+The test assumes that your Web server listens on port 8989. </p>
+<p>If you see test failures due to <code>Error: ECONNREFUSED: Connection refused</code> it means that your Web server was not running at the time the test attempted to connect to it. A request sent by a test may have crashed it and subsequent tests will no longer be able to connect to it.</p>
+<h4 id="running-the-tests"><strong>Running the tests</strong>:</h4>
+<p>To run the tests use this command:</p>
+<pre><code class="language-bash">yarn run test
+</code></pre>
+<p>You can check the results on the terminal.</p>
+<p>The above command runs only a random subset of the tests, taking less time to simulate different possible user traffic.</p>
+<p>If you would like to run all tests, use the command:</p>
+<pre><code class="language-bash">yarn run test --all
+</code></pre>
+<p>If you would like to run all tests for a specific task, use one of the commands:</p>
+<pre><code class="language-bash">yarn run test --all --grep &quot;Task 1&quot;
+yarn run test --all --grep &quot;Task 2&quot;
+yarn run test --all --grep &quot;Task 3&quot;
+yarn run test --all --grep &quot;Task 4&quot;
+yarn run test --all --grep &quot;Task 5&quot;
+</code></pre>
+<h2 id="required-vs-optional-tasks">Required vs. optional tasks</h2>
+<p>&starf;&star;&star; - Tasks 1, 2, 3</p>
+<p>&starf;&starf;&star; - Tasks 1, 2, 3, 4</p>
+<p>&starf;&starf;&starf; - Tasks 1, 2, 3, 4, 5, 6</p>
+<p><span style="font-style: italic; ">Please list in the <code>README.md</code> file which tasks you implemented.</span></p>
+<h2 id="writing-your-solution">Writing your solution</h2>
+<p>Tasks 1, 2, 3, 5, and 6 are implemented by extending the given <code>index.js</code> skeleton</p>
+<p>Task 4 is implemented by extending the given <code>csv.js</code> skeleton</p>
+<p>While solving Task 3 and 4 you are welcome to reuse your code from ex2 to parse the CSV text file and additional useful, time-saving functions and objects in the <code>script-module.js</code>.</p>
+<h2 id="task---web-server-homepage-redirect-"><span class='task'>Task 1.</span>  Web Server Homepage Redirect (&starf;&star;&star;)</h2>
+<p>Implement an HTTP server which redirects requests to the <code>/</code> path to the <code>/index.html</code> path.</p>
+<pre><code>http://localhost:8989/
+</code></pre>
+<p>should respond with the status code <code>302</code> and the <code>Location: /index.html</code> header.</p>
+<p>Run your server with the following command:</p>
+<pre><code>yarn start
+</code></pre>
+<p>Stop the Web server with <code>^C</code> (Ctrl+C).</p>
+<h2 id="task---static-web-server-"><span class='task'>Task 2.</span>  Static Web Server (&starf;&star;&star;)</h2>
+<p>Implement an HTTP server which serves the content of files found in the <code>public</code> folder on the server filesystem.</p>
+<p>HTTP requests sent to this URL</p>
+<pre><code>http://localhost:8989/*
+</code></pre>
+<p>should serve the content of any file with the matching pathname <code>*</code> found in the <code>public</code> folder on the server filesystem.</p>
+<section class="examples">
+
+<p><span class='get'>GET</span> Requests sent to</p>
+<pre><code>http://localhost:8989/index.html
+</code></pre>
+<p>should retrieve the content of the file </p>
+<pre><code>public/index.html
+</code></pre>
+<p><span class='get'>GET</span> Requests sent to</p>
+<pre><code>http://localhost:8989/css/style.css
+</code></pre>
+<p>should retrieve the content of the file </p>
+<pre><code>public/css/style.css
+</code></pre>
+</section>
+
+<p>Hint: use the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURI">decodeURI</a> standard JavaScript function to decode URL pathname strings into local pathnames.</p>
+<p>If the file has one of the following extensions, the server should return the corresponding MIME type in the <code>Content-Type</code> header.</p>
+<table>
+<thead>
+<tr>
+<th>Extension</th>
+<th>Content-Type</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>.html</td>
+<td>text/html</td>
+</tr>
+<tr>
+<td>.css</td>
+<td>text/css</td>
+</tr>
+<tr>
+<td>.js</td>
+<td>text/javascript</td>
+</tr>
+<tr>
+<td>.jpeg</td>
+<td>image/jpeg</td>
+</tr>
+<tr>
+<td>.png</td>
+<td>image/png</td>
+</tr>
+<tr>
+<td>.ttf</td>
+<td>font/ttf</td>
+</tr>
+</tbody></table>
+<p>In case your Web application uses other file types, you can find the corresponding <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types">MIME type here</a>.</p>
+<p>Copy all the files from the previous assignments into the <code>public</code> folder so that you can serve your map Web application from your Web server.</p>
+<p>Test that the Web application still works and log on the console every HTTP request sent to your Web server.</p>
+<h2 id="task---dynamic---country-and-city-lists--"><span class='task'>Task 3.</span>  Dynamic - Country and City Lists  (&starf;&star;&star;)</h2>
+<p>Based on the content of the <code>geo.csv</code> file, extend your HTTP server to serve a list of countries when receiving requests at this URL:</p>
+<pre><code>http://localhost:8989/geo
+</code></pre>
+<p>The list of countries should be sent with the response in HTML format so that when users click on the name of a country, their browser will send a new request to the following URL template:</p>
+<pre><code>http://localhost:8989/geo?c={c}
+</code></pre>
+<p>Where <code>c</code> is the name of the country they have selected. </p>
+<p>Opening the country page will retrieve a list of cities located in the corresponding country, with links to the following URL template:</p>
+<pre><code>http://localhost:8989/geo?c={c}&amp;city={city}
+</code></pre>
+<p>Where <code>c</code> is the name of the country and <code>city</code> is the name of the city.</p>
+<p>Opening the city URL should display the city name, its GPS location and population.</p>
+<p>Hint: reuse the code of the <code>script-module</code> to work with the CSV data and transform it in the HTML with the correct links.</p>
+<h2 id="task---static---country-and-city-lists--"><span class='task'>Task 4.</span>  Static - Country and City Lists  (&starf;&starf;&star;)</h2>
+<p>Write a script called <code>csv.js</code> which transforms the content of the <code>geo.csv</code> file into a set of HTML pages stored in the <code>public/csv</code> folder with the following properties.</p>
+<pre><code>public/csv/countries.html
+</code></pre>
+<p>should contain a list of countries in HTML format, so that when users click on the name of a country, their browser opens the following:</p>
+<pre><code>public/csv/{c}.html
+</code></pre>
+<p>Where <code>c</code> is the name of the country they have selected. </p>
+<p>This page should display the list of cities of the selected country.</p>
+<p>Each city in the country page should link to the following:</p>
+<pre><code>public/csv/{c}/{city}.html
+</code></pre>
+<p>Where <code>c</code> is the name of the country and <code>city</code> is the name of the city.</p>
+<p>Opening the link to the city should display the city name, its GPS location and population.</p>
+<p>Since the output is stored in the <code>public</code> folder, it should be possible to immediately browse it from your Web server without writing any extra code beyond the Task 2 solution.</p>
+<p>Hint: reuse the code of the <code>script-module</code> to work with the CSV data and transform it in the HTML with the correct links.</p>
+<h2 id="task---map-tile-server-"><span class='task'>Task 5.</span>  Map Tile Server (&starf;&starf;&starf;)</h2>
+<p>Extend the HTTP server which serves Map tiles which display their coordinates.</p>
+<p>Map tiles are 256x256 png images identified by the following URL:</p>
+<pre><code>http://localhost:8989/tiles/test/{z}/{x}/{y}.png
+</code></pre>
+<p>The Web server should dynamically respond to such requests with images that display the corresponding z, x, y coordinate values.</p>
+<p>You can open the <code>test-tiles.html</code> to display a map which will use your custom tiles.</p>
+<p>Hint: use the <a href="https://www.npmjs.com/package/canvas"><code>canvas</code> module</a> to draw on images before sending them to the browser in the HTTP response.</p>
+<p>Use this test tile set to study the relationship between the three coordinates. How does the range of <code>x</code> and <code>y</code> depend on the value of <code>z</code>? What does <code>z</code> stands for?</p>
+<p><video width="50%" src="https://atelier.inf.usi.ch/~pautassc/2023/wa/ex4/tiles-log.mp4" controls></video></p>
+<h2 id="task---gigapixel-tile-server-"><span class='task'>Task 6.</span>  Gigapixel Tile Server (&starf;&starf;&starf;)</h2>
+<p>Implement an HTTP server which serves Map tiles sliced from a high resolution image.</p>
+<p>Load a large image file in memory when the server starts.</p>
+<p>Use the large image to paint the tiles in response to the following requests:</p>
+<pre><code>http://localhost:8989/tiles/big/{z}/{x}/{y}.png
+</code></pre>
+<p>You can find large high resolution images here (Warning: big download): </p>
+<ul>
+<li><a href="https://atelier.inf.usi.ch/~pautassc/2023/wa/ex4/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg">Van Gogh Starry Night</a> 30,000 x 23,756 pixels, 215&#39;064&#39;763 bytes.</li>
+<li><a href="https://atelier.inf.usi.ch/~pautassc/2023/wa/ex4/Moon3.png">LRO Moon</a> 30,000 x 15,000 pixels, 235&#39;673&#39;078 bytes.</li>
+</ul>
+<p>or use your own high resolution photos.</p>
+<p>Browsers can display such large images, but downloading them may take some time. Use the map tiles to serve the image at different levels of detail and quickly transfer only the tiles that are needed to display the image the user is actually seeing. </p>
+<p>Hint: use the <a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage">drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)</a> method of the Canvas 2D API to draw a portion of an image.</p>
+<!--
+
+
+## Task - Layout (&starf;&starf;&starf;)
+
+Since we are running JavaScript on the server-side we can automatically ensure all HTML pages sent by the server follow the site layout.
+
+Implement the following template function:
+
+1. __Layout Template__ 
+
+    ``js
+    function embed_layout(template, title, main, sidebar)
+    ``
+
+    Implement a function which embeds the HTML main content and sidebar content into your site layout template.
+
+    The function should embed into the `template` HTML string the content of the `title`, `main`, and `sidebar` HTML strings.
+
+    The position where the embedding should happen should be indicated by the following placeholder strings found in the template:
+
+    ``
+    <%=title%>
+    <%=main%>
+    <%=sidebar%>
+    ``
+
+Create a `./template.html` file which contains the HTML layout element with the placeholders. 
+This file should be loaded by the Web server and its content used as the value for the `template` parameter.
+
+
+
+
+## Task - Web Site Generator (&starf;&starf;&starf;)
+
+Using the previous template, generate the `.html` files in the `public` folder as follows.
+
+List the pages of your website into 
+
+``
+``
+
+
+``
+http://localhost:8989/*.html
+``
+
+should serve the content of the corresponding HTML files found in the `templates` folder embedded into the layout template.
+
+If `public/*.html` exists, its content should be served as is (like in the previous task).
+
+If `templates/main/*.html` exists its content should be served as the `main` element of the resulting HTML page sent to the browser.
+
+If `templates/sidebar/*.html` exists its content should be served as the `sidebar` element of the resulting HTML page sent to the browser. If no sidebar template exists, an empty sidebar will be used.
+
+If no `templates/main/*.html` file exists, the response should be `404`.
+
+Make sure to serve the HTML pages with the `Content-Type: text/html` header.
+
+
+
+
+
+## Task - &starf;&starf;&star; Optional Features
+
+For bonus points, implement at least *two* (or *four* when working in pairs) of the following:
+
+
+<span style="font-style: italic; ">Please list in the `README.md` file the optional features you implemented.</span>
+
+
+## Task - &starf;&starf;&starf; Optional Features
+
+For additional bonus points, in addition to the above chosen optional features, implement also *two* (or *four* when working in pairs) of the following: 
+
+
+<span style="font-style: italic; ">Please list in the `README.md` file the optional features you implemented.</span>
+
+-->
+
+<section class="topics">
+
+<h2 id="mastery-check-topics">Mastery Check Topics</h2>
+<p>Solving this exercise will demonstrate mastery for the following topics:</p>
+<ul>
+<li>3. JavaScript<ul>
+<li>3.4. Modules<ul>
+<li>3.4.1. require</li>
+<li>3.4.2. import</li>
+<li>3.4.3. export</li>
+</ul>
+</li>
+<li>3.5. Callbacks</li>
+</ul>
+</li>
+<li>4. APIs<ul>
+<li>4.2. Server<ul>
+<li>4.2.1. HTTP Server</li>
+<li>4.2.2. Command Line Arguments</li>
+<li>4.2.3. File System</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>5. Networking<ul>
+<li>5.1. HTTP<ul>
+<li>5.1.1. Request/Response</li>
+<li>5.1.2. URL</li>
+<li>5.1.3. Headers</li>
+<li>5.1.4. Methods<ul>
+<li>5.1.4.1. <span class='get'>GET</span></li>
+</ul>
+</li>
+<li>5.1.5. Status Codes<ul>
+<li>5.1.5.1. Not Found</li>
+<li>5.1.5.2. Redirect</li>
+<li>5.1.5.3. Method not Allowed</li>
+<li>5.1.5.4. Internal Server Error</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>6. Development Tools<ul>
+<li>6.1. Browser<ul>
+<li>6.1.2. JavaScript Debugger</li>
+<li>6.1.3. Console</li>
+<li>6.1.4. Network</li>
+</ul>
+</li>
+<li>6.2. Server and Command Line Tools<ul>
+<li>6.2.1. Console</li>
+<li>6.2.2. npm, yarn, pnpm, bun</li>
+<li>6.2.3. Dependency Management with package.json</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+
+
+<h2 id="questions">Questions?</h2>
+<p>In case something is not clear, please ask.</p>
+<p>Post any question on our <a href="https://stackoverflowteams.com/c/usi-web-atelier/questions/ask?tags=ex4">private StackOverflow</a> using the <code>ex4</code> tag.</p>
+<footer></footer></body></html>
