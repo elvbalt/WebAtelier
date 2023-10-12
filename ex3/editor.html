@@ -23,16 +23,15 @@
 
 </head>
 
-<body onload="initMapEditor()">
+<body onload="initMapEditor()" id="editor">
 
     <!-- integrate the following elements into your own HTML page template -->
 
-    <header>
-        <h1>Map Editor</h1>
-    </header>
+    
 
     <h1 id ="titulo"> 
-        <img src="images/logo def.png" width="200"> </h1>
+        <img src="images/logo def.png" width="200"> 
+    </h1>
     <section id="general">
         <nav> 
             <a id="home" href="index.html">
@@ -45,6 +44,9 @@
 
     <main>
 
+        <header>
+            <h1>Map Editor</h1>
+        </header>
         <aside class="controls">
 
             <form action="/map" method="POST">
@@ -77,6 +79,7 @@
 
         </aside>
 
+        
         <!-- leaflet needs this div#map element to display the map -->
 
         <div id="map" style="width:99vw; height:80vh"></div>
