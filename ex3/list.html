@@ -67,6 +67,15 @@
                 <span class="zoom">Zoom</span>
                 <span class="tiles">Tile Source</span>
                 <span class="actions">Actions</span>
+                <label for="sort">Sort by:</label>
+                    <select id="sort">
+                    <option value="Last"> </option>
+                    <option value="Lat">Center Latitude</option>
+                    <option value="Lng">Center Longitude</option>
+                    <option value="zoomLevel">Zoom Level</option>
+                    <option value="title">Title</option>
+                    
+                    </select>
             </header>
 
             <% maps.forEach(map=> { %>

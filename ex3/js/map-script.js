@@ -41,7 +41,6 @@ function initMapList() {
             form.addEventListener("submit", function (e) {
 
                 e.preventDefault();
-                console.log("delete")
                 let id = e.target.parentNode.dataset.mapid;
 
                 map_list.deleteMap(id);
@@ -88,6 +87,46 @@ function initMapList() {
             });
 
         });
+
+        
+        //document.querySelector("sort");
+
+        let sort = document.getElementById('sort');
+
+            sort.addEventListener("change", function (e) {
+                
+                list = map_list.getMaps();
+
+                var sortBy = this.value;
+
+                switch (sortBy) {
+                    case 'Lat':
+                        list.sort((a, b) => {
+                            return a.center.lat - b.center.lat;
+                        });
+                    break;
+                    case 'Lng':
+                        list.sort((a, b) => {
+                            return a.center.lng - b.center.lng;
+                        });
+                    break;
+                    case 'zoomLevel':
+                        list.sort((a, b) => {
+                            return a.zoom - b.zoom;
+                        });
+                        
+                    break;
+                    case 'title':
+                        list.sort((a, b) => {
+                            return a.title.localeCompare(b.title);
+                        });
+                    break;
+                }
+                map_list.setMaps(list);
+                reload();
+            });
+        
+        
 
     }
 
@@ -139,7 +178,6 @@ function initMapEditor() {
     
     map = createMap([map_obj.center.lat, map_obj.center.lng] , map_obj.zoom);
 
-    console.log(map_obj)
     //TODO initialize the leaflet map and the tiles layer using initMapTiles
     let layer = initMapTiles(map_obj, map);
 
@@ -148,7 +186,6 @@ function initMapEditor() {
      * Initializes map tiles based on the data for a given map object.
      */
     function SyncTilesToMap() {
-        console.log("sync")
         let tiles = form2obj().tiles;
         if (layer) { layer.remove(); }
         layer = initMapTiles({tiles}, map);
@@ -225,7 +262,6 @@ function initMapEditor() {
             //TODO create a new map from the form input data and add it to the list
             map_list.addMap(form2obj());
 
-            //reload();
         });
 
     }
@@ -237,8 +273,6 @@ function initMapEditor() {
 
             e.preventDefault();
             map_list.replaceMap(id, form2obj());
-
-            //reload();
             
         });
 

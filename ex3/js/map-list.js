@@ -31,6 +31,12 @@ let make_map_list = function(storage_key = "maps") {
         return list;
     }
 
+    function setMaps(lista){
+        list = lista;
+
+        save();
+    }
+
     /**
      * Retrieves a map by its ID from the list of maps.
      *
@@ -175,9 +181,7 @@ let make_map_list = function(storage_key = "maps") {
             // Save the JSON string to local storage with the specified key
             localStorage.setItem(storage_key, listJson);
             
-            console.log(`List saved: ${storage_key}`);
           } catch (error) {
-            console.error(`Error: ${error.message}`);
           }
     }
 
@@ -511,6 +515,7 @@ let make_map_list = function(storage_key = "maps") {
         deleteMap,
         cloneMap,
         toggleFav,
+        setMaps
     }
 
 }

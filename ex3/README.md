@@ -38,3 +38,4 @@ Important: If you do not use the __exact commit message__ shown above we will no
 
 Please write below which optional tasks you have completed.
 
+Added a button on the editor to center the map on the user GPS location and Sorted the gallery based on at least one of the following criteria which should be chosen by the user: the map center location (by longitude or by latitude), the map zoom level, or the title of the map
