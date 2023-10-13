@@ -30,3 +30,87 @@
      /*border:1px dotted red;*/
  }
 
+ @media screen and (max-width: 768px) { /*desktop layout*/
+    #general {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr max-content 0.5fr;
+    }
+    nav{
+        display: grid;
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
+        margin-top: 0.8vw;
+        margin-left: 0vw;
+        height:9vh;
+    }
+    
+    
+}
+
+@media (prefers-color-scheme: dark){
+    body{
+    background-color: rgb(0, 0, 0);
+    }
+    body sidebar{
+        color:white;
+    }
+    button{
+        background-color: gray;
+    }
+    main.map-index header{
+        color:white;
+    }
+
+    main.map-index section[id^="map-"]{
+        background-color: rgb(38, 38, 38);
+        border: 1px inset black;
+        color:white;
+    }
+
+    main.map-index section[id^="map-"]:hover{
+        background-color: gray;
+        transition-property: background-color;
+        transition: 0.5s ease;
+    }
+
+    main{
+        background-color: rgb(38, 38, 38);
+    }
+
+    main form section.group label{
+        background-color: rgb(38, 38, 38);
+        color:white;
+    }
+
+    main form section.group input[id="email"][type="email"],
+    main form section.group textarea,
+    main form section.group select[id="poi"],
+    main form section.group input[type="text"]
+    {
+        background-color: gray;
+    }
+
+    main h1{
+        color:white;
+    }
+
+    button[id="submit"] {
+        background-color: rgb(3, 47, 113);
+    }
+
+    main form section.group input[id="email"][type="email"]:hover,
+    main form section.group textarea:hover,
+    main form section.group select[id="poi"]:hover,
+    main form section.group input[type="text"]:hover,
+    main form section.group input[id="email"][type="email"]:focus,
+    main form section.group textarea:focus,
+    main form section.group select[id="poi"]:focus,
+    main form section.group input[type="text"]:focus{
+        background-color: rgb(183, 179, 179);
+        transition-property: background-color;
+        transition: 0.5s ease;
+    }
+}
+
+

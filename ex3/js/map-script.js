@@ -244,5 +244,22 @@ function initMapEditor() {
 
     }
 
+    let centerBtn = document.querySelector("button[data-action='zcenter']");
+
+    if (centerBtn) {
+        centerBtn.addEventListener("click", function (e) {
+
+            e.preventDefault();
+            if ('geolocation' in navigator) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                  var userLat = position.coords.latitude;
+                  var userLng = position.coords.longitude;
+                  map.setView([userLat, userLng], 12);
+                });
+              } 
+            
+        });
+    }
+
     //TODO add the update button event listener and replace the map object in the list
 }
