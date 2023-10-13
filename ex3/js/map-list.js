@@ -38,7 +38,7 @@ let make_map_list = function(storage_key = "maps") {
      * @returns {Object|undefined} The map with the specified ID, or undefined if not found.
      */
     function getMap(id) {
-        if (id === undefined || list.length === 0){
+        if (id == undefined || list.length == 0 || id == null){
             return undefined;
         }
         

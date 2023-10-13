@@ -1,0 +1,32 @@
+/*
+ * HTML and CSS1
+ *
+ * CSS Styles
+ *
+ * Include this stylesheet in all pages of your website
+ *
+ * Author: __Elvira Baltasar__
+ *
+ */
+
+ #general {
+    /* margin: 1vw;
+     /*border: 2px solid black;*/
+     display: grid;
+     grid-template-columns: 2fr 7fr 2fr;
+     align-items: start;
+     
+ }
+ 
+ nav{
+     display: grid;
+     grid-template-rows: 1fr 1fr 1fr;
+     /*justify-content: center;*/
+     /*grid-row-gap: 1em;*/
+     margin-left: 1vw;
+     margin-top: 1vw;
+     margin-bottom: 1vw;
+     height: 73vh;
+     /*border:1px dotted red;*/
+ }
+

@@ -31,7 +31,7 @@ function initMapList() {
 
         map_list.load();
 
-        map_list.render("main.map-index");
+        map_list.render("main.map-index"); 
 
         //2. setup event listeners
 
@@ -45,6 +45,7 @@ function initMapList() {
                 let id = e.target.parentNode.dataset.mapid;
 
                 map_list.deleteMap(id);
+                
                 reload();
 
                 //TODO delete the map and reload the page
@@ -63,6 +64,7 @@ function initMapList() {
                 let id = e.target.parentNode.dataset.mapid;
 
                 map_list.cloneMap(id);
+
                 reload();
 
                 //TODO clone the map and reload the page
@@ -121,7 +123,7 @@ function initMapEditor() {
     map_list.load();
   
     //TODO initialize the default map and hide the update button if the map is not found
-    let map
+
     let map_obj;
     if (id === undefined || map_list.getMap(id) === undefined){
         map_obj = {
@@ -134,15 +136,19 @@ function initMapEditor() {
     }else{
         map_obj = map_list.getMap(id);
     }
-    map = createMap([map_obj.center.lat, map_obj.center.lng] , map_obj.zoom);
     
+    map = createMap([map_obj.center.lat, map_obj.center.lng] , map_obj.zoom);
+
+    console.log(map_obj)
     //TODO initialize the leaflet map and the tiles layer using initMapTiles
     let layer = initMapTiles(map_obj, map);
+
 
     /**
      * Initializes map tiles based on the data for a given map object.
      */
     function SyncTilesToMap() {
+        console.log("sync")
         let tiles = form2obj().tiles;
         if (layer) { layer.remove(); }
         layer = initMapTiles({tiles}, map);
@@ -177,7 +183,8 @@ function initMapEditor() {
      */
     function SyncFormToMap() {
         let map_obj = form2obj();
-        //map.setView([0 ,0], 0);
+        map.setView([map_obj.center.lat, map_obj.center.lng], map_obj.zoom);
+        SyncTilesToMap()
     }
 
     /**
@@ -199,6 +206,7 @@ function initMapEditor() {
 
     //TODO setup the zoomend and moveend event listeners for the map
     map.on('zoomend', SyncMapToForm);
+    map.on('moveend', SyncMapToForm);
 
     //TODO setup the change event listeners for the form input fields
     document.getElementById("zoom").addEventListener("change", SyncFormToMap);
@@ -217,7 +225,7 @@ function initMapEditor() {
             //TODO create a new map from the form input data and add it to the list
             map_list.addMap(form2obj());
 
-            reload();
+            //reload();
         });
 
     }
@@ -230,7 +238,7 @@ function initMapEditor() {
             e.preventDefault();
             map_list.replaceMap(id, form2obj());
 
-            reload();
+            //reload();
             
         });
 
