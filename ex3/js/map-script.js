@@ -30,8 +30,6 @@ function initMapList() {
         //1. load maps from the localStorage and render the map list
 
         map_list.load();
-        
-        list = map_list.getMaps(); //llamar a load de map.list
 
         map_list.render("main.map-index");
 
@@ -138,8 +136,6 @@ function initMapEditor() {
     }
     map = createMap([map_obj.center.lat, map_obj.center.lng] , map_obj.zoom);
     
-    console.log(map);
-    console.log("AQUI")
     //TODO initialize the leaflet map and the tiles layer using initMapTiles
     let layer = initMapTiles(map_obj, map);
 

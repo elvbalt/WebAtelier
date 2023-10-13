@@ -38,19 +38,9 @@ let make_map_list = function(storage_key = "maps") {
      * @returns {Object|undefined} The map with the specified ID, or undefined if not found.
      */
     function getMap(id) {
-        if (list.length === 0 || id === undefined){
+        if (id === undefined || list.length === 0){
             return undefined;
         }
-
-        /*while (!find){
-            if (list[i].id === id.toString()){
-                console.log("dentro")
-                console.log(list[i].id);
-                return list[i];
-                find = true;
-            }
-            i++;
-        }*/
         
         return list.find((element) => element.id === id.toString());
     }
@@ -95,6 +85,7 @@ let make_map_list = function(storage_key = "maps") {
 
         let map2 ={...getMap(id)};
         map2.id = undefined;
+
         addMap(map2);
 
         save();
@@ -197,7 +188,7 @@ let make_map_list = function(storage_key = "maps") {
     function load() {
         //let json = localStorage.getItem(storage_key);
         //TODO attempt to parse the json string and initialize the list
-        try {
+        /*try {
             // Get the JSON string from local storage using the specified key
             const listJson = localStorage.getItem(storage_key);
             
@@ -216,6 +207,20 @@ let make_map_list = function(storage_key = "maps") {
     
         } catch (storageError) {     
             list = reset();
+        }*/
+
+        let listJson = localStorage.getItem(storage_key);
+
+        if (listJson === undefined || !listJson){
+            reset();
+        }else{
+            try{
+                list = JSON.parse(listJson);
+                //return list;
+            }catch (error){//inalid json
+                //dont do anything
+                
+            }
         }
     }
     
@@ -505,7 +510,7 @@ let make_map_list = function(storage_key = "maps") {
         replaceMap,
         deleteMap,
         cloneMap,
-        toggleFav
+        toggleFav,
     }
 
 }

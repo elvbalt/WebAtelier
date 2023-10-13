@@ -133,4 +133,3 @@ function loadLeaflet(dom_id) {
     //return [createMarker, removeMarkers];
 
 }
-
