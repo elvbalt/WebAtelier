@@ -1,7 +1,7 @@
 /**
  * Web Atelier 2023  Exercise 4 - JavaScript on the Server-side
  *
- * Student: __STUDENT NAME__
+ * Student: __ELVIRA BALTASAR__
  *
  * Script Module
  *
@@ -19,6 +19,34 @@
  */
 function parseCSV(csv, drop_header = true, only_header = false) {
     //TODO - copy from ex2
+    if (drop_header && only_header){
+        return [];
+    }
+    
+    if (typeof csv !== 'string' || Array.isArray(csv)){
+        return undefined;
+    } 
+    let a = csv.split('\n');
+
+    if(a.length > 0 && a[a.length-1] === ''){
+        a.pop();
+    }
+
+    let res = [];
+
+    if (only_header) { 
+        return a[0].split(',');
+    }
+
+    for (let i = 0; i<a.length; i++){
+        const value = a[i].split(',');
+        res.push(value);
+    }
+
+    if (drop_header){
+        res.shift();
+    }
+    return res;
 }
 
 /**
@@ -95,4 +123,12 @@ const URL_static_formatter = {
 
 //TODO complete so that the functions and objects can be used outside the module in Tasks 3 or 4
 module.exports = {
-    parseCSV}
+    parseCSV,
+    filter,
+    getDistinctValues,
+    renderCountryIndex,
+    renderCountryPage,
+    renderCityPage,
+    URL_dynamic_formatter,
+    URL_static_formatter
+}

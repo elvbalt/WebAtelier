@@ -1,7 +1,7 @@
 /**
  * Web Atelier 2023  Exercise 4 - JavaScript on the Server-side
  *
- * Student: __STUDENT NAME__
+ * Student: __ELVIRA BALTASAR__
  *
  * CSV to HTML script
  *
@@ -40,6 +40,22 @@ fs.writeFile(path.join(root, "countries.html"), html);
 
 //for each country...
 countries.forEach(country=>{
-//TODO complete the script to generate the HTML files for the country pages
-//TODO complete the script to generate the HTML files for the city pages of each country
+    //TODO complete the script to generate the HTML files for the country pages
+    //TODO complete the script to generate the HTML files for the city pages of each country
+    const citiesInCountry = script.filter(csv, 3, country);
+    const countryPage = script.renderCountryPage(country, citiesInCountry.map(city => city[0]), script.URL_static_formatter);
+    const countryFolderPath = path.join(root, encodeURIComponent(country));
+
+    // Create the folder for the country
+    fs.ensureDirSync(countryFolderPath);
+
+    // Write the country page to the country folder
+    fs.writeFileSync(path.join(countryFolderPath, `${encodeURIComponent(country)}.html`), countryPage);
+
+    // Generate the HTML files for the city pages of each country
+    citiesInCountry.forEach(cityData => {
+        const city = cityData[0];
+        const cityPage = script.renderCityPage(cityData, script.URL_static_formatter);
+        fs.writeFileSync(path.join(countryFolderPath, `${encodeURIComponent(city)}.html`), cityPage);
+    });
 });

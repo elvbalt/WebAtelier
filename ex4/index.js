@@ -1,7 +1,7 @@
 /**
  * Web Atelier 2023  Exercise 4 - JavaScript on the Server-side
  *
- * Student: __STUDENT NAME__
+ * Student: __ELVIRA BALTASAR__
  *
  * Web Server
  *
@@ -38,6 +38,17 @@ let content_types = {
     "ttf": "font/ttf",
 }
 
+const geoData = []; // Aquí almacenaremos los datos del archivo geo.csv
+
+// 1. Cargar los datos del archivo geo.csv
+const csvData = fs.readFileSync('geo.csv', 'utf8');
+const geoCSV = script.parseCSV(csvData);
+
+if (geoCSV) {
+    geoData.push(...geoCSV);
+
+}
+
 /**
  * Task 2
  * @param {String} pathname - the URL pathname
@@ -45,36 +56,62 @@ let content_types = {
  */
 function sendFile(pathname, response) {
     //TODO - map the URL pathname to the local file system path
-    const localPath = "TODO";
+    const localPath = "public"+pathname;
 
     const file = fs.createReadStream(localPath);
 
     file.on('error', function(err) {
-
         switch (err.code) {
             case 'ENOENT':
                 console.log(`File ${localPath} does not exist.`);
                 //TODO send 404 status code and close the connection
+                response.writeHead(404); //not found
+                response.end();
                 break;
             case 'EISDIR':
                 console.log(`File ${localPath} is a directory.`);
                 //TODO send 401 status code and close the connection
+                response.writeHead(401); //not found
+                response.end();
                 break;
             default:
                 console.log('Error: ' + err);
                 //TODO send 500 status code and close the connection
+                response.writeHead(500); //not found
+                response.end();
         }
     });
 
     file.on('open', function() {
 
-        //TODO - the Content-Type header should be set depending on the filename extension
+        let fileExtension = pathname.split('.').pop();
 
-        let header = {};
+        let contentType = getContentType(fileExtension);
+
+        let header = {
+            'Content-Type': contentType,
+        };
+
         response.writeHead(200, header);
+
         file.pipe(response);
 
     });
+}
+
+function getContentType(fileExtension) {
+    // Mapea las extensiones de archivo a tipos MIME
+    const contentTypeMap = {
+        html: 'text/html',
+        css: 'text/css',
+        js: 'text/javascript',
+        jpeg: 'image/jpeg',
+        png: 'image/png',
+        ttf: 'font/ttf'
+    };
+
+    // Devuelve el tipo MIME correspondiente o application/octet-stream si no se encuentra
+    return contentTypeMap[fileExtension];
 }
 
 /**
@@ -83,7 +120,45 @@ function sendFile(pathname, response) {
  * @param {Object} response - the HTTP response object
  */
 function renderDynamicCSV(url, response) {
+    
+    if (url.searchParams.has("c") && url.searchParams.has("city") ){
+        let country = decodeURI(url.searchParams.get("c"));
 
+        let city = decodeURI(url.searchParams.get("city"));
+
+        let cityData = script.filter(geoData, 3, country);
+
+        if (cityData.length > 0){
+            let cityInf = script.renderCityPage(cityData[0], script.URL_dynamic_formatter);
+
+            console.log(cityInf)
+            
+            response.writeHead(200, { 'Content-Type': 'text/html' });
+            response.end(cityInf);
+        }else{
+            response.writeHead(404);
+            response.end("Not Found");
+        }
+       
+    } else if (url.searchParams.get("c") !== null) {
+        let country = decodeURI(url.searchParams.get("c"));
+
+        let filterC = script.filter(geoData, 3, country);
+        let list = script.renderCountryPage(country, filterC,script.URL_dynamic_formatter)
+
+        script.renderCountryPage(country, filterC, script.URL_dynamic_formatter)
+       
+        response.writeHead(200, { 'Content-Type': 'text/html' });
+        response.end(list);
+
+    } else{
+        let countries = script.getDistinctValues(geoData, 3);
+        let countriesP = script.renderCountryIndex(countries, script.URL_dynamic_formatter);
+
+        response.writeHead(200, { 'Content-Type': 'text/html' });
+        response.end(countriesP);
+
+    }
 }
 
 /**
@@ -116,14 +191,24 @@ function onrequest(request, response) {
     //Task 1
     if (pathname == "/") {
 //TODO send 302 status code with the Location header set to /index.html and close the connection
+        response.writeHead(302, {'Location' : '/index.html'});
+
+        response.end();
         return;
     }
 
 //TODO depending on the URL pathname, call the appropriate function
 //     passing either the url or the pathname and the response object
 
-        response.writeHead(404); //not found
-        response.end();
+     else if (pathname.startsWith('/geo')) {
+        renderDynamicCSV(url, response);
+    } else if (pathname.startsWith('/tiles')) {
+        renderTile(pathname, response);
+    } else {
+        sendFile(pathname, response);
+        /*response.writeHead(404); //not found
+        response.end();*/
+        }
 }
 
 http.createServer(onrequest).listen(8989);
