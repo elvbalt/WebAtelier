@@ -128,11 +128,19 @@ function renderDynamicCSV(url, response) {
 
         let cityData = script.filter(geoData, 3, country);
 
+        console.log(cityData);
+
+        cityData = script.filter(cityData, 0, city);
+
+        console.log(cityData)
+
+        //console.log(i)
+
+        let cD = script.getDistinctValues(cityData, 5)
+
         if (cityData.length > 0){
             let cityInf = script.renderCityPage(cityData[0], script.URL_dynamic_formatter);
 
-            console.log(cityInf)
-            
             response.writeHead(200, { 'Content-Type': 'text/html' });
             response.end(cityInf);
         }else{
@@ -144,9 +152,16 @@ function renderDynamicCSV(url, response) {
         let country = decodeURI(url.searchParams.get("c"));
 
         let filterC = script.filter(geoData, 3, country);
-        let list = script.renderCountryPage(country, filterC,script.URL_dynamic_formatter)
 
-        script.renderCountryPage(country, filterC, script.URL_dynamic_formatter)
+        console.log("filter")
+        console.log(filterC)
+
+        let a = script.getDistinctValues(filterC, 0)
+
+        console.log("a")
+        console.log(a)
+
+        let list = script.renderCountryPage(country, a, script.URL_dynamic_formatter)
        
         response.writeHead(200, { 'Content-Type': 'text/html' });
         response.end(list);
