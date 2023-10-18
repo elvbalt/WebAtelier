@@ -42,20 +42,27 @@ fs.writeFile(path.join(root, "countries.html"), html);
 countries.forEach(country=>{
     //TODO complete the script to generate the HTML files for the country pages
     //TODO complete the script to generate the HTML files for the city pages of each country
-    const citiesInCountry = script.filter(csv, 3, country);
-    const countryPage = script.renderCountryPage(country, citiesInCountry.map(city => city[0]), script.URL_static_formatter);
-    const countryFolderPath = path.join(root, encodeURIComponent(country));
+
+    const cities = script.filter(csv, 3, country); //pillo toda la informacion de las ciudades de este pais
+    const cityNames = cities.map(cityData => cityData[0]); //me quedo solo con los nombres
+
+    const countryHTML = script.renderCountryPage(country, cityNames, script.URL_static_formatter); //lo pongo en la pagina
 
     // Create the folder for the country
-    fs.ensureDirSync(countryFolderPath);
+    const countryPath = path.join(root, encodeURIComponent(country)); //creo el camino a la carpeta del pais
+    fs.ensureDirSync(countryPath); //creo carpeta
 
     // Write the country page to the country folder
-    fs.writeFileSync(path.join(countryFolderPath, `${encodeURIComponent(country)}.html`), countryPage);
+
+    fs.writeFile(path.join(root, `${encodeURIComponent(country)}.html`), countryHTML); //en la carpeta general pongo el html del pais
+
 
     // Generate the HTML files for the city pages of each country
-    citiesInCountry.forEach(cityData => {
-        const city = cityData[0];
-        const cityPage = script.renderCityPage(cityData, script.URL_static_formatter);
-        fs.writeFileSync(path.join(countryFolderPath, `${encodeURIComponent(city)}.html`), cityPage);
+    cities.forEach(cityData => {
+        const cityName = cityData[0]; //pillo los datos de la ciudad
+        const cityHTML = script.renderCityPage(cityData, script.URL_static_formatter); //creo la pagina
+
+        // Write the city page to the country folder
+        fs.writeFile(path.join(countryPath, `${encodeURIComponent(cityName)}.html`), cityHTML); //escribo el archivo 
     });
 });
