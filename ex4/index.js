@@ -38,15 +38,14 @@ let content_types = {
     "ttf": "font/ttf",
 }
 
-const geoData = []; // Aquí almacenaremos los datos del archivo geo.csv
+const geoData = []; // archivo geo.csv
 
-// 1. Cargar los datos del archivo geo.csv
+//Cargar los datos del archivo geo.csv
 const csvData = fs.readFileSync('geo.csv', 'utf8');
 const geoCSV = script.parseCSV(csvData);
 
 if (geoCSV) {
-    geoData.push(...geoCSV);
-
+    geoData.push(...geoCSV); //paso los datos de geoCSV a geoData
 }
 
 /**
@@ -71,13 +70,13 @@ function sendFile(pathname, response) {
             case 'EISDIR':
                 console.log(`File ${localPath} is a directory.`);
                 //TODO send 401 status code and close the connection
-                response.writeHead(401); //not found
+                response.writeHead(401); 
                 response.end();
                 break;
             default:
                 console.log('Error: ' + err);
                 //TODO send 500 status code and close the connection
-                response.writeHead(500); //not found
+                response.writeHead(500);
                 response.end();
         }
     });
@@ -110,7 +109,7 @@ function getContentType(fileExtension) {
         ttf: 'font/ttf'
     };
 
-    // Devuelve el tipo MIME correspondiente o application/octet-stream si no se encuentra
+    // Devuelve el tipo MIME correspondiente
     return contentTypeMap[fileExtension];
 }
 
@@ -123,51 +122,35 @@ function renderDynamicCSV(url, response) {
     
     if (url.searchParams.has("c") && url.searchParams.has("city") ){
         let country = decodeURI(url.searchParams.get("c"));
-
         let city = decodeURI(url.searchParams.get("city"));
 
-        let cityData = script.filter(geoData, 3, country);
-
-        console.log(cityData);
-
-        cityData = script.filter(cityData, 0, city);
-
-        console.log(cityData)
-
-        //console.log(i)
-
-        let cD = script.getDistinctValues(cityData, 5)
+        let cityData = script.filter(geoData, 3, country); //filtro las cities q coincien con la country
+        cityData = script.filter(cityData, 0, city); // me quedo solo con la city q decodifique
 
         if (cityData.length > 0){
-            let cityInf = script.renderCityPage(cityData[0], script.URL_dynamic_formatter);
+            let cityInf = script.renderCityPage(cityData[0], script.URL_dynamic_formatter); //solo hay un elemento en el array asi q pongo citydata[0]
 
             response.writeHead(200, { 'Content-Type': 'text/html' });
             response.end(cityInf);
-        }else{
+        }else{ 
             response.writeHead(404);
             response.end("Not Found");
         }
        
-    } else if (url.searchParams.get("c") !== null) {
+    } else if (url.searchParams.has("c")) {
         let country = decodeURI(url.searchParams.get("c"));
 
-        let filterC = script.filter(geoData, 3, country);
+        let filterC = script.filter(geoData, 3, country); //filtro las cities q coincien con la country
+        let cities = script.getDistinctValues(filterC, 0) //me quedo solo con los nombres de las ciudades, no sus caracteristicas
 
-        console.log("filter")
-        console.log(filterC)
-
-        let a = script.getDistinctValues(filterC, 0)
-
-        console.log("a")
-        console.log(a)
-
-        let list = script.renderCountryPage(country, a, script.URL_dynamic_formatter)
+        let list = script.renderCountryPage(country, cities, script.URL_dynamic_formatter)
        
         response.writeHead(200, { 'Content-Type': 'text/html' });
         response.end(list);
 
     } else{
-        let countries = script.getDistinctValues(geoData, 3);
+        let countries = script.getDistinctValues(geoData, 3); //solo nombres de paises para hacer la lista
+
         let countriesP = script.renderCountryIndex(countries, script.URL_dynamic_formatter);
 
         response.writeHead(200, { 'Content-Type': 'text/html' });
@@ -205,15 +188,15 @@ function onrequest(request, response) {
 
     //Task 1
     if (pathname == "/") {
-//TODO send 302 status code with the Location header set to /index.html and close the connection
+    //TODO send 302 status code with the Location header set to /index.html and close the connection
         response.writeHead(302, {'Location' : '/index.html'});
 
         response.end();
         return;
     }
 
-//TODO depending on the URL pathname, call the appropriate function
-//     passing either the url or the pathname and the response object
+    //TODO depending on the URL pathname, call the appropriate function
+    //     passing either the url or the pathname and the response object
 
      else if (pathname.startsWith('/geo')) {
         renderDynamicCSV(url, response);
