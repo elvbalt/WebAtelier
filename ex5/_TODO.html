@@ -1,0 +1,267 @@
+<html><head><title>exercises/5-express</title><link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Fira+Sans|Fira+Mono"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.0/build/styles/default.min.css"><style>body,* {font-family: "Fira Sans";scroll-behavior: smooth;}body {margin: 1em;}#usi-logo {width: 75px;height: 75px;}header {display: flex;align-content: space-between;width: 100%;justify-items: center;}header ul {list-style: none;}header .title {flex: 1;margin-left: 1em;}html {min-height: 100vh;}pre,code {font-family: "Fira Mono"}pre {background: rgb(202, 227, 255);padding: 1em;}td {text-align: center}td:last-child {text-align: left;}th {font-weight: normal;color: rgb(0, 61, 131);}thead {border-bottom: 2px solid rgb(202, 227, 255);}table {width: 100%}table tr:hover {background-color: rgb(151, 195, 236);}span.task {display: inline-flex;border-radius: 50%;border: 1px solid white;background: #ffbc00;width: 4em;height: 4em;justify-content: center;align-items: center;font-weight: normal;margin-top: 2em;}.deadline {text-align: right;}p.deadline {font-size: 2em;}.deadline b {border-bottom: 1px solid black;}span.get {font-weight: bold; color: #43a047;}span.post {font-weight: bold; color: #F3C142;}span.delete {font-weight: bold; color: #FF0000;}span.put {font-weight: bold; color: #4a90e2;}span.patch {font-weight: bold; color: #666666;}section.submit,section.topics {border: 1px dashed rgb(202, 227, 255);padding: 1em;padding-top: 0;border-right: 1em solid rgb(202, 227,255);border-left: 1em solid rgb(202, 227,255);}section.topics {margin-top: 5em;margin-bottom: 3em;border-color: #00b2ff;}section.examples {border: 2px dashed rgb(202, 227, 255);padding: 1em;padding-bottom: 0;}section.examples:before {content: "Examples";text-shadow: 0 0 1em #6aa9f0;font-weight: bold;}section.loc {border: 2px dashed rgb(20, 227, 255);background: rgba(20, 227, 255, 0.1);padding: 1em;padding-bottom: 1em;font-weight: bold;}section.loc:before {content: "Lines of Code of the solution: ";font-weight: normal;}</style></head><body><header>    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="usi-logo" x="0px" y="0px" width="200" height="200" viewBox="0 0 200 200" style="enable-background:new 0 0 200 200;" xml:space="preserve" class="injected-svg svg"><g><path d="M180,41.7h-51.1V31.1h42.2C153.1,12.5,127.8,1,99.9,1C45.2,1.1,0.9,45.4,1,100.1c0,26.8,10.7,51.1,28.1,68.9   c-1.4-2-2.4-4.1-3-6.1c-1-3.5-1-5.9-1.1-15.8v-47.1h14.8v48.5c0,3.4-0.1,6.6,1,9.6c3,7.6,11.3,8.5,16,8.5c2.3,0,8.3-0.1,12.6-3.9   c4.4-3.9,4.4-8.4,4.4-15v-47.7h14.9v49.7c-0.1,8.9-0.1,16.3-8.5,23.5c-8,7-18.4,7.7-23.8,7.7c-4.8,0-9.5-0.6-14-2.1   c-1.8-0.6-3.5-1.4-5-2.3c17.1,14,39,22.4,62.8,22.4c54.7-0.1,99-44.4,98.9-99.1C199,78.1,191.9,58,180,41.7z M175.3,94.4l-6.3-9   c2.1-1.4,8.7-5.7,8.7-17.7c0-2-0.2-4.1-1-6.2c-1.7-4.1-4.6-4.9-6.6-4.9c-3.6,0-4.9,2.5-5.7,4.3c-0.5,1.3-0.6,1.5-1.8,6.6l-1.5,6.9   c-0.9,3.6-1.3,5.4-2,7.2c-1.1,2.6-4.5,9.6-14,9.6c-10.9,0-17.8-9.2-17.8-22.6c0-12.3,6.1-19,11.6-23l6.6,8.8   c-2.8,1.9-8.5,5.7-8.5,14.8c0,5.8,2.6,10.8,7,10.8c4.9,0,5.8-5.3,6.8-10.5l1.3-5.9c1.6-7.7,4.8-18.6,17-18.6   c13.1,0,18.4,12.2,18.4,24.3c0,3.2-0.3,6.7-1.3,10.2C185.1,83.4,182.3,90.1,175.3,94.4z"></path></g></svg><div class="title"><h2>Web Atelier 2023</h2><h1>Exercise  5 - Web Apps with Express.js</h1></div><div class="deadline"><p>19.10.2023</p><p class="deadline">Deadline: <b>27.10.2023</b></p></div><ul><li>Prof. Cesare Pautasso</li><li>Souhaila Serbout</li><li>Hassan Atwi</li><li>Diana Carolina Mu&ntilde;oz Hurtado</li><li>Joey Bevilacqua</li><li>Edoardo Riggio</li><li>Jacopo Di Ventura</li><li>Hun Rim</li></ul></header><h1 id="goal">Goal</h1>
+<p>The goal of these exercises is to practice the model-view-controller pattern within the Express.js framework and Embedded JavaScript (EJS) views. </p>
+<p>All changes to the state of the model should be saved in local server file called <code>maps.json</code>. This files should be loaded when the server starts to initialize the model. We will replace this file with collections stored in the MongoDB database in the next assignment.</p>
+<p>Here is an overview of the routes you will build:</p>
+<a href="http://api-ace.inf.usi.ch/openapi-to-tree/?model=5b9342b425e96f61435801f9b7a2881696bed625e6d1b2c2949e4a3f68d42152">
+<img src="https://atelier.inf.usi.ch/~pautassc/2023/wa/ex5/routes-oas-2-tree.jpg" width="50%">
+</a>
+
+<p>Developer Productivity Hint: reuse, adapt, and extend your solution from previous assignments as much as possible.</p>
+<h2 id="getting-started">Getting started</h2>
+<ol>
+<li>Install the missing dependencies<pre><code>yarn install
+yarn add [module]
+</code></pre>
+</li>
+<li>Start the server with<pre><code>yarn start
+</code></pre>
+</li>
+</ol>
+<section class="submit">
+
+<h2 id="submitting-your-solution">Submitting your solution</h2>
+<p>Your project solution <strong>should</strong> be commited <strong>and pushed</strong> to your github repository. </p>
+<p>Make sure your name is written in every file you submit, including the <code>README.md</code>. Anonymous solutions will not be graded.</p>
+<p>See the <code>README.md</code> file for more details on how to commit <strong>and push</strong> your solution.</p>
+<p>Use the special commit message <code>&quot;completed ex5, please check&quot;</code> <strong>only once</strong> when you have completed the assignment and would like to submit it to be corrected.</p>
+</section>
+
+
+<h2 id="automated-tests">Automated tests</h2>
+<p>As you develop your code, please run the automated tests to check your solution. Only submit solutions which pass as many tests as possible. If your solution is correct but not compatible with the tests, please indicate the nature of the incompatibility in the <code>README.md</code> with as much detail as possible.</p>
+<p>Thank you in advance for <a href="https://stackoverflowteams.com/c/usi-web-atelier/questions/ask?tags=ex5,test&amp;title=Test%20Bug%20Report...">reporting any bugs in the tests</a>.</p>
+<h4 id="getting-started-1"><strong>Getting Started</strong>:</h4>
+<p>To install the dependencies for the tests use:</p>
+<pre><code class="language-bash">yarn install
+yarn add [module]
+</code></pre>
+<p><strong>Important</strong>: Make sure your Web server is already started before running the test. 
+The test assumes that your Web server listens on port 8989. </p>
+<p>If you see test failures due to <code>Error: ECONNREFUSED: Connection refused</code> it means that your Web server was not running at the time the test attempted to connect to it. A request sent by a test may have crashed it and subsequent tests will no longer be able to connect to it.</p>
+<h4 id="running-the-tests"><strong>Running the tests</strong>:</h4>
+<p>To run the tests use this command:</p>
+<pre><code class="language-bash">yarn run test
+</code></pre>
+<p>You can check the results on the terminal.</p>
+<p>The tests for the /map router depend on the results of previous tests. For example, before a map can be listed it should be created. All maps created during the test are deleted at the end. This means that you should first build the code for the solution and then self-check it using the tests.</p>
+<p>If you would like to run all tests for a specific task, use one of the commands:</p>
+<pre><code class="language-bash">yarn run test --grep &quot;Task 1&quot;
+yarn run test --grep &quot;Task 2&quot;
+yarn run test --grep &quot;/map&quot;
+</code></pre>
+<h2 id="task---map-model-"><span class='task'>Task 1.</span>  Map Model (&starf;&star;&star;)</h2>
+<p>Bring your browser-side map list to the server-side and make it persistent using a JSON file.</p>
+<ol>
+<li>Complete the map list model module:</li>
+</ol>
+<pre><code>model/map-list.js
+</code></pre>
+<p>reusing the code from the <code>ex3</code>.</p>
+<p>The code for these functions remains identical* as the one from <code>ex3</code>:</p>
+<pre><code>getMaps()
+getMap(id)
+addMap(map)
+cloneMap(id)
+replaceMap(id, map)
+deleteMap(id)
+toggleFav(id)
+count()
+reset()
+</code></pre>
+<p>*) as long as the <code>cloneMap(id)</code> function correctly implemented a deep copy.</p>
+<p>The following functions should be updated by replacing the <code>localStorage</code> of the browser with a JSON file on the server:</p>
+<pre><code>save()
+load()
+</code></pre>
+<p>The JSON file name is passed to the <code>filename</code> parameter of the <code>make_map_list</code> function which is already set to the right value.</p>
+<p>Hint: use the <code>fs-extra</code> functions <a href="https://github.com/jprichardson/node-fs-extra/blob/master/docs/readJson-sync.md">readJSONSync()</a> and <a href="https://github.com/jprichardson/node-fs-extra/blob/master/docs/writeJson-sync.md">writeJSONSync()</a>.</p>
+<p>The following already implemented function has been added for your convenience:</p>
+<pre><code>clear()
+</code></pre>
+<p>The following function has been removed because we will reimplement it with an EJS view template:</p>
+<pre><code>render(where)
+</code></pre>
+<p>The map list model will be used in the following tasks to manage the collection of maps stored on the server by mapping each of its function to a different HTTP method + URL combination.</p>
+<h2 id="task---serve-static-assets-"><span class='task'>Task 2.</span>  Serve static assets (&starf;&star;&star;)</h2>
+<p>Publish the static assets (HTML, CSS, Browser-side JavaScript) developed during the previous assignments so that they can be loaded from the server into the browser.</p>
+<p>Check that the static middleware is configured so that the content of the <code>public</code> folder is visible under the <code>/</code> of the server.</p>
+<h2 id="task---map-list-"><span class='task'>Task 3.</span>  Map List (&starf;&star;&star;)</h2>
+<p>Display the map gallery listing all maps stored on the server</p>
+<pre><code><span class='get'>GET</span> /map
+<span class='get'>GET</span> /maps.js
+</code></pre>
+<p>For each map, the HTML page should contain links or forms to:</p>
+<ul>
+<li>display each map</li>
+<li>edit each map</li>
+<li>delete each map</li>
+<li>favourite each map</li>
+<li>clone each map</li>
+</ul>
+<p>This view is already partially implemented:</p>
+<ol>
+<li>Render the given <code>views/map-list.ejs</code> template by passing the necessary local variables and functions (e.g., the <code>maps</code> obtained from the <code>getMaps()</code> model function implemented reusing the code from <code>ex3</code>, the <code>gps2str</code> function implemented in the <code>script-module.js</code> reusing the code from <code>ex2</code>). </li>
+<li>Extend the HTML so that it fits your site layout and it loads the necessary CSS and client-side JS files.</li>
+<li>Remove all client-side event listeners which mutate the state of the map objects. This way the browser will naturally submit the corresponding forms to the corresponding routes on the server.</li>
+</ol>
+<p>Note: while the server-side view will render the <code>div.thumb</code> HTML elements, the map thumbnails should be initialized client-side with the <code>initMapThumb</code> function, as in the previous <code>ex3</code>. </p>
+<p>The map objects to be passed to the <code>initMapThumbs</code> function are stored in the global variable <code>maps</code> which is initialized by loading the script available at <code><span class='get'>GET</span> /maps.js</code>. </p>
+<p>The route <code><span class='get'>GET</span> /maps.js</code> is already implemented in the <code>map_script.js</code> router.</p>
+<h2 id="task---map-display-"><span class='task'>Task 4.</span>  Map Display (&starf;&star;&star;)</h2>
+<p>Display a map representing the given map identifier</p>
+<pre><code><span class='get'>GET</span> /map/:id
+<span class='get'>GET</span> /map/:id/map.js
+</code></pre>
+<p>The map HTML page should contain links to:</p>
+<ul>
+<li>the map editor for the corresponding map</li>
+<li>the map list gallery</li>
+</ul>
+<p>By simplifying the HTML of the <code>editor.html</code> from <code>ex3</code> create the <code>views/map-view.ejs</code> to display the map obtained by calling <code>getMap(id)</code> on the model.</p>
+<p>The map object can be sent to the browser by including with an HTML <code>&lt;script&gt;</code> tag the JavaScript code returned by the <code><span class='get'>GET</span> /map/:id/map.js</code> route, which is already implemented in the <code>map_script.js</code> router.</p>
+<p>If the map with the given <code>:id</code> is not found, the 404 status code should be returned.</p>
+<h2 id="task---map-editor-"><span class='task'>Task 5.</span>  Map Editor (&starf;&star;&star;)</h2>
+<p>Display a map editor with forms to edit and customize the map settings</p>
+<pre><code><span class='get'>GET</span> /map/:id/map.js
+<span class='get'>GET</span> /map/:id/edit
+<span class='put'>PUT</span> /map/:id
+</code></pre>
+<p>The editor can also be used to create a new map</p>
+<pre><code><span class='get'>GET</span> /map/new
+<span class='post'>POST</span> /map/
+</code></pre>
+<p>By adapting the HTML of the <code>editor.html</code> from <code>ex3</code> create the <code>views/map-edit.ejs</code> to display and edit the map obtained by calling <code>getMap(id)</code> on the model. In particular, Remove all client-side event listeners which mutate the state of the map object. This way the browser will naturally submit the corresponding form to the corresponding routes on the server to update or create a new map.</p>
+<p>Use the <code>addMap(map)</code> or the <code>replaceMap(id, map)</code> model functions to implement the <code><span class='post'>POST</span></code> and <code><span class='put'>PUT</span></code> routes.</p>
+<p>Hint: the submitted content of the HTML form is available in the <code>req.body</code> object, but before it can stored in the map list, it needs to be shaped as a map object with the following structure:</p>
+<pre><code>{ 
+  title,
+  tiles,
+  center: { lat, lng },
+  zoom
+}
+</code></pre>
+<p>Note: <code>zoom</code> is an integer field, while <code>lat</code>, <code>lng</code> carry floating point numbers. The HTML form input values are transmitted as strings.</p>
+<p>The map object to be edited can be sent to the browser by including with an HTML <code>&lt;script&gt;</code> tag the JavaScript code returned by the <code><span class='get'>GET</span> /map/:id/map.js</code> route. This will make it possible to transfer to the browser the information needed to display the Leaflet map.</p>
+<h2 id="task---delete-map-"><span class='task'>Task 6.</span>  Delete Map (&starf;&starf;&star;)</h2>
+<p>Implement a route to delete the map with the given identifier</p>
+<pre><code><span class='delete'>DELETE</span> /map/:id
+<span class='get'>GET</span> /map?msg=Map+deleted
+</code></pre>
+<p>Use the <code>deleteMap(id)</code> model function.</p>
+<p>After successfully deleting the map object, redirect the browser back to the map list page so that in addition to the updated list of maps, also the message <code>&quot;Map deleted&quot;</code> is displayed informing the user that the map has been deleted. For accessibility reasons, the message should be displayed as part of the HTML markup.</p>
+<p>If there is no map with the given identifier, reply with the 404 not found status code.</p>
+<h2 id="task---clone-map-"><span class='task'>Task 7.</span>  Clone Map (&starf;&starf;&star;)</h2>
+<p>Implement a route to clone the map with the given identifier</p>
+<pre><code><span class='post'>POST</span> /map/:id/clone
+<span class='get'>GET</span> /map/:id
+</code></pre>
+<p>After calling this route, the browser should be redirected to retrieve the URL identifying the copy of the given map.</p>
+<p>If there is no map with the given identifier, reply with the 404 not found status code.</p>
+<h2 id="task---favourite-map-"><span class='task'>Task 8.</span>  Favourite Map (&starf;&starf;&star;)</h2>
+<p>Implement a route to toggle the map favourite bit</p>
+<pre><code><span class='patch'>PATCH</span> /map/:id/fav
+</code></pre>
+<p>After calling this route, the browser should be redirected to retrieve the URL identifying the given map.</p>
+<p>If there is no map with the given identifier, reply with the 404 not found status code.</p>
+<h2 id="task----optional-features"><span class='task'>Task 9.</span>  &starf;&starf;&starf; Optional Features</h2>
+<p>For bonus points, implement at least <em>two</em> (or <em>four</em> when working in pairs) of the following:</p>
+<ol>
+<li><p>Show a random map</p>
+<p> On the homepage, add a form so that when submitted it will call the <code><span class='post'>POST</span> /map/random</code> route.</p>
+<p> On the server, implement the <code><span class='post'>POST</span> /map/random</code> route to redirect the browser to a randomly chosen map</p>
+<pre><code><span class='get'>GET</span> /index.html
+<span class='post'>POST</span> /map/random
+<span class='get'>GET</span> /map/:id
+</code></pre>
+</li>
+<li><p>Validate the input sent to the following routes</p>
+<pre><code><span class='post'>POST</span> /map
+<span class='put'>PUT</span> /map/:id
+</code></pre>
+<p> so that requests with invalid or missing values for the <code>title</code>, <code>zoom</code>, <code>lat</code>, <code>lng</code> and <code>tiles</code> are rejected with status code 400.</p>
+</li>
+<li><p>Store, update and display a counter tracking how many times each map was displayed from the route</p>
+<pre><code><span class='get'>GET</span> /map/:id
+</code></pre>
+<p> The counter should be displayed on both the map and the map list pages.</p>
+</li>
+<li><p>Implement an import feature where the JSON file with the map list can be uploaded on the server.</p>
+<pre><code><span class='get'>GET</span> /import
+<span class='post'>POST</span> /import
+</code></pre>
+<p> The <span class='get'>GET</span> route should return an HTML form with a file upload field. Users can submit the form and upload the JSON file to be processed by the <span class='post'>POST</span> route. As a result the content of the map list should be updated with the content of the uploaded file.</p>
+</li>
+</ol>
+<p><span style="font-style: italic; ">Please list in the <code>README.md</code> file the optional features you implemented.</span></p>
+<section class="topics">
+
+<h2 id="mastery-check-topics">Mastery Check Topics</h2>
+<p>Solving this exercise will demonstrate mastery for the following topics:</p>
+<ul>
+<li>3. JavaScript<ul>
+<li>3.4. Modules</li>
+<li>3.5. Callbacks</li>
+</ul>
+</li>
+<li>4. APIs<ul>
+<li>4.2. Server<ul>
+<li>4.2.4. Express<ul>
+<li>4.2.4.1. Routing</li>
+<li>4.2.4.2. Middleware</li>
+<li>4.2.4.3. Request Body</li>
+<li>4.2.4.4. File Upload</li>
+<li>4.2.4.5. JSON response</li>
+<li>4.2.4.6. View Rendering</li>
+</ul>
+</li>
+<li>4.2.5. EJS<ul>
+<li>4.2.5.1. Placeholders</li>
+<li>4.2.5.2. Escaped Placeholders</li>
+<li>4.2.5.3. Includes</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>5. Networking<ul>
+<li>5.1. HTTP<ul>
+<li>5.1.1. Request/Response</li>
+<li>5.1.2. URL</li>
+<li>5.1.3. Headers<ul>
+<li>5.1.3.1. Accept/Content-Type</li>
+</ul>
+</li>
+<li>5.1.4. Methods<ul>
+<li>5.1.4.1. <span class='get'>GET</span></li>
+<li>5.1.4.2. <span class='post'>POST</span></li>
+<li>5.1.4.3. <span class='put'>PUT</span></li>
+<li>5.1.4.4. <span class='delete'>DELETE</span></li>
+<li>5.1.4.5. <span class='patch'>PATCH</span></li>
+</ul>
+</li>
+<li>5.1.5. Status Codes</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>6. Development Tools<ul>
+<li>6.2. Server and Command Line Tools<ul>
+<li>6.2.1. Console</li>
+<li>6.2.2. npm, yarn, pnpm, bun</li>
+<li>6.2.3. Dependency Management with package.json</li>
+</ul>
+</li>
+<li>6.4. HTTP Client Tools<ul>
+<li>6.4.1. Postman</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+
+
+<h2 id="questions">Questions?</h2>
+<p>Please post them on our <a href="https://stackoverflowteams.com/c/usi-web-atelier/questions/ask?tags=ex5">private StackOverflow</a> using the <code>ex5</code> tag.</p>
+<footer></footer></body></html>

@@ -1,0 +1,20 @@
+<!--
+
+    Web Atelier 2023  Exercise 5 - Web Apps with Express.js
+
+    Student: __STUDENT NAME__
+
+    <select> Template
+
+    list: array of values to be listed as <option> elements
+    value: value to be selected
+    id: id of the select element
+    name: name of the select element (optional)
+
+-->
+
+<select name="<%=locals.name||id%>" id="<%=id%>">
+<%list.forEach(i=>{%>
+<option value="<%=i%>" <%- value==i ? "selected" : ""%>><%=i%></option>
+<%})%>
+</select>
