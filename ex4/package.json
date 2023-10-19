@@ -11,6 +11,7 @@
     "watch:test": "mocha -w -min --delay=2000"
   },
   "dependencies": {
+    "canvas": "^2.11.2",
     "fs-extra": "^11.1.1"
   },
   "devDependencies": {

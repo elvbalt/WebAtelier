@@ -19,6 +19,8 @@ let site_path = "./public";
 //load the script module (Task 3)
 const script = require('./script-module');
 
+const { createCanvas, loadImage } = require('canvas')
+
 
 let content_types = {
     "html": "text/html",
@@ -173,7 +175,33 @@ function renderTile(pathname, response) {
     let x = path[4];
     let y = path[5].split(".")[0];
 
+    const canvas = createCanvas(256, 256);
+    const context = canvas.getContext("2d");
 
+    context.strokeStyle='blue'
+    context.font = '24px arial'
+    context.lineWidth= 3
+    context.strokeRect(0, 0, canvas.width, canvas.height)
+
+    if (what == 'test'){ //task 5 
+        let yP = 30
+        context.fillText(`${pathname}`, 10, yP)
+        yP += 50;
+        context.fillStyle = 'blue';
+        context.fillText(`z = ${z}`, 10, yP);
+        yP += 30
+        context.fillStyle = 'red';
+        context.fillText(`x = ${x}`, 10, yP);
+        yP += 30
+        context.fillStyle = 'green';
+        context.fillText(`y = ${y}`, 10, yP);
+
+        response.writeHead(200, { 'Content-Type': 'image/png' });
+        canvas.createPNGStream().pipe(response)
+    }
+
+    
+    
 }
 
 
