@@ -2,7 +2,7 @@
 
 If you can read this file on your computer, you have successfully checked out the skeleton of the first Exercise.
 
-Write your full name here: ________
+Write your full name here: ELVIRA BALTASAR
 
 In case you work in pair, write the name of both students here:
 
@@ -38,3 +38,4 @@ Important: If you do not use the __exact commit message__ shown above we will no
 
 Please write below which optional tasks you have completed.
 
+I have done task 4, 5 and 6.

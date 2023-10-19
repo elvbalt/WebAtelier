@@ -93,32 +93,13 @@ function sendFile(pathname, response) {
 
         let fileExtension = pathname.split('.').pop();
 
-        let contentType = getContentType(fileExtension);
+        let contentType = content_types[fileExtension];
 
-        let header = {
-            'Content-Type': contentType,
-        };
-
-        response.writeHead(200, header);
+        response.writeHead(200, { 'Content-Type': contentType });
 
         file.pipe(response);
 
     });
-}
-
-function getContentType(fileExtension) {
-    // Mapea las extensiones de archivo a tipos MIME
-    const contentTypeMap = {
-        html: 'text/html',
-        css: 'text/css',
-        js: 'text/javascript',
-        jpeg: 'image/jpeg',
-        png: 'image/png',
-        ttf: 'font/ttf'
-    };
-
-    // Devuelve el tipo MIME correspondiente
-    return contentTypeMap[fileExtension];
 }
 
 /**
@@ -252,8 +233,6 @@ function onrequest(request, response) {
         renderTile(pathname, response);
     } else {
         sendFile(pathname, response);
-        /*response.writeHead(404); //not found
-        response.end();*/
         }
 }
 
