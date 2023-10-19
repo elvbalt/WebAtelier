@@ -1,0 +1,68 @@
+<!--
+
+    Web Atelier 2023  Exercise 5 - Web Apps with Express.js
+
+    Student: __STUDENT NAME__
+
+    Task 5.  Map Editor
+
+    1. Copy parts of the list.html file from the previous exercise into this template
+    2. Invoke this view template by passing the appropriate data and functions
+    3. Make sure that the form action attribute points to the corresponding routes
+
+-->
+
+
+<main>
+
+    <header>
+        <h4>Title</h4>
+        <span>Thumbnail</span>
+        <span class="lat">Latitude</span>
+        <span class="lng">Longitude</span>
+        <span class="zoom">Zoom</span>
+        <span class="tiles">Tile Source</span>
+        <span class="actions">Actions</span>
+    </header>
+
+    <% maps.forEach(map=> { %>
+
+    <%
+    let fav_button = "&starf;";
+    let fav_value = "true";
+    if (!map.fav) {
+        fav_value = "false";
+        fav_button = "&star;";
+    }
+    %>
+    <section id="map-<%=map.id%>" data-mapid="<%=map.id%>">
+        <h4 class="name"><%=map.title%></h4>
+        <a href="/map/<%=map.id%>" target="view">
+           <div id="map-thumb-<%=map.id%>" class="thumb"></div>
+        </a>
+
+        <span class="lat"><%=gps2str(map.center.lat) || map.center.lat%></span>
+        <span class="lng"><%=gps2str(map.center.lng) || map.center.lng%></span>
+        <span class="zoom"><%=map.zoom%></span>
+        <span class="tiles"><%=map.tiles%></span>
+        <a href="/map/<%=map.id%>/edit" target="editor">Edit</a>
+        <form action="/map/<%=map.id%>/clone" method="POST">
+            <button>Clone</button>
+        </form>
+        <form action="/map/<%=map.id%>/fav?_method=PATCH" method="POST">
+            <input type="hidden" name="fav" value="<%=fav_value%>">
+            <button><%-fav_button%></button>
+        </form>
+        <form action="/map/<%=map.id%>?_method=DELETE" method="POST">
+            <button>Delete</button>
+        </form>
+    </section>
+
+    <%})%>
+
+</main>
+
+
+<!-- use this script to load the map list so that the thumbnails can be initialized client-side -->
+
+<script src="/maps.js"></script>
