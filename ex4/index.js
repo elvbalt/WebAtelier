@@ -21,6 +21,12 @@ const script = require('./script-module');
 
 const { createCanvas, loadImage } = require('canvas')
 
+let imagen;
+
+loadImage('imagen.jpg').then((image) =>{
+    imagen = image;
+});
+
 
 let content_types = {
     "html": "text/html",
@@ -179,7 +185,7 @@ function renderTile(pathname, response) {
     const context = canvas.getContext("2d");
 
     context.strokeStyle='blue'
-    context.font = '24px arial'
+    context.font = '24px Arial'
     context.lineWidth= 3
     context.strokeRect(0, 0, canvas.width, canvas.height)
 
@@ -198,6 +204,16 @@ function renderTile(pathname, response) {
 
         response.writeHead(200, { 'Content-Type': 'image/png' });
         canvas.createPNGStream().pipe(response)
+    }else{
+        const tileWidth = imagen.width / (2*z);
+        const tileHeight = imagen.height / (2*z);
+        const sx = x * tileWidth;
+        const sy = y * tileHeight;
+
+        context.drawImage(imagen, sx, sy, tileWidth, tileHeight, 0, 0, 256, 256);
+
+        response.writeHead(200, { 'Content-Type': 'image/png' });
+        canvas.createPNGStream().pipe(response);
     }
 
     
