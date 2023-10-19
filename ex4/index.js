@@ -182,15 +182,15 @@ function renderTile(pathname, response) {
     let y = path[5].split(".")[0];
 
     const canvas = createCanvas(256, 256);
-    const context = canvas.getContext("2d");
+    const context = canvas.getContext("2d"); //las cuadriculas
 
     context.strokeStyle='blue'
     context.font = '24px Arial'
     context.lineWidth= 3
-    context.strokeRect(0, 0, canvas.width, canvas.height)
+    context.strokeRect(0, 0, canvas.width, canvas.height) //dibuja el rectangulo de las cuadriculas
 
     if (what == 'test'){ //task 5 
-        let yP = 30
+        let yP = 30 //coordenada y
         context.fillText(`${pathname}`, 10, yP)
         yP += 50;
         context.fillStyle = 'blue';
@@ -202,22 +202,26 @@ function renderTile(pathname, response) {
         context.fillStyle = 'green';
         context.fillText(`y = ${y}`, 10, yP);
 
-        response.writeHead(200, { 'Content-Type': 'image/png' });
-        canvas.createPNGStream().pipe(response)
+        response.writeHead(200, { 'Content-Type': 'image/png' }); //escribe el https
+        canvas.createPNGStream().pipe(response) //envia el http creado como respuesta
     }else{
+        context.strokeStyle='white'
+        context.strokeRect(0, 0, canvas.width, canvas.height) //dibuja el rectangulo de las cuadriculas
+
+        //ancho y alto de la procion de la imagen q se dibujara
         const tileWidth = imagen.width / (2*z);
         const tileHeight = imagen.height / (2*z);
-        const sx = x * tileWidth;
+        //coordenada x de imagen fuente a partir de la cual
+        //se toma la porcion de imagen q se dibujara
+        const sx = x * tileWidth; 
         const sy = y * tileHeight;
 
+        //el 0, 0 posicion en el lienzo donde se dibujara la porcion de imagen 
         context.drawImage(imagen, sx, sy, tileWidth, tileHeight, 0, 0, 256, 256);
 
         response.writeHead(200, { 'Content-Type': 'image/png' });
         canvas.createPNGStream().pipe(response);
     }
-
-    
-    
 }
 
 
