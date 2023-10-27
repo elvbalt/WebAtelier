@@ -1,7 +1,7 @@
 /**
  * Web Atelier 2023  Exercise 5 - Web Apps with Express.js
  *
- * Student: __STUDENT NAME__
+ * Student: __Elvira Baltasar__
  *
  * Main Server Application
  *
@@ -37,10 +37,12 @@ app.use(multer().none());   //parse multipart/form-data
 
 // Task 2
 //TODO uncomment the following line and populate the public folder with the corresponding files
-//app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(methodOverride('_method'));
 
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 

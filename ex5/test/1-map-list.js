@@ -36,7 +36,7 @@ function makeRandomMap(title = "Random Map") {
 const should = require('should');
 const make_map_list = require("../model/map-list");
 
-describe('Task 2: Map List Model Module', function() {
+describe('Task 1: Map List Model Module', function() {
 
     let filename = makeRandomStorageKey();
 
@@ -235,6 +235,7 @@ describe('Task 2: Map List Model Module', function() {
             should(ids.length).be.equal(add);
 
             should(ids.length).be.equal(new Set(ids).size);
+
         }
         ));
 

@@ -1,10 +1,15 @@
 /**
  * Web Atelier 2023  Exercise 5 - Web Apps with Express.js
  *
- * Student: __STUDENT NAME__
+ * Student: __Elvira Baltasar__
  *
  * Task 3
  *
  */
 
 let maps = <%-JSON.stringify(maps)%>;
+
+maps.forEach( (u) => {
+    initMapThumb(u)
+})
+

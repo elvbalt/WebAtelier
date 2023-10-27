@@ -1,7 +1,7 @@
 /**
  * Web Atelier 2023  Exercise 5 - Web Apps with Express.js
  *
- * Student: __STUDENT NAME__
+ * Student: __Elvira Baltasar__
  *
  * Script Module
  *
@@ -17,6 +17,35 @@
  * @returns a string with the DMS representation of the GPS coordinate
  */
 function gps2str(gps) {
+    if (-180 > gps > 180 || isNaN(gps)){
+        return undefined;
+    }
+
+    let degrees = Math.trunc(gps);
+    
+    let minutesFloat = (gps - degrees) * 60;
+    
+    let minutes = Math.trunc(minutesFloat);
+    minutes = Math.abs(minutes);
+    let secondsFl = (Math.abs(gps) - Math.abs(degrees) - minutes/60) * 3600;
+    let seconds = Math.round(secondsFl)
+    seconds = Math.abs(seconds);
+
+    if (seconds === 60){
+        minutes++;
+        seconds = 0;
+    }
+    if (minutes === 60){
+        if (degrees < 0){
+            degrees--;
+        }else{
+            degrees++;
+        }
+
+        minutes = 0;
+    }
+  // Format the result as a string
+    return `${degrees}° ${minutes}' ${seconds}"`;
 }
 
 
@@ -29,6 +58,34 @@ function gps2str(gps) {
  */
 function parseCSV(csv, drop_header = true, only_header = false) {
     //TODO - copy from ex2
+    if (drop_header && only_header){
+        return [];
+    }
+    
+    if (typeof csv !== 'string' || Array.isArray(csv)){
+        return undefined;
+    } 
+    let a = csv.split('\n');
+
+    if(a.length > 0 && a[a.length-1] === ''){
+        a.pop();
+    }
+
+    let res = [];
+
+    if (only_header) { 
+        return a[0].split(',');
+    }
+
+    for (let i = 0; i<a.length; i++){
+        const value = a[i].split(',');
+        res.push(value);
+    }
+
+    if (drop_header){
+        res.shift();
+    }
+    return res;
 }
 
 /**
@@ -106,4 +163,10 @@ const URL_static_formatter = {
 //TODO complete so that the functions and objects can be used outside the module in Tasks 3 or 4
 module.exports = {
     gps2str,
-    parseCSV}
+    parseCSV,
+    getDistinctValues,
+    renderCountryIndex,
+    renderCountryPage,
+    renderCityPage,
+    URL_dynamic_formatter,
+    URL_static_formatter}

@@ -9,4 +9,6 @@
 
 const map_list = require("./map-list")();
 
+map_list.load()
+
 module.exports = { map_list };

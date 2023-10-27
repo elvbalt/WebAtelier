@@ -3,7 +3,7 @@
  *
  * Map list model
  *
- * Student: __STUDENT NAME__
+ * Student: __ELVIRA BALTASAR__
  *
  * Task 1
  *
@@ -21,7 +21,14 @@ let make_map_list = function (filename = path.resolve("./model/maps.json")) {
 
     //private variables of the closure
     let list = [];
-
+    
+    function getNewID(){
+        let max = 0
+        list.forEach(map => {
+            if(parseInt(map.id) > max) max = parseInt(map.id)
+        })
+        return (max + 1).toString()
+    }
     /**
      * Retrieves the list of maps.
      *
@@ -39,6 +46,11 @@ let make_map_list = function (filename = path.resolve("./model/maps.json")) {
      */
     function getMap(id) {
         //TODO fill with the implementation from ex3
+        if (id == undefined || list.length == 0 || id == null){
+            return undefined;
+        }
+        
+        return list.find((element) => element.id == id.toString());
     }
 
 
@@ -51,6 +63,16 @@ let make_map_list = function (filename = path.resolve("./model/maps.json")) {
      */
     function addMap(map) {
         //TODO fill with the implementation from ex3
+        if (map.id === undefined){ 
+           
+            map.id = getNewID();
+        }
+
+        list.push(map);
+
+        save();
+
+        return map;
     }
 
     /**
@@ -63,6 +85,19 @@ let make_map_list = function (filename = path.resolve("./model/maps.json")) {
     function cloneMap(id) {
         //TODO fill with the implementation from ex3
         //     make sure it performs a deep copy of the map object
+        if (getMap(id) === undefined){
+            return undefined;
+        }
+
+        //let map2 ={...getMap(id)}; // when you add property to the object, it doesn´t create a correct copy, so you need to use deep copy
+        let map2 = JSON.parse(JSON.stringify(getMap(id)));
+        map2.id = undefined;
+
+        addMap(map2);
+
+        save();
+
+        return map2;
     }
 
     /**
@@ -77,6 +112,18 @@ let make_map_list = function (filename = path.resolve("./model/maps.json")) {
      */
     function replaceMap(id, map) {
         //TODO fill with the implementation from ex3
+        if (id === undefined){
+            addMap(map);
+        }
+        let m = list.findIndex((element) => element.id === id.toString());
+        if (m === -1){
+            addMap(map);
+        }
+        
+        map.id = id;
+        list.splice(m, 1, map);
+
+        save();
     }
 
     /**
@@ -87,6 +134,16 @@ let make_map_list = function (filename = path.resolve("./model/maps.json")) {
      */
     function deleteMap(id) {
         //TODO fill with the implementation from ex3
+        if (id === undefined){
+            return undefined;
+        }
+        let m = list.findIndex((element) => element.id === id.toString());
+        if (m === -1){
+            return undefined;
+        }
+        //_id = Math.min(list[m].id, _id);
+        list.splice(m, 1);
+        save();
     }
 
     /**
@@ -98,6 +155,13 @@ let make_map_list = function (filename = path.resolve("./model/maps.json")) {
      */
     function toggleFav(id) {
         //TODO fill with the implementation from ex3
+        if (id === undefined || getMap(id) === undefined){
+            return undefined;
+        }
+
+        let fav = getMap(id).fav;
+        getMap(id).fav = !fav;
+        save();
     }
 
     /**
@@ -114,6 +178,8 @@ let make_map_list = function (filename = path.resolve("./model/maps.json")) {
      */
     function save() {
         //TODO complete using fs.writeJSONSync
+
+        fs.writeJSONSync(filename, list)
     }
 
     /**
@@ -122,6 +188,14 @@ let make_map_list = function (filename = path.resolve("./model/maps.json")) {
      */
     function load() {
         //TODO complete using fs.readJSONSync
+        //si el json es invalido solo devuelve null y ya con { throws: false }
+        let obj = fs.readJSONSync(filename, { throws: false }) 
+        if (obj != null && obj != undefined && obj.length > 0){
+            list = obj
+        }
+
+
+        //console.log(list)
     }
 
     /**
@@ -138,7 +212,7 @@ let make_map_list = function (filename = path.resolve("./model/maps.json")) {
      * The data is expected by the tests and should not be changed.
      */
     function reset() {
-        _id = 25;
+        //_id = 25;
         list = [
             {
                 "zoom": 7,
@@ -389,7 +463,8 @@ let make_map_list = function (filename = path.resolve("./model/maps.json")) {
         replaceMap,
         deleteMap,
         cloneMap,
-        toggleFav
+        toggleFav,
+        getNewID
     }
 
 }

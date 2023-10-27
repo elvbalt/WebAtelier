@@ -108,13 +108,13 @@ describe('Task 2: Static Web Server', function() {
     });
 
 
-    it('GET /js/script.js should respond with 200, Content-Type: text\/javascript', function(done) {
+    it('GET /js/script.js should respond with 200, Content-Type: application\/javascript', function(done) {
 
         request
             .get('/js/script.js')
             .send()
             .expect(200)
-            .expect('Content-Type', /text\/javascript.*/)
+            .expect('Content-Type', /application\/javascript.*/)
             .end(done);
 
     });

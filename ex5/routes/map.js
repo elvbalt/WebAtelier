@@ -1,7 +1,7 @@
 /**
  * Web Atelier 2023  Exercise 5 - Web Apps with Express.js
  *
- * Student: __STUDENT NAME__
+ * Student: __ELVIRA BALTASAR__
  *
  * /map router
  *
@@ -20,11 +20,20 @@ let { map_list } = require("../model");
 router.get("/", (req, res) => {
 
     console.log(map_list.getMaps());
-
+    res.render("map-list",{ maps: map_list.getMaps(), gps2str: script.gps2str });
 
 });
 
+router.get("/:id", (req, res) => {
+    let mapita = map_list.getMap(req.params.id);
 
+    if (mapita == undefined) {
+        res.sendStatus(404);
+        return;
+    }
+
+    res.render("map-view", {map : mapita})
+});
 
 /**
  * Example route for the PATCH /map/:id request

@@ -1,7 +1,7 @@
 /**
  * Web Atelier 2023  Exercise 5 - Web Apps with Express.js
  *
- * Student: __STUDENT NAME__
+ * Student: __Elvira Baltasar__
  *
  * /map router
  *
@@ -23,7 +23,17 @@ router.get("/maps.js", (req, res) => {
 
 });
 
+
+
+
+
 router.get("/map/:id/map.js", (req, res) => {
+
+    res.render("map-script.ejs",{ map: map_list.getMap(req.params.id) });
+
+});
+
+router.get("/map/:id", (req, res) => {
 
     res.render("map-script.ejs",{ map: map_list.getMap(req.params.id) });
 
