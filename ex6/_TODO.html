@@ -1,0 +1,501 @@
+<html><head><title>exercises/6-mongodb</title><link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Fira+Sans|Fira+Mono"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.0/build/styles/default.min.css"><style>body,* {font-family: "Fira Sans";scroll-behavior: smooth;}body {margin: 1em;}#usi-logo {width: 75px;height: 75px;}header {display: flex;align-content: space-between;width: 100%;justify-items: center;}header ul {list-style: none;}header .title {flex: 1;margin-left: 1em;}html {min-height: 100vh;}pre,code {font-family: "Fira Mono"}pre {background: rgb(202, 227, 255);padding: 1em;}td {text-align: center}td:last-child {text-align: left;}th {font-weight: normal;color: rgb(0, 61, 131);}thead {border-bottom: 2px solid rgb(202, 227, 255);}table {width: 100%}table tr:hover {background-color: rgb(151, 195, 236);}span.task {display: inline-flex;border-radius: 50%;border: 1px solid white;background: #ffbc00;width: 4em;height: 4em;justify-content: center;align-items: center;font-weight: normal;margin-top: 2em;}.deadline {text-align: right;}p.deadline {font-size: 2em;}.deadline b {border-bottom: 1px solid black;}span.get {font-weight: bold; color: #43a047;}span.post {font-weight: bold; color: #F3C142;}span.delete {font-weight: bold; color: #FF0000;}span.put {font-weight: bold; color: #4a90e2;}span.patch {font-weight: bold; color: #666666;}section.submit,section.topics {border: 1px dashed rgb(202, 227, 255);padding: 1em;padding-top: 0;border-right: 1em solid rgb(202, 227,255);border-left: 1em solid rgb(202, 227,255);}section.topics {margin-top: 5em;margin-bottom: 3em;border-color: #00b2ff;}section.examples {border: 2px dashed rgb(202, 227, 255);padding: 1em;padding-bottom: 0;}section.examples:before {content: "Examples";text-shadow: 0 0 1em #6aa9f0;font-weight: bold;}section.loc {border: 2px dashed rgb(20, 227, 255);background: rgba(20, 227, 255, 0.1);padding: 1em;padding-bottom: 1em;font-weight: bold;}section.loc:before {content: "Lines of Code of the solution: ";font-weight: normal;}</style></head><body><header>    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="usi-logo" x="0px" y="0px" width="200" height="200" viewBox="0 0 200 200" style="enable-background:new 0 0 200 200;" xml:space="preserve" class="injected-svg svg"><g><path d="M180,41.7h-51.1V31.1h42.2C153.1,12.5,127.8,1,99.9,1C45.2,1.1,0.9,45.4,1,100.1c0,26.8,10.7,51.1,28.1,68.9   c-1.4-2-2.4-4.1-3-6.1c-1-3.5-1-5.9-1.1-15.8v-47.1h14.8v48.5c0,3.4-0.1,6.6,1,9.6c3,7.6,11.3,8.5,16,8.5c2.3,0,8.3-0.1,12.6-3.9   c4.4-3.9,4.4-8.4,4.4-15v-47.7h14.9v49.7c-0.1,8.9-0.1,16.3-8.5,23.5c-8,7-18.4,7.7-23.8,7.7c-4.8,0-9.5-0.6-14-2.1   c-1.8-0.6-3.5-1.4-5-2.3c17.1,14,39,22.4,62.8,22.4c54.7-0.1,99-44.4,98.9-99.1C199,78.1,191.9,58,180,41.7z M175.3,94.4l-6.3-9   c2.1-1.4,8.7-5.7,8.7-17.7c0-2-0.2-4.1-1-6.2c-1.7-4.1-4.6-4.9-6.6-4.9c-3.6,0-4.9,2.5-5.7,4.3c-0.5,1.3-0.6,1.5-1.8,6.6l-1.5,6.9   c-0.9,3.6-1.3,5.4-2,7.2c-1.1,2.6-4.5,9.6-14,9.6c-10.9,0-17.8-9.2-17.8-22.6c0-12.3,6.1-19,11.6-23l6.6,8.8   c-2.8,1.9-8.5,5.7-8.5,14.8c0,5.8,2.6,10.8,7,10.8c4.9,0,5.8-5.3,6.8-10.5l1.3-5.9c1.6-7.7,4.8-18.6,17-18.6   c13.1,0,18.4,12.2,18.4,24.3c0,3.2-0.3,6.7-1.3,10.2C185.1,83.4,182.3,90.1,175.3,94.4z"></path></g></svg><div class="title"><h2>Web Atelier 2023</h2><h1>Exercise  6 - Persistent Web Apps and APIs with MongoDB</h1></div><div class="deadline"><p>26.10.2022</p><p class="deadline">Deadline: <b>3.11.2022</b></p></div><ul><li>Prof. Cesare Pautasso</li><li>Souhaila Serbout</li><li>Hassan Atwi</li><li>Diana Carolina Mu&ntilde;oz Hurtado</li><li>Joey Bevilacqua</li><li>Edoardo Riggio</li><li>Jacopo Di Ventura</li><li>Hun Rim</li></ul></header><h1 id="goal">Goal</h1>
+<p>The goal of these exercises is to become familiar with MongoDB as an object-oriented database to store persistently the state of your Web application. </p>
+<p>As opposed to the previous assignment, where the maps were stored into a JSON file, in this exercise you will replace the file system with the database.</p>
+<p>Building onto the previous assignment, where the maps were rendered into HTML and edited using forms, in this exercise you will make the objects stored in the database <strong>also</strong> directly accessible from the Web server using their JSON representation. In other words, you will build a Web API, which will be connected to the front-end of your application in the next assignments.</p>
+<h2 id="getting-started">Getting started</h2>
+<ol>
+<li>Install the missing dependencies<pre><code>yarn install
+yarn add [module]
+</code></pre>
+</li>
+<li>Start the server with<pre><code>yarn start
+</code></pre>
+</li>
+</ol>
+<section class="submit">
+
+<h2 id="submitting-your-solution">Submitting your solution</h2>
+<p>Your project solution <strong>should</strong> be commited <strong>and pushed</strong> to your github repository. </p>
+<p>Make sure your name is written in every file you submit, including the <code>README.md</code>. Anonymous solutions will not be graded.</p>
+<p>See the <code>README.md</code> file for more details on how to commit <strong>and push</strong> your solution.</p>
+<p>Use the special commit message <code>&quot;completed ex6, please check&quot;</code> <strong>only once</strong> when you have completed the assignment and would like to submit it to be corrected.</p>
+</section>
+
+
+<h2 id="automated-tests">Automated tests</h2>
+<p>As you develop your code, please run the automated tests to check your solution. Only submit solutions which pass as many tests as possible. If your solution is correct but not compatible with the tests, please indicate the nature of the incompatibility in the <code>README.md</code> with as much detail as possible.</p>
+<p>Thank you in advance for <a href="https://stackoverflowteams.com/c/usi-web-atelier/questions/ask?tags=ex6,test&amp;title=Test%20Bug%20Report...">reporting any bugs in the tests</a>.</p>
+<h4 id="getting-started-1"><strong>Getting Started</strong>:</h4>
+<p>To install the dependencies for the tests use:</p>
+<pre><code class="language-bash">yarn install
+yarn add [module]
+</code></pre>
+<p><strong>Important</strong>:</p>
+<ul>
+<li>Make sure the Web server is already started before running the test. </li>
+<li>The test assumes that your Web server listens on port 8989. </li>
+<li>The database server should also be running and listening on the default port 27017. </li>
+</ul>
+<p>If you see test failures due to <code>Error: ECONNREFUSED: Connection refused</code> it means that your Web server or database was not running at the time the test attempted to connect to it. A request sent by a test may have crashed it and subsequent tests will no longer be able to connect to it.</p>
+<h4 id="running-the-tests"><strong>Running the tests</strong>:</h4>
+<p>To run the tests use this command:</p>
+<pre><code class="language-bash">yarn run test
+</code></pre>
+<p>You can check the results on the terminal.</p>
+<p>The tests for the /map router depend on the results of previous tests. For example, before a map can be listed it should be created. All maps created during the test are deleted at the end. <mark>This means that you should first build the code for the solution and then self-check it using the tests.</mark></p>
+<p>If you would like to run all tests for a specific task, use one of the commands:</p>
+<pre><code class="language-bash">yarn run test --grep &quot;Database&quot;
+yarn run test --grep &quot;API&quot;
+yarn run test --grep &quot;/map&quot;
+</code></pre>
+<h2 id="orientation">Orientation</h2>
+<p>The required tasks of this assignment should mainly affect the following files:</p>
+<pre><code>model/map-list-db.js
+routes/map.js
+views/*.ejs
+</code></pre>
+<ol>
+<li>Task 1 should focus on the new <code>model/map-list-db.js</code> so that it uses the database.</li>
+<li>Task 2 should focus on modifying the existing routes of <code>routes/map.js</code> and views developed in <code>ex5</code> so that they <code>await</code> the promises returned by the new model.</li>
+<li>Task 3 should focus on extending the routes of <code>routes/map.js</code> so that they can send and receive JSON payloads.</li>
+</ol>
+<p>For the optional tasks you can decide whether it is useful to add additional source files.</p>
+<h2 id="task---map-model"><span class='task'>Task 1.</span>  Map Model</h2>
+<p>Replace your model from <code>ex5</code> which was stored in memory and persisted using a JSON file with an implementation using the database.</p>
+<ol>
+<li>Complete the map list model module:</li>
+</ol>
+<pre><code>model/map-list-db.js
+</code></pre>
+<p>The interface for these functions remains identical* as the one from <code>ex5</code>:</p>
+<pre><code>getMaps()
+getMap(id)
+addMap(map)
+cloneMap(id)
+replaceMap(id, map)
+deleteMap(id)
+toggleFav(id)
+count()
+reset()
+clear()
+</code></pre>
+<p>*) apart from the fact that they now return Promises.</p>
+<p>The following functions are no longer needed, as every function above will query the database.</p>
+<pre><code>save()
+load()
+</code></pre>
+<p>Note: map object identifiers are automatically set by the database. The identifiers passed as <code>id</code> parameter are strings and should be converted to <code>ObjectID(id)</code> where necessary. Identifiers embedded within the returned objects do not have to be converted back to strings, as this happens automatically when rendering them to HTML or JSON.</p>
+<p>The map list model will be used in the following tasks to manage the collection of maps stored on the database by mapping each of its functions to a different HTTP method + URL combination. </p>
+<p>Check that the <code>app.js</code> is calling the <code>connect</code> function so that the Web server connects to the database while starting. See the handson on mongodb for more information on how to start the <code>mongod</code> server.</p>
+<h2 id="task---html-views-and-routes"><span class='task'>Task 2.</span>  HTML Views and Routes</h2>
+<p>Update the previous implementation of your <code>routes/map.js</code> to use the database through the <code>map_list</code> methods.</p>
+<ol>
+<li><p>The code of the routes mapping HTTP requests onto the model operations should not change from the <code>ex5</code> solution, apart from taking into account the following:</p>
+<ul>
+<li>The code for handling the objects retrieved from the database and preparing the responses should be deal with the promises delivering the database results. (Hint: <code>await</code>).</li>
+<li>Object identifiers are found in the <code>_id</code> field as opposed to the <code>id</code> field. This may affect your views.</li>
+</ul>
+</li>
+<li><p>Make sure that HTML views are rendered (or redirects are sent) only when clients send the <code>Accept: text/html</code> header. This way the same routes, performing the same database operations, are ready to be extended in the next task.</p>
+<pre><code><span class='get'>GET</span>    /map                 200
+<span class='get'>GET</span>    /map/new             200
+<span class='post'>POST</span>   /map                 302 Location: /map/:nid
+<span class='get'>GET</span>    /map/:id             200
+<span class='get'>GET</span>    /map/:id/edit        200
+<span class='put'>PUT</span>    /map/:id             302 Location: /map/:id
+<span class='delete'>DELETE</span> /map/:id             302 Location: /map?msg=Map+deleted
+<span class='patch'>PATCH</span>  /map/:id/fav         302 Location: /map/:id
+<span class='post'>POST</span>   /map/:id/clone       302 Location: /map/:nid
+</code></pre>
+<p> Where <code>:nid</code> is the identifier of the new or cloned map.</p>
+<p> Your routes now using the database should pass the regression tests of the previous <code>ex5</code>.</p>
+</li>
+</ol>
+<h2 id="task---map-api"><span class='task'>Task 3.</span>  Map API</h2>
+<p>The Application Programming Interface (API) should publish at least the following routes:</p>
+<pre><code><span class='get'>GET</span>    /map
+<span class='post'>POST</span>   /map
+<span class='get'>GET</span>    /map/:id
+<span class='put'>PUT</span>    /map/:id
+<span class='delete'>DELETE</span> /map/:id
+<span class='patch'>PATCH</span>  /map/:id/fav
+<span class='post'>POST</span>   /map/:id/clone
+</code></pre>
+<p>All routes should accept and produce content represented in JSON (and where required by the previous assignments also HTML) formats. Use the <code>Accept</code> header of the request to distinguish which format is expected by the client.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Request Parameters</th>
+<th>Request body</th>
+<th>Status Code</th>
+<th>Response</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code><span class='get'>GET</span></code></td>
+<td><code>/map</code></td>
+<td></td>
+<td></td>
+<td>200</td>
+<td>Array of all map objects stored in the database</td>
+</tr>
+<tr>
+<td><code><span class='post'>POST</span></code></td>
+<td><code>/map</code></td>
+<td></td>
+<td>The new map to be added</td>
+<td>201</td>
+<td>The map object together with its identifier</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>400</td>
+<td>Empty response (if the map object is invalid)</td>
+</tr>
+<tr>
+<td><code><span class='get'>GET</span></code></td>
+<td><code>/map/:id</code></td>
+<td><code>:id</code> existing map identifier</td>
+<td></td>
+<td>200</td>
+<td>The map object</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>404</td>
+<td>Empty response (if the map does not exist with the given identifier)</td>
+</tr>
+<tr>
+<td><code><span class='put'>PUT</span></code></td>
+<td><code>/map/:id</code></td>
+<td><code>:id</code> map identifier</td>
+<td>the new or updated map</td>
+<td>200</td>
+<td>The updated map (if the map already exists)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>201</td>
+<td>The newly created map (if the map did not already exists)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>400</td>
+<td>Empty response (if the map object is invalid)</td>
+</tr>
+<tr>
+<td><code><span class='delete'>DELETE</span></code></td>
+<td><code>/map/:id</code></td>
+<td><code>:id</code> existing map identifier</td>
+<td></td>
+<td>204</td>
+<td>Empty response (if the map existed before deleting it)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>404</td>
+<td>Empty response (if the map does not exist with the given identifier)</td>
+</tr>
+<tr>
+<td><code><span class='patch'>PATCH</span></code></td>
+<td><code>/map/:id/fav</code></td>
+<td><code>:id</code> existing map identifier</td>
+<td></td>
+<td>200</td>
+<td>The updated map (if the map already exists)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>404</td>
+<td>Empty response (if the map does not exist with the given identifier)</td>
+</tr>
+<tr>
+<td><code><span class='post'>POST</span></code></td>
+<td><code>/map/:id/clone</code></td>
+<td><code>:id</code> existing map identifier</td>
+<td>empty request body</td>
+<td>200</td>
+<td>The cloned map (if the map already exists)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>404</td>
+<td>Empty response (if the map does not exist with the given identifier)</td>
+</tr>
+</tbody></table>
+<p>The map objects sent <em>and received</em> by the above routes as JSON strings have the following structure.</p>
+<pre><code>{
+  &quot;title&quot;: &#39;Random Map&#39;,
+  &quot;zoom&quot;: 17,
+  &quot;tiles&quot;: &#39;natgeo&#39;,
+  &quot;center&quot;: { &quot;lat&quot;: -50.23954483795166, &quot;lng&quot;: -77.40301128977565 }
+}
+</code></pre>
+<p>The <code><span class='post'>POST</span> /map</code>, <code><span class='put'>PUT</span> /map/:id</code> routes should remain compatible with the &quot;flat&quot; object structure sent by HTML forms. Hint: if the &quot;lat&quot; or &quot;lng&quot; fields are not found in the &quot;req.body&quot;, look for the corresponding values in the &quot;req.body.center&quot; object.</p>
+<h2 id="task---markers-api"><span class='task'>Task 4.</span>  Markers API</h2>
+<p>Read the <strong>already implemented</strong> routes and model code of the markers API and look for useful code snippets to solve the previous tasks.</p>
+<pre><code><span class='get'>GET</span> /map/:mid/marker
+<span class='post'>POST</span> /map/:mid/marker
+<span class='get'>GET</span> /map/:mid/marker/:id
+<span class='put'>PUT</span> /map/:mid/marker/:id
+<span class='delete'>DELETE</span> /map/:mid/marker/:id
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Request Parameters</th>
+<th>Request body</th>
+<th>Status Code</th>
+<th>Response</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code><span class='get'>GET</span></code></td>
+<td><code>/map/:mid/marker</code></td>
+<td><code>:mid</code> existing map identifier</td>
+<td></td>
+<td>200</td>
+<td>Array with markers object for the given map</td>
+</tr>
+<tr>
+<td><code><span class='post'>POST</span></code></td>
+<td><code>/map/:mid/marker</code></td>
+<td><code>:mid</code> existing map identifier</td>
+<td>marker object</td>
+<td>200</td>
+<td>The added marker object (if the map already exists)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>400</td>
+<td>Empty response (if the marker object is invalid)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>404</td>
+<td>Empty response (if the map does not exist with the given identifier)</td>
+</tr>
+<tr>
+<td><code><span class='get'>GET</span></code></td>
+<td><code>/map/:mid/marker/:id</code></td>
+<td><code>:mid</code> existing map identifier</td>
+<td></td>
+<td>200</td>
+<td>The marker object (if the marker already exists)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td><code>:id</code> existing marker identifier</td>
+<td></td>
+<td>404</td>
+<td>Empty response (if the map does not exist with the given identifier)</td>
+</tr>
+<tr>
+<td><code><span class='put'>PUT</span></code></td>
+<td><code>/map/:mid/marker/:id</code></td>
+<td><code>:mid</code> existing map identifier</td>
+<td>marker object</td>
+<td>200</td>
+<td>The added marker object (if the map already exists)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td><code>:id</code> existing marker identifier</td>
+<td></td>
+<td>400</td>
+<td>Empty response (if the marker object is invalid)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>404</td>
+<td>Empty response (if the marker does not exist with the given identifier)</td>
+</tr>
+<tr>
+<td><code><span class='delete'>DELETE</span></code></td>
+<td><code>/map/:mid/marker/:id</code></td>
+<td><code>:mid</code> existing map identifier</td>
+<td></td>
+<td>204</td>
+<td>The existing marker object has been deleted</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td><code>:id</code> existing marker identifier</td>
+<td></td>
+<td>404</td>
+<td>Empty response (if the marker does not exist with the given identifier)</td>
+</tr>
+</tbody></table>
+<p>The marker objects sent and received by these routes have the following structure:</p>
+<pre><code>{
+  title: &#39;USI Campus East&#39;,
+  type: &#39;school&#39;,
+  location: { lat: 46.011881806666494, lng: 8.960978814147682 }
+  hue: 229,
+  map_id: &#39;653a3adbb8a28f69542295b4&#39;
+}
+</code></pre>
+<p>We will call these routes from the front-end using <code>fetch</code> in the next assignments.</p>
+<h2 id="task----optional-features"><span class='task'>Task 5.</span>  &starf;&starf;&star; Optional Features</h2>
+<p>Once you solved the assignments and the tests are green, make a copy into the <code>ex6opt</code> folder and extend it to build the following optional requirements. Submit the original copy which passes the tests along with the extension.</p>
+<p>For bonus points, implement at least <em>one</em> (or <em>two</em> when working in pairs) of the following:</p>
+<ol>
+<li><p>Augment the objects stored in the database with additional fields tracking the time when the objects were created (with <span class='post'>POST</span>) or modified (with <span class='put'>PUT</span> or <span class='patch'>PATCH</span>) so that when reading the objects, they contain:</p>
+<pre><code>{
+&quot;title&quot;: &#39;Random Map&#39;,
+&quot;zoom&quot;: 17,
+&quot;tiles&quot;: &#39;natgeo&#39;,
+&quot;center&quot;: { &quot;lat&quot;: -50.23954483795166, &quot;lng&quot;: -77.40301128977565 },
+&quot;createdAt&quot;:  ISODate(&quot;2023-10-24T21:42:13.815Z&quot;),
+&quot;updatedAt&quot;: ISODate(&quot;2023-10-25T21:42:13.815Z&quot;)
+}
+</code></pre>
+</li>
+<li><p>Augment the objects returned from the API with additional fields calculated from the values stored in the database. These fields should not be stored in the database, but added by the routes before the objects are sent out in the response. For example, using the <code>gps2str</code> function:</p>
+<pre><code>{
+&quot;title&quot;: &#39;Random Map&#39;,
+&quot;zoom&quot;: 17,
+&quot;tiles&quot;: &#39;natgeo&#39;,
+&quot;center&quot;: { &quot;lat&quot;: -50.23954483795166, &quot;lng&quot;: -77.40301128977565 }
+&quot;center_str&quot;: { &quot;lat&quot;: &quot;-50&deg; 14&#39; 22\&quot;&quot;, &quot;lng&quot;: &quot;-77&deg; 24&#39; 11\&quot;&quot; }
+}
+</code></pre>
+</li>
+<li><p>Extend the <code><span class='get'>GET</span> /map</code> route with query parameters to filter the maps as follows:</p>
+<pre><code><span class='get'>GET</span> /map?title=X
+<span class='get'>GET</span> /map?tiles=T
+<span class='get'>GET</span> /map?zoom=N
+<span class='get'>GET</span> /map?fav=true
+<span class='get'>GET</span> /map?zoom=N&amp;tiles=natgeo&amp;title=X&amp;fav=false
+</code></pre>
+<p> Where N is a positive integer, X is a string, T one of the tile strings.</p>
+<p> Use a <strong>single</strong> database query to retrieve maps matching any query parameter combination.</p>
+</li>
+<li><p>Switch database server</p>
+<p> While you can develop and test your Web application using the local database server, we have set up a database server in the Cloud which can store the &quot;production&quot; data, shared by multiple users.</p>
+<p> Replace the connection string in the <code>model/index.js</code> with the following</p>
+<pre><code>mongodb+srv://db_user:mF14Cac1Jfvg2wZz@cluster0.x6zd3.mongodb.net/Feedback?retryWrites=true&amp;w=majority
+</code></pre>
+<p> Check that your application still works, the tests are green, and that you can access data shared from other students.</p>
+</li>
+</ol>
+<h2 id="task----optional-features-1"><span class='task'>Task 6.</span>  &starf;&starf;&starf; Optional Features</h2>
+<p>For even more bonus points, in addition to the above tasks, implement at least <em>one</em> (or <em>two</em> when working in pairs) of the following:</p>
+<ol>
+<li><p>Store, update and display in the database a counter tracking how many times each map was displayed from the route</p>
+<pre><code><span class='get'>GET</span> /map/:id
+</code></pre>
+<p> The counter should be displayed on both the map and the map list pages, as well as added to the map object with the field <code>viewCount</code>.</p>
+<p> Hint: use the <a href="https://www.mongodb.com/docs/manual/reference/operator/update/inc/#mongodb-update-up.-inc"><code>$inc</code></a> update operator.</p>
+</li>
+<li><p>Extend the <code><span class='get'>GET</span> /map</code> API routes to use <a href="https://www.microservice-api-patterns.org/patterns/structure/compositeRepresentations/Pagination.html">pagination</a>. </p>
+<pre><code><span class='get'>GET</span> /map?page
+</code></pre>
+<p> The <code>page</code> parameter indicates which page should be retrieved. Each page should contain no more than 10 elements.</p>
+<p> If more results are available beyond the current page, include a special response header <code>X-Next-page: URL</code> to point to the next page.</p>
+</li>
+<li><p>Improve the integration of the markers with the map collections by:</p>
+<ul>
+<li>returning the markers of a given map as an array nested inside the map object (<span class='get'>GET</span> /map and <span class='get'>GET</span> /map/:id)</li>
+<li>deleting all markers referring to a map when their map is deleted (<span class='delete'>DELETE</span> /map/:id)</li>
+</ul>
+</li>
+<li><p>Write a test case for checking that the results of the above &starf;&starf;&star; tasks you have implemented are correct.</p>
+</li>
+</ol>
+<p><span style="font-style: italic; ">Please list in the <code>README.md</code> file the optional features you implemented.</span></p>
+<section class="topics">
+
+<h2 id="mastery-check-topics">Mastery Check Topics</h2>
+<p>Solving this exercise will demonstrate mastery for the following topics:</p>
+<ul>
+<li>3. JavaScript<ul>
+<li>3.6. Promises<ul>
+<li>3.6.1. then</li>
+<li>3.6.2. catch</li>
+<li>3.6.3. all</li>
+</ul>
+</li>
+<li>3.7. async, await</li>
+</ul>
+</li>
+<li>4. APIs<ul>
+<li>4.2. Server<ul>
+<li>4.2.6. MongoDB Client API<ul>
+<li>4.2.6.1. find</li>
+<li>4.2.6.2. insert</li>
+<li>4.2.6.3. update</li>
+<li>4.2.6.4. replace</li>
+<li>4.2.6.5. delete</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>5. Networking<ul>
+<li>5.1. HTTP<ul>
+<li>5.1.3. Headers<ul>
+<li>5.1.3.2. Accept</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>6. Development Tools<ul>
+<li>6.3. Database Tools<ul>
+<li>6.3.1. mongod</li>
+<li>6.3.2. Compass</li>
+</ul>
+</li>
+<li>6.4. HTTP Client Tools<ul>
+<li>6.4.1. Postman</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+
+
+<h2 id="questions">Questions?</h2>
+<p>Please post them on our <a href="https://stackoverflowteams.com/c/usi-web-atelier/questions/ask?tags=ex6">private StackOverflow</a> using the <code>ex6</code> tag.</p>
+<footer></footer></body></html>
