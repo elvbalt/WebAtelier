@@ -24,6 +24,18 @@ router.get("/", (req, res) => {
 
 });
 
+router.get("/new", (req, res) => {
+
+    let mapita = { 
+        title : "default",
+        tiles : "osm",
+        center: { lat: "0", lng: "0" },
+        zoom: 2
+      }
+
+      res.render("map-view", {map : mapita, gps2str: script.gps2str})
+});
+
 router.get("/:id", (req, res) => {
     let mapita = map_list.getMap(req.params.id);
 
@@ -32,7 +44,7 @@ router.get("/:id", (req, res) => {
         return;
     }
 
-    res.render("map-view", {map : mapita})
+    res.render("map-view", {map : mapita, gps2str: script.gps2str})
 });
 
 /**

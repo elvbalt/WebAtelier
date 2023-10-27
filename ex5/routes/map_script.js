@@ -24,16 +24,7 @@ router.get("/maps.js", (req, res) => {
 });
 
 
-
-
-
 router.get("/map/:id/map.js", (req, res) => {
-
-    res.render("map-script.ejs",{ map: map_list.getMap(req.params.id) });
-
-});
-
-router.get("/map/:id", (req, res) => {
 
     res.render("map-script.ejs",{ map: map_list.getMap(req.params.id) });
 

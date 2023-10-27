@@ -7,7 +7,17 @@
  *
 */
 
-let map = <%-JSON.stringify(map)%>;
+let map_obj = <%-JSON.stringify(map)%>;
+
+
+let map = L.map("map").setView([map_obj.center.lat, map_obj.center.lng] , map_obj.zoom);
+
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+marker_layer = L.layerGroup().addTo(map);
+
 
 let layer = initMapTiles(map_obj, map);
 

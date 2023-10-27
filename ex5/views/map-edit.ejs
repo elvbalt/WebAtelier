@@ -51,7 +51,11 @@
         </header>
         <aside class="controls">
 
-            <form action="/map" method="POST">
+            if (<%map.id == -1 %>){
+                <form action="/map" method="POST">
+            }else{
+                <form action="/map/<% map.id%>/edit" method="POST">
+            }
 
                 <input id="title" type="text" name="title" value="New Map" />
                 <input id="lat" type="text" name="lat" value="46.01194069320304" />
@@ -86,10 +90,8 @@
 
     </main>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-
 </body>
 
 <script src="/maps.js"></script>
 <script src="js/map-util.js"></script>
+<script src="map/<%=map.id%>/map.js"></script>
