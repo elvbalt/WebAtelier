@@ -26,6 +26,15 @@ router.get("/maps.js", (req, res) => {
 
 router.get("/map/:id/map.js", (req, res) => {
 
+    if (req.params.id == -1){
+        let mapita = { 
+            title : "default",
+            tiles : "osm",
+            center: { lat: "0", lng: "0" },
+            zoom: 2,
+          }
+        res.render("map-script.ejs",{ map: mapita });
+    }
     res.render("map-script.ejs",{ map: map_list.getMap(req.params.id) });
 
 });

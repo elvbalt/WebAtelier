@@ -21,26 +21,22 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
-    <link rel="stylesheet" href="css/style.css" />  <!-- ex1 -->
+    <link rel="stylesheet" href="/css/style.css" />  <!-- ex1 -->
 
 </head>
 
 <body>
 
-    <!-- integrate the following elements into your own HTML page template -->
-
-    
-
     <h1 id ="titulo"> 
-        <img src="images/logo def.png" width="200"> 
+        <img src="/images/logo def.png" width="200"> 
     </h1>
     <section id="general">
         <nav> 
-            <a id="home" href="index.html">
+            <a id="home" href="/map">
                 <button id="op"> Home page </button> </a>
-            <a id="mapgal" href="list.html">
+            <a id="mapgal" href="/map">
                 <button id="op"> Map gallery </button> </a>
-            <a id="marker" href="editor.html">
+            <a id="marker" href="/map/new">
                 <button id="opa"> Marker editor </button> </a>
         </nav> 
 
@@ -51,16 +47,17 @@
         </header>
         <aside class="controls">
 
-            if (<%map.id == -1 %>){
+            <% if (map.id == -1){ %>
                 <form action="/map" method="POST">
-            }else{
-                <form action="/map/<% map.id%>/edit" method="POST">
-            }
+            <% }else{ %>
+                <form action="/map/<% map.id%>/edit" method="PUT">
+            <% } %>
 
-                <input id="title" type="text" name="title" value="New Map" />
-                <input id="lat" type="text" name="lat" value="46.01194069320304" />
-                <input id="lng" type="text" name="lng" value="8.961061835289003" />
+                <input id="title" type="text" name="title" placeholder="<%=map.title%>"/>
+                <input id="lat" type="text" name="lat" placeholder="<%=map.center.lat%>"/>
+                <input id="lng" type="text" name="lng" placeholder="<%=map.center.lng%>" />
                 <input id="zoom" type="number" name="zoom" value="13" />
+                
                 <select name="tiles" id="tiles">
 
                     <option value="watercolor" selected>watercolor</option>
@@ -74,11 +71,15 @@
 
                 </select>
 
-                <button data-action="create">Create New Map</button>
+                <% if (map.id == -1){ %>
+                <button data-action="create" formaction="/map">Create New Map</button>
 
-                <button data-action="update">Update Map</button>
+                <% } else { %>
 
-                <button data-action="zcenter">Center Map</button>
+                <button data-action="update" formaction="/map/<%=map.id%>?_method=PUT">Update Map</button>
+
+                <% } %>
+
 
             </form>
 
@@ -92,6 +93,9 @@
 
 </body>
 
-<script src="/maps.js"></script>
-<script src="js/map-util.js"></script>
-<script src="map/<%=map.id%>/map.js"></script>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script> 
+<script src="/js/map-util.js"></script>
+<script src="/map/<%=map.id%>/map.js"></script>
+<script src="/js/map-script-stuff.js"></script>

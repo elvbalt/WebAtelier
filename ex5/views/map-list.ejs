@@ -31,16 +31,14 @@
 </head>
 <body>
 
-    <!-- You can modify the code above this line, but do not remove it -->
-
     <h1 id ="titulo"> <img src="images/logo def.png" width="200"> </h1>
     <section id="general">
         <nav> 
-            <a id="home" href="index.html">
+            <a id="home" href="/map">
                 <button id="op"> Home page </button> </a>
-            <a id="mapgal" href="list.html">
+            <a id="mapgal" href="/map">
                 <button id="opa"> Map gallery </button> </a>
-            <a id="marker" href="editor.html">
+            <a id="marker" href="/map/new">
                 <button id="op"> Marker editor </button> </a>
         </nav> 
         
@@ -78,7 +76,7 @@
         %>
         <section id="map-<%=map.id%>" data-mapid="<%=map.id%>">
             <h4 class="name"><%=map.title%></h4>
-            <a href="editor.html?id=<%=map.id%>&action=view" target="view">
+            <a href="/map/<%=map.id%>" target="view">
                <div id="map-thumb-<%=map.id%>" class="thumb"></div>
             </a>
 
@@ -86,11 +84,11 @@
             <span class="lng"><%=gps2str(map.center.lng) || map.center.lng%></span>
             <span class="zoom"><%=map.zoom%></span>
             <span class="tiles"><%=map.tiles%></span>
-            <a href="editor.html?id=<%=map.id%>&action=edit" target="editor">Edit</a>
+            <a href="/map/<%=map.id%>/edit" target="editor">Edit</a>
             <form action="/map/<%=map.id%>/clone" method="POST">
                 <button>Clone</button>
             </form>
-            <form action="/map/<%=map.id%>?_method=PATCH" method="POST">
+            <form action="/map/<%=map.id%>/fav?_method=PATCH" method="POST">
                 <input type="hidden" name="fav" value="<%=fav_value%>">
                 <button><%-fav_button%></button>
             </form>
@@ -101,6 +99,12 @@
 
         <%})%>
     </main>
+
+    <sidebar>
+        <% if (typeof msg !== 'undefined') { %>
+            <p style="color:#ffffff"><%=msg%></p>
+            <%}%>
+    </sidebar>
 
       
 

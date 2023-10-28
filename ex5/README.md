@@ -2,7 +2,7 @@
 
 If you can read this file on your computer, you have successfully checked out the skeleton of the exercise 5.
 
-Write your full name here: ________
+Write your full name here: Elvira Baltasar
 
 In case you work in pair, write the name of both students here:
 
@@ -43,3 +43,7 @@ Important: If you do not use the __exact commit message__ shown above we will no
 
 Please write below which optional tasks you have completed.
 
+I completed every task from 1 to 8
+
+In the task 1, two tests give error because they exceed the time limit.
+In task 5 a test gives error but the code works fine.

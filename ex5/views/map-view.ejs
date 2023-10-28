@@ -7,8 +7,7 @@
 
     Author: __Elvira Baltasar__
 
-    let map = <%-JSON.stringify(map)%>;
-
+                                         
 -->
 
 
@@ -33,52 +32,29 @@
     <h1 id ="titulo"> <img src="/images/logo def.png" width="200"> </h1>
     <section id="general">
         <nav> 
-            <a id="home" url="/map">
+            <a id="home" href="/map">
                 <button id="op"> Home page </button> </a>
-            <a id="mapgal" href="list.html">
+            <a id="mapgal" href="/map">
                 <button id="opa"> Map gallery </button> </a>
-            <a id="marker" href="editor.html">
+            <a id="marker" href="/map/new">
                 <button id="op"> Marker editor </button> </a>
         </nav> 
         
 
 
-<main>
+    <main>
 
-            <!-- <h1><%=map.title%></h1>
-            <h4><%=gps2str(map.center.lat) || map.center.lat%></h4>
-            <h4><%=gps2str(map.center.lng) || map.center.lng%></h4>
-            <h4><%=map.zoom%></h4>
-            <h4><%=map.tiles%></h4> -->
             <form action="/map" method = "put">
             
             <input id="title" type="text" name="title" value=<%=map.title%> />
             <input id="lat" type="text" name="lat" value=<%=gps2str(map.center.lat) || map.center.lat%> />
             <input id="lng" type="text" name="lng" value=<%=gps2str(map.center.lng) || map.center.lng%> />
             <input id="zoom" type="number" name="zoom" value="13" />
-            <select name="tiles" id="tiles">
-
-                <option value="watercolor" selected>watercolor</option>
-                <option value="osm">osm</option>
-                <option value="natgeo">natgeo</option>
-                <option value="ESRI_world_imagery">ESRI_world_imagery</option>
-                <option value="Swiss_Color">Swiss_Color</option>
-                <option value="Swiss_Imagery">Swiss_Imagery</option>
-                <option value="topo">topo</option>
-                <option value="toner">toner</option> 
-            
-            </select>
-                <button data-action="create">Create New Map</button>
-
-                <button data-action="update">Update Map</button>
-
-                <button data-action="zcenter">Center Map</button>
-
+            <input id="tiles" type="text" name="tiles" value=<%map.tiles%> />
 
 
             </form>
         <div id="map" style="width:100%; height:90%"></div>
-        <!-- <div id=" map" style="position:relative"></div> -->
 
     </main>
 
@@ -88,3 +64,4 @@
 integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>    
 <script src="/js/map-util.js"></script>
 <script src="/map/<%=map.id%>/map.js"></script>
+<script src="/js/map-script-stuff.js"></script>
