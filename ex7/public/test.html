@@ -1,0 +1,44 @@
+<!--
+    Web Atelier 2023
+    Exercise 7
+    Single-Page Web Applications with Fetch and Client-side Views
+
+    Automatic Tests
+
+    Author: __Student Name__
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Web Atelier 2023 - 7 - Single-Page Web Applications with Fetch and Client-side Views - Mocha Tests</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/mocha.css" />
+  </head>
+  <body>
+    <h1>Web Atelier 2023 - 7 - Single-Page Web Applications with Fetch and Client-side Views - Automated Tests</h1>
+    <article id="mocha"></article>
+
+    <!-- Scripts with the solution to be tested -->
+
+    <iframe src="/index.html" style="width:100%; height: 512px;"></iframe>
+
+    <script src="js/api-client.js"></script>
+    <script src="js/test/mocha.js"></script>
+    <script src="js/test/should.js"></script>
+    <script src="js/test/fast-check.js"></script>
+
+    <script class="mocha-init">
+      mocha.setup('bdd');
+      mocha.checkLeaks();
+    </script>
+
+    <!-- Script with the test cases -->
+    <script src="js/test.js"></script>
+    <script class="mocha-exec">
+      mocha.globals(['___browserSync___']);
+      mocha.run();
+    </script>
+  </body>
+</html>
