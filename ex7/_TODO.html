@@ -1,0 +1,225 @@
+<html><head><title>exercises/7-fetch</title><link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Fira+Sans|Fira+Mono"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.0/build/styles/default.min.css"><style>body,* {font-family: "Fira Sans";scroll-behavior: smooth;}body {margin: 1em;}#usi-logo {width: 75px;height: 75px;}header {display: flex;align-content: space-between;width: 100%;justify-items: center;}header ul {list-style: none;}header .title {flex: 1;margin-left: 1em;}html {min-height: 100vh;}pre,code {font-family: "Fira Mono"}pre {background: rgb(202, 227, 255);padding: 1em;}td {text-align: center}td:last-child {text-align: left;}th {font-weight: normal;color: rgb(0, 61, 131);}thead {border-bottom: 2px solid rgb(202, 227, 255);}table {width: 100%}table tr:hover {background-color: rgb(151, 195, 236);}span.task {display: inline-flex;border-radius: 50%;border: 1px solid white;background: #ffbc00;width: 4em;height: 4em;justify-content: center;align-items: center;font-weight: normal;margin-top: 2em;}.deadline {text-align: right;}p.deadline {font-size: 2em;}.deadline b {border-bottom: 1px solid black;}span.get {font-weight: bold; color: #43a047;}span.post {font-weight: bold; color: #F3C142;}span.delete {font-weight: bold; color: #FF0000;}span.put {font-weight: bold; color: #4a90e2;}span.patch {font-weight: bold; color: #666666;}section.submit,section.topics {border: 1px dashed rgb(202, 227, 255);padding: 1em;padding-top: 0;border-right: 1em solid rgb(202, 227,255);border-left: 1em solid rgb(202, 227,255);}section.topics {margin-top: 5em;margin-bottom: 3em;border-color: #00b2ff;}section.examples {border: 2px dashed rgb(202, 227, 255);padding: 1em;padding-bottom: 0;}section.examples:before {content: "Examples";text-shadow: 0 0 1em #6aa9f0;font-weight: bold;}section.loc {border: 2px dashed rgb(20, 227, 255);background: rgba(20, 227, 255, 0.1);padding: 1em;padding-bottom: 1em;font-weight: bold;}section.loc:before {content: "Lines of Code of the solution: ";font-weight: normal;}</style></head><body><header>    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="usi-logo" x="0px" y="0px" width="200" height="200" viewBox="0 0 200 200" style="enable-background:new 0 0 200 200;" xml:space="preserve" class="injected-svg svg"><g><path d="M180,41.7h-51.1V31.1h42.2C153.1,12.5,127.8,1,99.9,1C45.2,1.1,0.9,45.4,1,100.1c0,26.8,10.7,51.1,28.1,68.9   c-1.4-2-2.4-4.1-3-6.1c-1-3.5-1-5.9-1.1-15.8v-47.1h14.8v48.5c0,3.4-0.1,6.6,1,9.6c3,7.6,11.3,8.5,16,8.5c2.3,0,8.3-0.1,12.6-3.9   c4.4-3.9,4.4-8.4,4.4-15v-47.7h14.9v49.7c-0.1,8.9-0.1,16.3-8.5,23.5c-8,7-18.4,7.7-23.8,7.7c-4.8,0-9.5-0.6-14-2.1   c-1.8-0.6-3.5-1.4-5-2.3c17.1,14,39,22.4,62.8,22.4c54.7-0.1,99-44.4,98.9-99.1C199,78.1,191.9,58,180,41.7z M175.3,94.4l-6.3-9   c2.1-1.4,8.7-5.7,8.7-17.7c0-2-0.2-4.1-1-6.2c-1.7-4.1-4.6-4.9-6.6-4.9c-3.6,0-4.9,2.5-5.7,4.3c-0.5,1.3-0.6,1.5-1.8,6.6l-1.5,6.9   c-0.9,3.6-1.3,5.4-2,7.2c-1.1,2.6-4.5,9.6-14,9.6c-10.9,0-17.8-9.2-17.8-22.6c0-12.3,6.1-19,11.6-23l6.6,8.8   c-2.8,1.9-8.5,5.7-8.5,14.8c0,5.8,2.6,10.8,7,10.8c4.9,0,5.8-5.3,6.8-10.5l1.3-5.9c1.6-7.7,4.8-18.6,17-18.6   c13.1,0,18.4,12.2,18.4,24.3c0,3.2-0.3,6.7-1.3,10.2C185.1,83.4,182.3,90.1,175.3,94.4z"></path></g></svg><div class="title"><h2>Web Atelier 2023</h2><h1>Exercise  7 - Single-Page Web Applications with Fetch and Client-side Views</h1></div><div class="deadline"><p>2.11.2023</p><p class="deadline">Deadline: <b>10.11.2023</b></p></div><ul><li>Prof. Cesare Pautasso</li><li>Souhaila Serbout</li><li>Hassan Atwi</li><li>Diana Carolina Mu&ntilde;oz Hurtado</li><li>Joey Bevilacqua</li><li>Edoardo Riggio</li><li>Jacopo Di Ventura</li><li>Hun Rim</li></ul></header><h1 id="goal">Goal</h1>
+<p>In this exercise you will transform the map application into a single-page application, where the content is dynamically loaded and rendered directly in the browser.</p>
+<p>This will streamline the user experience for the following features:</p>
+<ul>
+<li>listing maps</li>
+<li>editing existing maps</li>
+<li>creating new maps</li>
+<li>deleting maps</li>
+<li>adding or removing markers from maps</li>
+<li>repositioning markers on map</li>
+<li>editing marker properties</li>
+</ul>
+<p>To do so, we will build upon the JSON API from the previous assignment.  In general, everything you have built in the past exercises should be displayed on the same page, while keeping the map and marker objects stored in the database.</p>
+<h2 id="getting-started">Getting started</h2>
+<ol>
+<li>Install the missing dependencies<pre><code>yarn install
+yarn add [module]
+</code></pre>
+</li>
+<li>Start the server with<pre><code>yarn start
+</code></pre>
+</li>
+</ol>
+<section class="submit">
+
+<h2 id="submitting-your-solution">Submitting your solution</h2>
+<p>Your project solution <strong>should</strong> be commited <strong>and pushed</strong> to your github repository. </p>
+<p>Make sure your name is written in every file you submit, including the <code>README.md</code>. Anonymous solutions will not be graded.</p>
+<p>See the <code>README.md</code> file for more details on how to commit <strong>and push</strong> your solution.</p>
+<p>Use the special commit message <code>&quot;completed ex7, please check&quot;</code> <strong>only once</strong> when you have completed the assignment and would like to submit it to be corrected.</p>
+</section>
+
+
+<h3 id="automated-tests">Automated tests</h3>
+<p>As you develop your code, please run the automated tests to check your solution. Only submit solutions which pass as many tests as possible. If your solution is correct but not compatible with the tests, please indicate the nature of the incompatibility in the <code>README.md</code> with as much detail as possible.</p>
+<p>Thank you in advance for <a href="https://stackoverflowteams.com/c/usi-web-atelier/questions/ask?tags=ex6,test&amp;title=Test%20Bug%20Report...">reporting any bugs in the tests</a>.</p>
+<p>Open the <code>test.html</code> page in a Web browser to run the tests automatically. The source of the test cases is found in <code>js/test.js</code>, you are welcome to read them but should not modify them.</p>
+<p>Note: the tests work only when serving the <code>test.html</code> page from a Web server and not when opening the page as a file. If you read the error <code>Error: SecurityError: Permission denied to access property &quot;document&quot; on cross-origin object</code> it means the <code>test.html</code> was opened as a file.</p>
+<h2 id="orientation">Orientation</h2>
+<p>The tasks of this assignment should mainly affect the following browser-side JavaScript files:</p>
+<pre><code>public/js/api-client.js
+public/js/routes.js
+</code></pre>
+<p>You may need to adapt your existing views or create additional ones inside:</p>
+<pre><code>views/*.ejs
+</code></pre>
+<p>The views should be rendered on the browser-side by using model objects fetched from the database through the API.</p>
+<p>The back-end code (<code>model/*.js</code>, <code>routes/*.js</code>) should be migrated as-is from the previous assignments.</p>
+<h1 id="requirements">Requirements</h1>
+<p>&starf;&star;&star; 0-4
+&starf;&starf;&star; 0-7
+&starf;&starf;&starf; 0-10</p>
+<h3 id="0-get-">0. <span class='get'>GET</span> /</h3>
+<p>The single page application should load from the root of your server.</p>
+<p>The browser should never reload the page during the entire lifecycle of the single-page application.</p>
+<h3 id="1-display-map-list">1. Display Map List</h3>
+<p>Initially it should display the <code>map-list</code> view, displaying the list of maps together with navigation links to create a new map.</p>
+<p>The clone, delete and favourite buttons should update the corresponding map objects stored in the database through the Web API.</p>
+<h3 id="2-create-new-map">2. Create New Map</h3>
+<p>When the user clicks on the &quot;New Map&quot; link, display the map editor view showing a default map.</p>
+<p>When the form button is clicked send a <span class='post'>POST</span> request to save the new map on the database and display the map view for the corresponding newly created map.</p>
+<h3 id="3-show-map">3. Show Map</h3>
+<p>When clicking on the map thumbnail or after creating a new map, the map view is shown, with links to edit the map or go back to the list of maps.</p>
+<h3 id="4-edit-existing-map">4. Edit Existing Map</h3>
+<p>When the user clicks on the &quot;Edit&quot; link, display the map editor view showing the corresponding map.</p>
+<p>After displaying the map editor, when the form button &quot;update map&quot; is clicked send the <span class='put'>PUT</span> request. Then, reload the map list view and show a message confirming that the map has been saved.</p>
+<h3 id="5-add-marker">5. Add Marker</h3>
+<p>While displaying the map editor, if the user clicks on any map position handle the click event to create a new marker object, display it at the clicked location and store it in the database by sending a <span class='post'>POST</span> request to the API.</p>
+<h3 id="6-show-markers-on-the-map">6. Show Markers on the Map</h3>
+<p>When displaying the map view or the map editor, fetch the markers associated with the map and display them on the map.</p>
+<h3 id="7-edit-marker-properties">7. Edit Marker Properties</h3>
+<p>After clicking on the marker, display a form where the user can see the marker latitude and longitude and configure:</p>
+<ul>
+<li>The marker title</li>
+<li>The marker type</li>
+<li>The marker color</li>
+</ul>
+<p>When any of the above information is changed in the form, the marker should be refreshed on the map to reflect the changes. Also, the updated title, type or color should be sent to the server with a <span class='put'>PUT</span> request so that the updated marker object can be stored in the database.</p>
+<h3 id="8-move-marker">8. Move Marker</h3>
+<p>The location of the marker should also be editable. Instead of providing form fields, users can directly drag the marker on the map to a new location. When this event happens, the marker location coordinates should be updated in the database using <span class='put'>PUT</span>. </p>
+<h3 id="9-delete-marker">9. Delete Marker</h3>
+<p>After selecting a marker display a &quot;delete marker&quot; button. When clicking on it:</p>
+<ol>
+<li>remove the marker from the map</li>
+<li>send a <span class='delete'>DELETE</span> request to the server so that the marker object is removed from the database</li>
+<li>replace the marker editor form with the message &quot;Marker has been deleted&quot;</li>
+</ol>
+<h3 id="10-browser-navigation-history">10. Browser Navigation History</h3>
+<p>Encode the state of the single-page application into a URL #fragment string stored in the the browser address bar.</p>
+<p>When following a link or clicking on a button, the browser address bar and navigation history should be updated accordingly so that users can return to previous views using the back button and can copy and paste the URL address in a different browser.</p>
+<p>When opening a link with the given fragment, the corresponding view should be displayed as opposed to the initial one. This way users can share links to the given view.</p>
+<h2 id="task---api-client"><span class='task'>Task 1.</span>  API Client</h2>
+<p>Complete the <code>public/js/api-client.js</code> so that the methods of the global <code>api</code> object fetch from the corresponding routes of the server API.</p>
+<p>All methods should return promises which resolve to the object returned by the API.</p>
+<p>All communication between your single-page application and the server should be carried out through the methods of the <code>api</code> object. </p>
+<p>While placeholders are given for the methods required to pass the assignment, additional methods may be added to interact with the marker API.</p>
+<h2 id="task---client-side-router"><span class='task'>Task 2.</span>  Client-side Router</h2>
+<ol>
+<li>Complete the routing table mapping the link URL templates to the corresponding functions to refresh the client-side views</li>
+</ol>
+<div style="min-width: 20em; width: 50%; margin-left: 4em">
+
+<table>
+<thead>
+<tr>
+<th>URL Template</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>/map</td>
+<td>refresh_map_list()</td>
+</tr>
+<tr>
+<td>/map/new</td>
+<td>refresh_map_editor(&quot;new&quot;)</td>
+</tr>
+<tr>
+<td>/map/:id</td>
+<td>refresh_map_view(id)</td>
+</tr>
+<tr>
+<td>/map/:id/edit</td>
+<td>refresh_map_editor(id)</td>
+</tr>
+</tbody></table>
+</div>
+
+<ol>
+<li>Call the client-side router on every link click by the user</li>
+<li>Make sure that the browser does not escape the single-page application using <code>preventDefault()</code>.</li>
+</ol>
+<h2 id="task---map-list"><span class='task'>Task 3.</span>  Map List</h2>
+<ol>
+<li>Complete the event listeners so that when the user clicks on a link the client-side router will be called</li>
+<li>Complete the event listeners so that when the user clicks on a button the corresponding api method will be called</li>
+<li>Make sure that the browser does not escape the single-page application using <code>preventDefault()</code>.</li>
+</ol>
+<h2 id="task---view-map"><span class='task'>Task 4.</span>  View Map</h2>
+<ol>
+<li>Retrieve the map object from the API</li>
+<li>Then, use the <code>showMap</code> function to initialize the corresponding Leaflet map</li>
+<li>Include a navigation link to edit the corresponding map</li>
+</ol>
+<h2 id="task---edit-map"><span class='task'>Task 5.</span>  Edit Map</h2>
+<ol>
+<li>Retrieve the map object from the API (or setup a default map when the <code>id==&quot;new&quot;</code>)</li>
+<li>Then, use the <code>showMap</code> function to initialize the corresponding Leaflet map</li>
+<li>Then, render the map editor view and display it</li>
+<li>Setup the event listeners on the editor form so that the when clicking on the create or update map buttons the map is added or updated via the API</li>
+</ol>
+<h2 id="task---create-display-and-edit-markers"><span class='task'>Task 6.</span>  Create, Display, and Edit Markers</h2>
+<ol>
+<li>When clicking on the map, add a marker to the database and show it on the map</li>
+<li>When displaying the map, fetch the markers if they are not already present in the map object and show them on the map</li>
+<li>Respond to marker clicks by rendering the <code>marker-edit.ejs</code> form. Setup the event listeners so that the edited values are immediately saved through the API. </li>
+</ol>
+<p>Here are some useful code snippets to work with leaflet markers:</p>
+<pre><code>leaflet_marker._icon.style.filter = `hue-rotate(${marker.hue}deg)`;
+</code></pre>
+<pre><code>leaflet_marker.setIcon(getMarkerIcon(marker.type));
+</code></pre>
+<h2 id="task---move-and-delete-markers"><span class='task'>Task 7.</span>  Move and Delete Markers</h2>
+<ol>
+<li><p>Look for the leaflet <code>&quot;moveend&quot;</code> event handler and complete it by saving the updated marker location</p>
+</li>
+<li><p>When the delete marker button is clicked, after deleting the marker from the server, remove it from the map as follows:</p>
+<pre><code>leaflet_marker.remove();
+</code></pre>
+</li>
+</ol>
+<h2 id="task---browser-navigation-history"><span class='task'>Task 8.</span>  Browser Navigation History</h2>
+<p>Use the <code>history.pushState()</code> or <code>window.location.hash</code> to store the user navigation actions so that the browser address bar is updated.</p>
+<p>Listen to the <code>&quot;popstate&quot;</code> event to handle the browser back button.</p>
+<section class="topics">
+
+<h2 id="mastery-check-topics">Mastery Check Topics</h2>
+<p>Solving this exercise will demonstrate mastery for the following topics:</p>
+<ul>
+<li>3. JavaScript<ul>
+<li>3.6. Promises<ul>
+<li>3.6.1. then</li>
+<li>3.6.2. catch</li>
+<li>3.6.3. all</li>
+</ul>
+</li>
+<li>3.7. async, await</li>
+</ul>
+</li>
+<li>4. APIs<ul>
+<li>4.1. Browser<ul>
+<li>4.1.2. DOM<ul>
+<li>4.1.2.7. preventDefault</li>
+</ul>
+</li>
+<li>4.1.4. Events<ul>
+<li>4.1.4.3. Form onsubmit</li>
+</ul>
+</li>
+<li>4.1.8. HTTP Client (Fetch)<ul>
+<li>4.1.8.1. HTTP methods</li>
+<li>4.1.8.2. JSON upload/download</li>
+<li>4.1.8.3. FormData</li>
+</ul>
+</li>
+<li>4.1.9. Navigation history</li>
+</ul>
+</li>
+<li>4.2. Server<ul>
+<li>4.2.5. EJS<ul>
+<li>4.2.5.4. Precompiled views</li>
+<li>4.2.5.5. Client-side rendering</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+
+
+<h2 id="questions">Questions?</h2>
+<p>Please post them on our <a href="https://stackoverflowteams.com/c/usi-web-atelier/questions/ask?tags=ex7">private StackOverflow</a> using the <code>ex7</code> tag.</p>
+<footer></footer></body></html>
