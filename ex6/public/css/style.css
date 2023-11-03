@@ -25,7 +25,7 @@ body section[id="general"] main[id="mainMap"]{
 }
 header{
     display:grid;
-    grid-template-columns: 2fr 1fr 2fr 2fr 1fr 1fr 4fr;
+    grid-template-columns: 1fr 3fr 1.5fr 1.5fr 1fr 1fr 1fr 3fr;
     background-color: rgb(2, 130, 130);
     text-align: center;
     font-size: larger;
@@ -33,7 +33,7 @@ header{
 
 section[id^="map-"]{
     display:grid;
-    grid-template-columns: 2fr max-content 2fr 2fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 2fr max-content 2fr 2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     text-align: center;
     border: 1px inset black;
     /*background-color: rgb(4, 142, 173);*/

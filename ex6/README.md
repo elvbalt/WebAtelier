@@ -2,7 +2,7 @@
 
 If you can read this file on your computer, you have successfully checked out the skeleton of the exercise 6.
 
-Write your full name here: ________
+Write your full name here: Elvira Baltasar
 
 In case you work in pair, write the name of both students here:
 
@@ -43,3 +43,5 @@ Important: If you do not use the __exact commit message__ shown above we will no
 
 Please write below which optional tasks you have completed.
 
+I solved the tasks 1 to 4
+I implemented from the task 5 the center_str and from the task 6 the counter traking how many times each map was displayed

@@ -3,7 +3,7 @@
  *
  * Model index
  *
- * Student: __STUDENT NAME__
+ * Student: __Elvira Baltasar__
  *
  * Task 1
  */

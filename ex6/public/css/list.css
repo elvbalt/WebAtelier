@@ -10,10 +10,10 @@
  */
 
  #general {
-    /* margin: 1vw;
-     /*border: 2px solid black;*/
+    /* margin: 1vw;*/
+     border: 2px solid black;
      display: grid;
-     grid-template-columns: 2fr 7fr 2fr;
+     grid-template-columns: 2fr 8fr 2fr;
      align-items: start;
      
  }

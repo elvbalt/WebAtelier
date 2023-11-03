@@ -187,6 +187,15 @@ let make_map_list = function (client, db_name, collection_name) {
         return collection.updateOne({ _id: id }, { $set: { fav: !mapi.fav } });
     }
 
+    async function updateView(id){
+        try {
+            id = new ObjectId(id)
+        } catch {
+            throw StatusError(404)
+        }
+        await collection.updateOne({_id: id}, { $inc: { viewCount: 1 }})
+
+    }
     /**
      * Counts the number of maps in the collection.
      *
@@ -458,7 +467,8 @@ let make_map_list = function (client, db_name, collection_name) {
         replaceMap,
         deleteMap,
         cloneMap,
-        toggleFav
+        toggleFav,
+        updateView
     }
 
 }

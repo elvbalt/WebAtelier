@@ -24,18 +24,27 @@ router.get("/", async (req, res) => {
 
         let maps = await model.map_list.getMaps();
 
+        let trans = maps.map((map) => {
+            let center2 = {
+                lat: script.gps2str(map.center.lat),
+                lng: script.gps2str(map.center.lng)
+            };
+            return {...map, center_str: center2};
+        });
+
         res.format({
             html: () => {
                 res.render("map-list.ejs",
                     {
-                        maps,
+                        maps: trans,
                         title: "Maps",
                         gps2str: script.gps2str,
                         msg
                     });
             },
             json: () => {
-                res.json(maps)
+            
+                res.json(trans)
             },
             default: () => {
                 res.status(406).send('Not Acceptable')
@@ -56,7 +65,14 @@ router.get("/new", (req, res) => {
         _id: -1
     }
 
-    res.render("map-edit", {map : mapita, gps2str: script.gps2str})
+    let center2 = {
+        lat: script.gps2str(mapita.center.lat),
+        lng: script.gps2str(mapita.center.lng)
+    };
+
+    mapi = {...mapita, center_str: center2};
+
+    res.render("map-edit", {map : mapi, gps2str: script.gps2str})
 });
 
 router.get("/:id", async (req, res) => {
@@ -68,16 +84,26 @@ router.get("/:id", async (req, res) => {
             return;
         }
 
+        await map_list.updateView(mapita._id);
+        
+        let center2 = {
+            lat: script.gps2str(mapita.center.lat),
+            lng: script.gps2str(mapita.center.lng)
+        };
+
+        mapi = {...mapita, center_str: center2};
+            
         res.format({
             html: () => {
                 res.render("map-view",
                     {
-                        map: mapita,
+                        map: mapi,
                         gps2str: script.gps2str,
                     });
             },
             json: () => {
-                res.json(mapita)
+
+                res.json(mapi)
             },
             default: () => {
                 res.status(406).send('Not Acceptable')
@@ -98,16 +124,25 @@ router.get("/:id/edit", async (req, res) => {
             return;
         }
 
+        await map_list.updateView(mapita._id);
+        
+        let center2 = {
+            lat: script.gps2str(mapita.center.lat),
+            lng: script.gps2str(mapita.center.lng)
+        };
+
+        mapi = {...mapita, center_str: center2};
+
         res.format({
             html: () => {
                 res.render("map-edit.ejs",
                     {
-                        map: mapita,
+                        map: mapi,
                         gps2str: script.gps2str,
                     });
             },
             json: () => {
-                res.json(mapita)
+                res.json(mapi)
             }
         });
 

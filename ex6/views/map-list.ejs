@@ -52,6 +52,7 @@
             <span class="lng">Longitude</span>
             <span class="zoom">Zoom</span>
             <span class="tiles">Tile Source</span>
+            <span class="Views">View count</span>
             <span class="actions">Actions</span>
             <label for="sort">Sort by:</label>
                 <select id="sort">
@@ -80,10 +81,11 @@
                <div id="map-thumb-<%=map._id%>" class="thumb"></div>
             </a>
 
-            <span class="lat"><%=gps2str(map.center.lat) || map.center.lat%></span>
-            <span class="lng"><%=gps2str(map.center.lng) || map.center.lng%></span>
+            <span class="lat"><%=map.center_str.lat%></span>
+            <span class="lng"><%=map.center_str.lng%></span>
             <span class="zoom"><%=map.zoom%></span>
             <span class="tiles"><%=map.tiles%></span>
+            <span class="views"><%=map.viewCount%> </span>
             <a href="/map/<%=map._id%>/edit" target="editor">Edit</a>
             <form action="/map/<%=map._id%>/clone" method="POST">
                 <button>Clone</button>

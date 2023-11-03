@@ -46,11 +46,12 @@
 
             <form action="/map" method = "put">
             
-            <input id="title" type="text" name="title" value=<%=map.title%> />
-            <input id="lat" type="text" name="lat" value=<%=gps2str(map.center.lat) || map.center.lat%> />
-            <input id="lng" type="text" name="lng" value=<%=gps2str(map.center.lng) || map.center.lng%> />
-            <input id="zoom" type="number" name="zoom" value="13" />
-            <input id="tiles" type="text" name="tiles" value=<%map.tiles%> />
+            <input id="title" type="text" name="title" readonly value=<%=map.title%> />
+            <input id="lat" name="lat" value=<%=map.center_str.lat%> />
+            <input id="lng" name="lng" value=<%=map.center_str.lng%> />
+            <input id="zoom" type="number" name="zoom" readonly value="13" />
+            <input id="tiles" type="text" name="tiles" readonly value=<%map.tiles%> />
+            <input id="views" type="text" name="views" readonly value=<%=map.viewCount ?? 0%> />
 
             <button formaction="/map/<%=map._id%>/edit?_method=GET"> Edit </button>
 

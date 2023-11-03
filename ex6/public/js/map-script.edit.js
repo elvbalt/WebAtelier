@@ -1,15 +1,6 @@
 
 
-let leaf_map = L.map("map", {
-    zoomControl: false,
-    attributionControl: false,
-    dragging: false,
-    boxZoom: false,
-    doubleClickZoom: false,
-    keyboard: false,
-    scrollWheelZoom: false,
-    tap: false
-}).setView([map.center.lat, map.center.lng] , map.zoom);
+let leaf_map = L.map("map").setView([map.center.lat, map.center.lng] , map.zoom);
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

@@ -54,8 +54,8 @@
             <% } %>
 
                 <input id="title" type="text" name="title" placeholder="<%=map.title%>"/>
-                <input id="lat" type="text" name="lat" placeholder="<%=map.center.lat%>"/>
-                <input id="lng" type="text" name="lng" placeholder="<%=map.center.lng%>" />
+                <input id="lat" type="text" name="lat" placeholder="<%=map.center_str.lat%>"/>
+                <input id="lng" type="text" name="lng" placeholder="<%=map.center_str.lng%>" />
                 <input id="zoom" type="number" name="zoom" value="13" />
                 
                 <select name="tiles" id="tiles">
@@ -100,4 +100,4 @@ integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""><
 
     <script src="/map/<%=map._id%>/map.js"></script>
 
-<script src="/js/map-script-stuff.js"></script>
+<script src="/js/map-script.edit.js"></script>
