@@ -3,7 +3,7 @@
  *
  * Map collection model
  *
- * Student: __STUDENT NAME__
+ * Student: __Elvira Baltasar__
  *
  * Task 1
  *
@@ -11,7 +11,7 @@
  *
  */
 
-let { ObjectID } = require("mongodb");
+let { ObjectId } = require("mongodb");
 
 /**
  * Create a new StatusError object with the specified status code.
@@ -49,6 +49,7 @@ let make_map_list = function (client, db_name, collection_name) {
      */
     async function getMaps() {
         //TODO find all objects in the collection
+        return collection.find().toArray();
     }
 
     /**
@@ -60,6 +61,11 @@ let make_map_list = function (client, db_name, collection_name) {
      */
     async function getMap(id) {
         //TODO find the object with the specified ID
+        let map = await collection.findOne({_id: new ObjectId(id)});
+        if (map == undefined){
+            throw new StatusError(404);
+        }
+        return map;
     }
 
     /**
@@ -70,6 +76,9 @@ let make_map_list = function (client, db_name, collection_name) {
      */
     async function addMap(map) {
         //TODO insert the map object into the db collection
+        
+        let mapi = await collection.insertOne(map)
+
         return map;
     }
 
@@ -82,6 +91,14 @@ let make_map_list = function (client, db_name, collection_name) {
      */
     async function cloneMap(id) {
         //TODO add a copy of the existing object to the collection
+        if (id == undefined){ 
+            throw new StatusError(404);
+        }
+        let map = await getMap(id);
+
+        map._id = new ObjectId();
+
+        return await addMap(map);
     }
 
     /**
@@ -95,7 +112,19 @@ let make_map_list = function (client, db_name, collection_name) {
      */
     async function replaceMap(id, map) {
         //TODO replace the existing object or insert a new object if not found
+
         let found = false;
+
+        if (id === undefined){
+            throw new StatusError(404);
+        }
+
+        let mapi = await collection.replaceOne({_id: new ObjectId(id)}, map, {upsert: true});
+
+        found = (mapi.upsertedCount == 0);
+        
+        map._id = mapi.updatedId || new ObjectId(id);
+        
         return { found, map };
 
     }
@@ -108,6 +137,19 @@ let make_map_list = function (client, db_name, collection_name) {
      * @throws {StatusError} the status code will be 404 if the map is not found.
      */
     async function deleteMap(id) {
+
+        if (id === undefined){
+            throw new StatusError(404);
+        }
+
+        let found = await collection.findOneAndDelete({ _id: new ObjectId(id) });
+
+        if (!found) {
+            throw new StatusError(404);
+        }
+
+        return found;
+
         //TODO find the existing object and delete it from the collection
     }
 
@@ -121,8 +163,11 @@ let make_map_list = function (client, db_name, collection_name) {
      */
     async function toggleFav(id) {
         //TODO check whether the object already exists
+        if (id == undefined || getMap(id) == undefined){
+            throw new StatusError(404);
+        }
 
-        await collection.updateOne({ _id: ObjectID(id) }, [{ $set: { fav: { $not: '$fav' } } }]);
+        await collection.updateOne({ _id: new ObjectId(id) }, [{ $set: { fav: { $not: '$fav' } } }]);
     }
 
     /**
@@ -131,12 +176,14 @@ let make_map_list = function (client, db_name, collection_name) {
      * @returns {Promise} which resolves to the number of maps in the collection.
      */
     async function count() {
+        return collection.countDocuments();
     }
 
     /**
      * Empty the collection of maps
      */
     async function clear() {
+        return collection.deleteMany({});
     }
 
     /**
@@ -145,7 +192,7 @@ let make_map_list = function (client, db_name, collection_name) {
      * The data is expected by the tests and should not be changed.
      */
     async function reset() {
-        list = [
+        list = [ 
             {
                 "zoom": 7,
                 "title": "Konkordiaplatz",

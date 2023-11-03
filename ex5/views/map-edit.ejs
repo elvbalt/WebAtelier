@@ -50,7 +50,7 @@
             <% if (map.id == -1){ %>
                 <form action="/map" method="POST">
             <% }else{ %>
-                <form action="/map/<% map.id%>/edit" method="PUT">
+                <form action="/map/<% map.id%>?_method=PUT" method="post">
             <% } %>
 
                 <input id="title" type="text" name="title" placeholder="<%=map.title%>"/>

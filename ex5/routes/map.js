@@ -92,6 +92,20 @@ router.post("/", (req, res) => {
 
 router.put("/:id", (req, res) => {
 
+    console.log(req.body)
+
+    let map = map_list.getMap(req.params.id)
+    
+    //if the request body does not contain the required fields, send back 400
+    if (req.body.title == undefined
+        || req.body.tiles == undefined
+        || req.body.zoom == undefined
+        || req.body.lat == undefined
+        || req.body.lng == undefined) {
+            res.sendStatus(400);
+            return;
+        }
+
     let mapita ={
         title : req.body.title,
         center: {
@@ -102,15 +116,7 @@ router.put("/:id", (req, res) => {
         zoom: parseInt(req.body.zoom) || map.zoom
     }
 
-     //if the request body does not contain the required fields, send back 400
-     if (req.body.title == undefined
-        || req.body.tiles == undefined
-        || req.body.zoom == undefined
-        || req.body.lat == undefined
-        || req.body.lng == undefined) {
-            res.sendStatus(400);
-            return;
-        }
+     
     map_list.replaceMap(req.params.id, mapita);
 
     res.redirect("/map/" + mapita.id);

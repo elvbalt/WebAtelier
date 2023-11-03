@@ -38,7 +38,7 @@ app.use(multer().none());   //parse multipart/form-data
 // Task 2
 //TODO uncomment the following line and populate the public folder with the corresponding files
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'))); //this is a middleware
 
 app.use(methodOverride('_method'));
 
