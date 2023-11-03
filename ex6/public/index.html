@@ -1,0 +1,50 @@
+<!--
+    Web Atelier 2023
+    Exercise 1
+    HTML and CSS
+
+    Home Page
+
+    Author: __Elvira Baltasar__
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="css\style.css">
+        
+        <title>PAGINA 1</title>
+        <meta name="author" content="__Student Name__">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </head>
+    <body onload="initMap">
+        <h1 id ="titulo"> <img src="images/logo def.png" width="200"> </h1>
+        <section id="general">
+            <nav> 
+                <a id="home" href="index.html">
+                    <button id="opa"> Home page </button> </a>
+                <a id="mapgal" href="list.html">
+                    <button id="op"> Map gallery </button> </a>
+                <a id="marker" href="editor.html">
+                    <button id="op"> Marker editor </button> </a>
+            </nav> 
+            <main id="mainMap">  
+                <iframe src="map.html" 
+                style="width: 100%; height: 100%;"> </iframe>
+                <!--<iframe width=100% height=100% src="https://www.openstreetmap.org/export/embed.html?bbox=-5.333862304687501%2C40.48142598496238%2C-4.280548095703126%2C40.83355409739852&amp;layer=mapnik" style="border: 1px solid black"></iframe>-->
+
+            </main> 
+            <sidebar>  
+                <p> Avila, Castilla y León, Spain</p>
+                <p> Altitude: 1.132</p>
+            </sidebar> 
+    
+        
+        </section>
+        
+        <footer> 
+            <a id="copyright" href="https://www.openstreetmap.org/copyright" target="_blank"> Maps copyright </a> 
+            <div id="date"> 23/09/23 </div>
+        </footer> 
+    </body>
+</html>

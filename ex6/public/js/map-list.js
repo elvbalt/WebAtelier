@@ -1,215 +1,243 @@
 /**
- * Web Atelier 2023 6 - Persistent Web Apps and APIs with MongoDB
+ * Web Atelier 2023 3 - Object-Oriented JavaScript
  *
- * Map collection model
+ * Map list object
  *
- * Student: __Elvira Baltasar__
- *
- * Task 1
- *
- * Hint: hunt for useful code snippets in the marker-list-db.js file
+ * Student: __ELVIRA BALTASAR__
  *
  */
 
-let { ObjectId } = require("mongodb");
+
 
 /**
- * Create a new StatusError object with the specified status code.
- * @param {Number} status - The status code of the error.
- * @returns the new StatusError object.
+ * Creates a map list with the specified storage key.
+ *
+ * @param {string} [storage_key="maps"] - The key to use to store the map list in local storage.
+ * @returns {Object} An object representing a map list which can be stored persistently.
  */
-function StatusError(status) {
+let make_map_list = function(storage_key = "maps") {
 
-    let messages = {
-        404: "Not found",
-        400: "Bad request",
-        500: "Internal server error"
-    }
-
-    let err = new Error(messages[status] || "Unknown error");
-    err.status = status;
-
-    return err;
-}
-
-/**
- * Create a new map collection object and connect it to the given database and collection.
- * @param {MongoClient} client - The MongoClient object already connected to the database.
- * @param {string} db_name - The name of the database to connect to.
- * @param {string} collection_name - The name of the collection to connect to.
- */
-let make_map_list = function (client, db_name, collection_name) {
-
-    const collection = client.db(db_name).collection(collection_name);
+    //private variables of the map_list
+    //the render function requires an array of maps
+    let list = [];
+    let _id = 0;
 
     /**
-     * Retrieves the collection of maps from the map collection.
+     * Retrieves the list of maps.
      *
-     * @returns {Array} An array with all map objects found in the collection.
+     * @returns {Array} An array with all map objects.
      */
-    async function getMaps() {
-        //TODO find all objects in the collection
-        return collection.find().toArray();
+    function getMaps() {
+        return list;
+    }
+
+    function setMaps(lista){
+        list = lista;
+
+        save();
     }
 
     /**
-     * Retrieves a map by its ID from the map collection
+     * Retrieves a map by its ID from the list of maps.
      *
      * @param {string} id - The ID of the map to retrieve.
      * @returns {Object|undefined} The map with the specified ID, or undefined if not found.
-     * @throws {StatusError} the status code will be 404 if the map is not found.
      */
-    async function getMap(id) {
-        //TODO find the object with the specified ID
-        try {
-            id = new ObjectId(id)
-        } catch {
-            throw StatusError(404)
+    function getMap(id) {
+        if (id == undefined || list.length == 0 || id == null){
+            return undefined;
         }
-
-        let map = await collection.findOne({_id: id});
-        if (map == undefined){
-            throw new StatusError(404);
-        }
-        return map;
+        
+        return list.find((element) => element.id === id.toString());
     }
 
+
     /**
-     * Adds a new map to the collection of maps and assigns it an ID if it doesn't have one.
+     * Adds a new map to the list of maps and assigns it an ID if it doesn't have one.
+     * Should save the updated list to local storage.
      *
-     * @param {Object} map - The map object to add to the collection.
+     * @param {Object} map - The map object to add to the list.
      * @returns {Object} The added map object, with an assigned or existing ID.
      */
-    async function addMap(map) {
-        //TODO insert the map object into the db collection
+    function addMap(map) {
+        if (map.id === undefined || getMap(map.id) !== undefined){ 
+            while (getMap(_id) !== undefined){
+                _id++;
+            }
+            map.id = _id.toString();
+            _id++;
+        }
+        //no tendria q revisar si el id q me pasan ya esta en la lista ?
+        list.push(map);
+        //Should save the updated list to local storage.
         
-        let mapi = await collection.insertOne(map)
-        let mapi_added = await collection.findOne({ _id: mapi.insertedId });
-        return mapi_added;
+        save();
+
+        return map;
+
     }
 
     /**
-     * Creates a copy of an existing map by its ID and adds it to the collection.
+     * Creates a copy of an existing map by its ID and adds it to the list.
+     * Should save the updated list to local storage.
      *
      * @param {string} id - The ID of the map to clone.
-     * @returns {Object|undefined} The cloned map object.
-     * @throws {StatusError} the status code will be 404 if the map is not found.
+     * @returns {Object|undefined} The cloned map object, or undefined if the source map doesn't exist.
      */
-    async function cloneMap(id) {
-        //TODO add a copy of the existing object to the collection
-        try {
-            id = new ObjectId(id)
-        } catch {
-            throw StatusError(404)
+    function cloneMap(id) {
+        if (getMap(id) === undefined){
+            return undefined;
         }
-        let map = await getMap(id);
 
-        map._id = new ObjectId();
-        return await addMap(map);
+        let map2 ={...getMap(id)}; // when you add property to the object, it doesn´t create a correct copy, so you need to use deep copy
+        // let map2 = JSON.parse(JSON.stringify(getMap(id)));
+        map2.id = undefined;
+
+        addMap(map2);
+
+        save();
+
+        return map2;
     }
 
     /**
-     * Replaces a map with a new map object identified by its ID in the collection.
-     * If the ID doesn't exist, a new map is added to the collection.
-     * If the map object does not have an _id, it is assigned the specified ObjectID(id).
+     * Replaces a map with a new map object by its ID in the list.
+     * If the ID doesn't exist, a new map is added to the list.
+     * If the map object does not have an id, it is assigned the specified ID.
+     * Should save the updated list to local storage.
+     *
      *
      * @param {string} id - The ID of the map to replace or add.
      * @param {Object} map - The new map object to replace or add.
-     * @returns {Object} The new map object and whether the object was added or replaced.
      */
-    async function replaceMap(id, map) {
-        //TODO replace the existing object or insert a new object if not found
-
-        let found = false;
-
-        try {
-            id = new ObjectId(id)
-        } catch {
-            throw StatusError(404)
+    function replaceMap(id, map) {
+        if (id === undefined){
+            addMap(map);
         }
-
-        let mapi = await collection.replaceOne({_id: id}, map, {upsert: true});
-
-        found = (mapi.upsertedCount == 0);
+        let m = list.findIndex((element) => element.id === id.toString());
+        if (m === -1){
+            addMap(map);
+        }
         
-        map._id = mapi.upsertedId || id;
-        
-        return { found, map };
+        map.id = id;
+        list.splice(m, 1, map);
 
+        save();
     }
 
     /**
-     * Deletes a map by its ID from the collection of maps.
+     * Deletes a map by its ID from the list of maps.
+     * Should save the updated list to local storage.
      *
      * @param {string} id - The ID of the map to delete.
-     * @returns {Object} The deleted map object.
-     * @throws {StatusError} the status code will be 404 if the map is not found.
      */
-    async function deleteMap(id) {
-
-        try {
-            id = new ObjectId(id)
-        } catch {
-            throw StatusError(404)
+    function deleteMap(id) {
+        if (id === undefined){
+            return undefined;
         }
-
-        let found = await collection.findOneAndDelete({ _id: new ObjectId(id) });
-
-        if (!found) {
-            throw new StatusError(404);
+        let m = list.findIndex((element) => element.id === id.toString());
+        if (m === -1){
+            return undefined;
         }
-
-        return found;
-
-        //TODO find the existing object and delete it from the collection
+        _id = Math.min(list[m].id, _id);
+        list.splice(m, 1);
+        save();
     }
 
     /**
      * Toggles the 'fav' property of a map by its ID.
      * If the map is favorited, it will be unfavorited, and vice versa.
+     * Should save the updated list to local storage.
      *
-     * @param {string} id - The ID of the map of which the favorite status should be toggled.
-     * @throws {StatusError} the status code will be 404 if the map is not found.
-     * @returns {Promise} resolving to undefined
+     * @param {string} id - The ID of the map to toggle favorited status.
      */
-    async function toggleFav(id) {
-        //TODO check whether the object already exists
+    function toggleFav(id) {
+        if (id === undefined || getMap(id) === undefined){
+            return undefined;
+        }
+
+        let fav = getMap(id).fav;
+        getMap(id).fav = !fav;
+        save();
+    }
+
+    /**
+     * Counts the number of maps in the list.
+     *
+     * @returns {number} The number of maps in the list.
+     */
+    function count() {
+        return list.length;
+    }
+
+    /**
+     * Saves the current state of the list to local storage.
+     * using the storage_key as the key.
+     */
+    function save() {
         try {
-            id = new ObjectId(id)
-        } catch {
-            throw StatusError(404)
+            // Convert the list to a JSON string
+            const listJson = JSON.stringify(list);
+            
+            // Save the JSON string to local storage with the specified key
+            localStorage.setItem(storage_key, listJson);
+            
+          } catch (error) {
+          }
+    }
+
+    /**
+     * Loads data from local storage and updates the list with the loaded data if available.
+     * If no data is found in local storage, it resets the state.
+     */
+    function load() {
+        //let json = localStorage.getItem(storage_key);
+        //TODO attempt to parse the json string and initialize the list
+        /*try {
+            // Get the JSON string from local storage using the specified key
+            const listJson = localStorage.getItem(storage_key);
+            
+            // If no data is found, it resets the state
+            if (!listJson) {
+              list = reset();
+            }else{
+            try{
+                list = JSON.parse(listJson);
+                //return list;
+            }catch (error){//inalid json
+                //dont do anything
+            }
         }
 
-        let mapi = await getMap(id);
-        if(mapi == undefined) {
-            throw StatusError(404)
+    
+        } catch (storageError) {     
+            list = reset();
+        }*/
+
+        let listJson = localStorage.getItem(storage_key);
+
+        if (listJson === undefined || !listJson){
+            reset();
+        }else{
+            try{
+                list = JSON.parse(listJson);
+                //return list;
+            }catch (error){//inalid json
+                //dont do anything
+                
+            }
         }
-        return collection.updateOne({ _id: id }, { $set: { fav: !mapi.fav } });
     }
+    
 
     /**
-     * Counts the number of maps in the collection.
-     *
-     * @returns {Promise} which resolves to the number of maps in the collection.
-     */
-    async function count() {
-        return collection.countDocuments();
-    }
-
-    /**
-     * Empty the collection of maps
-     */
-    async function clear() {
-        return collection.deleteMany({});
-    }
-
-    /**
-     * Resets the state by initializing the collection with some test data.
+     * Resets the state by initializing the list with some test data.
      * This method is used for testing purposes.
      * The data is expected by the tests and should not be changed.
      */
-    async function reset() {
-        list = [ 
+    function reset() {
+        _id = 25;
+        list = [
             {
                 "zoom": 7,
                 "title": "Konkordiaplatz",
@@ -444,23 +472,51 @@ let make_map_list = function (client, db_name, collection_name) {
                 }
             }
         ]
-        await collection.insertMany(list);
     }
 
-    // public methods of the map list object
+    /**
+     * Renders a list of maps in the specified HTML element.
+     *
+     * Assumes that a template with id="view-map-entry" is available in the dom.
+     * Assumes that the list of maps is available as an array returned by `getMaps()`.
+     *
+     * @param {string} where - The selector for the HTML element where the map list will be rendered.
+     */
+    function render(where) {
+        let templateHTML = document.getElementById("view-map-list");
+
+        if (templateHTML) {
+            templateHTML = templateHTML.innerHTML
+            .replace(/\&lt;/g, "<")
+            .replace(/\&gt;/g, ">");
+
+            const dom = document.querySelector(where);
+
+            if (dom) {
+
+                dom.innerHTML = ejs.render(templateHTML, { maps: getMaps() });
+                list.forEach(initMapThumb);
+
+            }
+        }
+
+    }
+
+    // public methods of the map_list
     return {
-        clear,
         reset,
+        load,
+        save,
         count,
+        render,
         addMap,
         getMap,
         getMaps,
         replaceMap,
         deleteMap,
         cloneMap,
-        toggleFav
+        toggleFav,
+        setMaps
     }
 
 }
-
-module.exports = make_map_list;

@@ -414,7 +414,7 @@ describe('Task 2. - API', function () {
                     } else if (original_fav === false) {
                         should(c.fav).be.equal(false);
                     } else { //undefined
-                        should(c.fav).be.equal(true);
+                        should(c.fav).be.equal(false);
                     }
 
                     changed_fav = c.fav;

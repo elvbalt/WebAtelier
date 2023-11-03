@@ -1,7 +1,7 @@
 /**
  * Web Atelier 2023  Exercise 6 - Persistent Web Apps and APIs with MongoDB
  *
- * Student: __STUDENT NAME__
+ * Student: __Elvira Baltasar__
  *
  * /map router
  *
@@ -48,29 +48,219 @@ router.get("/", async (req, res) => {
 
 
 router.get("/new", (req, res) => {
+    let mapita = { 
+        title : "default",
+        tiles : "osm",
+        center: { lat: "0", lng: "0" },
+        zoom: 2,
+        _id: -1
+    }
+
+    res.render("map-edit", {map : mapita, gps2str: script.gps2str})
 });
 
 router.get("/:id", async (req, res) => {
+    try{
+        let mapita = await map_list.getMap(req.params.id);
+
+        if (mapita == undefined) {
+            res.sendStatus(404);
+            return;
+        }
+
+        res.format({
+            html: () => {
+                res.render("map-view",
+                    {
+                        map: mapita,
+                        gps2str: script.gps2str,
+                    });
+            },
+            json: () => {
+                res.json(mapita)
+            },
+            default: () => {
+                res.status(406).send('Not Acceptable')
+            }
+        });
+
+    }catch (e){
+        res.sendStatus(e.status ?? 500);
+    }
 });
 
 router.get("/:id/edit", async (req, res) => {
+    try{
+        let mapita = await map_list.getMap(req.params.id);
+
+        if (mapita == undefined) {
+            res.sendStatus(404);
+            return;
+        }
+
+        res.format({
+            html: () => {
+                res.render("map-edit.ejs",
+                    {
+                        map: mapita,
+                        gps2str: script.gps2str,
+                    });
+            },
+            json: () => {
+                res.json(mapita)
+            }
+        });
+
+    }catch (e){
+        res.sendStatus(e.status ?? 500);
+    }
 });
 
 
 router.post("/", async (req, res) => {
+
+    try{
+
+        //let map = await map_list.getMap(req.params.id);
+        let lat = req.body.lat || req.body.center.lat
+        let lng = req.body.lng || req.body.center.lng
+
+        let mapita ={
+            title : req.body.title,
+            center: {
+                lat: parseFloat(lat),
+                lng: parseFloat(lng)
+            },
+            tiles: req.body.tiles,
+            zoom: parseInt(req.body.zoom)
+        }
+        // html: req.body.lat json: req.body.center.lat
+        if (req.body.title == undefined
+            || req.body.tiles == undefined
+            || req.body.zoom == undefined
+            || lat == undefined
+            || lng == undefined) {
+                res.sendStatus(400);
+                return;
+            }
+
+        await map_list.addMap(mapita);
+
+        res.format({
+            html: () => {
+                res.redirect("/map/" + mapita._id);
+            },
+            json: () => {
+                res.status(201).json(mapita);
+            }
+        });
+
+    }catch (e){
+        res.sendStatus(e.status ?? 500);
+    }
 });
 
 router.put("/:id", async (req, res) => {
+    try{
+        let lat = req.body.lat || req.body.center.lat
+        let lng = req.body.lng || req.body.center.lng
+    
+        let mapita ={
+            title : req.body.title,
+            center: {
+                lat: parseFloat(lat),
+                lng: parseFloat(lng)
+            },
+            tiles: req.body.tiles,
+            zoom: parseInt(req.body.zoom)
+        }
+
+        let result = await map_list.replaceMap(req.params.id, mapita);
+
+        res.format({
+            html: () => {
+                res.redirect("/map/" + mapita._id);
+            },
+            json: () => {
+                // 200 si updateas, 201 si creas
+                res.status(200 + !result.found).json(mapita);
+            }
+        });
+
+    }catch (e){
+        res.sendStatus(e.status ?? 500);
+    }
 });
 
 router.post("/:id/clone", async (req, res) => {
+    try{
+        let mapita = await map_list.getMap(req.params.id);
+
+        if (mapita == undefined) {
+            res.sendStatus(404);
+            return;
+        }
+
+        let cloned = await map_list.cloneMap(req.params.id);
+        res.format({
+            html: () => {
+                res.redirect("/map/" + cloned._id);
+            },
+            json: () => {
+                res.json(cloned);
+            }
+        });
+    }catch (e){
+        res.sendStatus(e.status ?? 500);
+    }
 });
 
-router.patch("/:id/fav", async (req, res) => {
+router.patch("/:id/fav", async (req, res) => {    try{
+        let mapita = await map_list.getMap(req.params.id);
+        if (mapita == undefined) {
+            res.sendStatus(404);
+            return;
+        }
+
+        await map_list.toggleFav(req.params.id);
+        mapita = await map_list.getMap(req.params.id)
+        res.format({
+            html: () => {
+                res.redirect("/map");
+            },
+            json: () => {
+                res.json(mapita);
+            }
+        });
+    }catch (e){
+        res.sendStatus(e.status ?? 500);
+    }
 });
 
 
 router.delete("/:id", async (req, res) => {
+    try{
+        let map_data = await map_list.getMap(req.params.id);
+
+        if (map_data == undefined) {
+            res.sendStatus(404);
+            return;
+        }
+
+        await map_list.deleteMap(req.params.id);
+
+        res.format({
+            html: () => {
+                res.redirect("/map?msg=Map+deleted");
+            },
+            json: () => {
+                res.status(204).json(map_data);
+            }
+        });
+
+    }catch (e){
+        res.sendStatus(e.status ?? 500);
+    }
 });
 
 /**

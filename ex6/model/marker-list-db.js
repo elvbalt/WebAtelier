@@ -7,7 +7,7 @@
  *
  */
 
-let { ObjectID } = require("mongodb");
+let { ObjectId } = require("mongodb");
 
 function StatusError(status) {
 
@@ -35,8 +35,8 @@ let make_marker_list = function (client, db_name, collection_name) {
         if (marker.map_id == undefined) {
             throw new StatusError(500); //trying to add a marker without a map_id
         }
-        if (!(marker.map_id instanceof ObjectID)) {
-            marker.map_id = ObjectID(marker.map_id);
+        if (!(marker.map_id instanceof ObjectId)) {
+            marker.map_id = new ObjectId(marker.map_id);
         }
     }
 
@@ -47,7 +47,13 @@ let make_marker_list = function (client, db_name, collection_name) {
      * @returns {Array} An array with all marker objects.
      */
     async function getMarkers(map_id) {
-        return collection.find({map_id: ObjectID(map_id)}).toArray();
+        try {
+            id = new ObjectId(map_id)
+        } catch {
+            throw StatusError(404)
+        }
+
+        return collection.find({map_id: id}).toArray();
     }
 
     /**
@@ -58,7 +64,12 @@ let make_marker_list = function (client, db_name, collection_name) {
      * @throws {StatusError} the status code will be 404 if the marker is not found.
      */
     async function getMarker(id) {
-        let found = await collection.findOne({ _id: ObjectID(id) });
+        try {
+            id = new ObjectId(id)
+        } catch {
+            throw StatusError(404)
+        }
+        let found = await collection.findOne({ _id: id });
         if (!found) {
             throw new StatusError(404);
         }
@@ -77,10 +88,15 @@ let make_marker_list = function (client, db_name, collection_name) {
 
         let result = await collection.insertOne(marker);
 
+        let added = await collection.findOne({ map_id: result.insertedId });
+
         // _id added by the database
         // console.log(marker._id);
 
-        return marker;
+        console.log("aqui")
+        console.log(added)
+
+        return added;
     }
 
     /**
@@ -95,11 +111,17 @@ let make_marker_list = function (client, db_name, collection_name) {
     async function replaceMarker(id, marker) {
         checkMapId(marker);
 
-        let result = await collection.replaceOne({ _id: ObjectID(id) }, marker, { upsert: true });
+        try {
+            id = new ObjectId(id)
+        } catch {
+            throw StatusError(404)
+        }
+
+        let result = await collection.replaceOne({ _id: id }, marker, { upsert: true });
 
         // console.log(marker._id, id, result.upsertedId);
 
-        marker._id = result.upsertedId || ObjectID(id);
+        marker._id = result.upsertedId || id;
         let found = (result.upsertedCount == 0);
         return { found, marker };
     }
@@ -110,13 +132,19 @@ let make_marker_list = function (client, db_name, collection_name) {
      * @param {string} id - The ID of the marker to delete.
      */
     async function deleteMarker(id) {
-        let found = await collection.findOneAndDelete({ _id: ObjectID(id) });
+        try {
+            id = new ObjectId(id)
+        } catch {
+            throw StatusError(404)
+        }
+        let found = await collection.findOneAndDelete({ _id: id });
 
-        if (found.value == undefined) {
+        if (!found) {
+            console.log("didfubdfsib")
             throw new StatusError(404);
         }
 
-        return found.value;
+        return found;
     }
 
     /**

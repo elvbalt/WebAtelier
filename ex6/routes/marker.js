@@ -21,7 +21,6 @@ let { model } = require('../model');
 router.get("/:mid/marker", async (req, res) => {
     try {
         let markers = await model.marker_list.getMarkers(req.params.mid);
-
         res.format({
             json: () => {
                 res.json(markers)
@@ -51,7 +50,7 @@ router.get("/:mid/marker/:id", async (req, res) => {
 
 
 router.post("/:mid/marker", async (req, res) => {
-    console.log(req.body);
+    try{
 
     let marker_data = {
         location: {
@@ -73,11 +72,13 @@ router.post("/:mid/marker", async (req, res) => {
         default: () => {
             res.status(406).send('Not Acceptable')
         }
-    })
+    });
+    }catch (e){
+        res.sendStatus(e.status ?? 500);
+    }
 });
 
 router.put("/:mid/marker/:id", async (req, res) => {
-    console.log(req.body);
 
     let marker_data = {
         location: {

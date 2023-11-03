@@ -23,6 +23,15 @@ router.get("/maps.js", async (req, res) => {
 
 router.get("/map/:id/map.js", async (req, res) => {
 
-    res.render("map-script.ejs", { map: await model.map_list.getMap(req.params.id) });
+    if (req.params.id == -1)
+        res.render("map-script.ejs", { map: { 
+            title : "default",
+            tiles : "osm",
+            center: { lat: "0", lng: "0" },
+            zoom: 2,
+            _id: -1
+        } });
+    else
+        res.render("map-script.ejs", { map: await model.map_list.getMap(req.params.id) });
 
 });
