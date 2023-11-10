@@ -1,0 +1,93 @@
+<html><head><title>exercises/8-socketio</title><link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Fira+Sans|Fira+Mono"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.0/build/styles/default.min.css"><style>body,* {font-family: "Fira Sans";scroll-behavior: smooth;}body {margin: 1em;}#usi-logo {width: 75px;height: 75px;}header {display: flex;align-content: space-between;width: 100%;justify-items: center;}header ul {list-style: none;}header .title {flex: 1;margin-left: 1em;}html {min-height: 100vh;}pre,code {font-family: "Fira Mono"}pre {background: rgb(202, 227, 255);padding: 1em;}td {text-align: center}td:last-child {text-align: left;}th {font-weight: normal;color: rgb(0, 61, 131);}thead {border-bottom: 2px solid rgb(202, 227, 255);}table {width: 100%}table tr:hover {background-color: rgb(151, 195, 236);}span.task {display: inline-flex;border-radius: 50%;border: 1px solid white;background: #ffbc00;width: 4em;height: 4em;justify-content: center;align-items: center;font-weight: normal;margin-top: 2em;}.deadline {text-align: right;}p.deadline {font-size: 2em;}.deadline b {border-bottom: 1px solid black;}span.get {font-weight: bold; color: #43a047;}span.post {font-weight: bold; color: #F3C142;}span.delete {font-weight: bold; color: #FF0000;}span.put {font-weight: bold; color: #4a90e2;}span.patch {font-weight: bold; color: #666666;}section.submit,section.topics {border: 1px dashed rgb(202, 227, 255);padding: 1em;padding-top: 0;border-right: 1em solid rgb(202, 227,255);border-left: 1em solid rgb(202, 227,255);}section.topics {margin-top: 5em;margin-bottom: 3em;border-color: #00b2ff;}section.examples {border: 2px dashed rgb(202, 227, 255);padding: 1em;padding-bottom: 0;}section.examples:before {content: "Examples";text-shadow: 0 0 1em #6aa9f0;font-weight: bold;}section.loc {border: 2px dashed rgb(20, 227, 255);background: rgba(20, 227, 255, 0.1);padding: 1em;padding-bottom: 1em;font-weight: bold;}section.loc:before {content: "Lines of Code of the solution: ";font-weight: normal;}</style></head><body><header>    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="usi-logo" x="0px" y="0px" width="200" height="200" viewBox="0 0 200 200" style="enable-background:new 0 0 200 200;" xml:space="preserve" class="injected-svg svg"><g><path d="M180,41.7h-51.1V31.1h42.2C153.1,12.5,127.8,1,99.9,1C45.2,1.1,0.9,45.4,1,100.1c0,26.8,10.7,51.1,28.1,68.9   c-1.4-2-2.4-4.1-3-6.1c-1-3.5-1-5.9-1.1-15.8v-47.1h14.8v48.5c0,3.4-0.1,6.6,1,9.6c3,7.6,11.3,8.5,16,8.5c2.3,0,8.3-0.1,12.6-3.9   c4.4-3.9,4.4-8.4,4.4-15v-47.7h14.9v49.7c-0.1,8.9-0.1,16.3-8.5,23.5c-8,7-18.4,7.7-23.8,7.7c-4.8,0-9.5-0.6-14-2.1   c-1.8-0.6-3.5-1.4-5-2.3c17.1,14,39,22.4,62.8,22.4c54.7-0.1,99-44.4,98.9-99.1C199,78.1,191.9,58,180,41.7z M175.3,94.4l-6.3-9   c2.1-1.4,8.7-5.7,8.7-17.7c0-2-0.2-4.1-1-6.2c-1.7-4.1-4.6-4.9-6.6-4.9c-3.6,0-4.9,2.5-5.7,4.3c-0.5,1.3-0.6,1.5-1.8,6.6l-1.5,6.9   c-0.9,3.6-1.3,5.4-2,7.2c-1.1,2.6-4.5,9.6-14,9.6c-10.9,0-17.8-9.2-17.8-22.6c0-12.3,6.1-19,11.6-23l6.6,8.8   c-2.8,1.9-8.5,5.7-8.5,14.8c0,5.8,2.6,10.8,7,10.8c4.9,0,5.8-5.3,6.8-10.5l1.3-5.9c1.6-7.7,4.8-18.6,17-18.6   c13.1,0,18.4,12.2,18.4,24.3c0,3.2-0.3,6.7-1.3,10.2C185.1,83.4,182.3,90.1,175.3,94.4z"></path></g></svg><div class="title"><h2>Web Atelier 2023</h2><h1>Exercise  8 - Real-time Web applications with Socket.io</h1></div><div class="deadline"><p>9.11.2023</p><p class="deadline">Deadline: <b>(17)19.11.2023</b></p></div><ul><li>Prof. Cesare Pautasso</li><li>Souhaila Serbout</li><li>Hassan Atwi</li><li>Diana Carolina Mu&ntilde;oz Hurtado</li><li>Joey Bevilacqua</li><li>Edoardo Riggio</li><li>Jacopo Di Ventura</li><li>Hun Rim</li></ul></header><h1 id="goal">Goal</h1>
+<p>The goal of this exercise is to transform your Web application into a real-time Web application, where there is no need to refresh the content, which is automatically kept synchronized between multiple Web browsers by using the WebSocket protocol.</p>
+<section class="submit">
+
+<h2 id="submitting-your-solution">Submitting your solution</h2>
+<p>Your project solution <strong>should</strong> be commited <strong>and pushed</strong> to your github repository. </p>
+<p>Make sure your name is written in every file you submit, including the <code>README.md</code>. Anonymous solutions will not be graded.</p>
+<p>See the <code>README.md</code> file for more details on how to commit <strong>and push</strong> your solution.</p>
+<p>Use the special commit message <code>&quot;completed ex8, please check&quot;</code> <strong>only once</strong> when you have completed the assignment and would like to submit it to be corrected.</p>
+</section>
+
+
+<h2 id="orientation">Orientation</h2>
+<p>The tasks of this assignment will affect both the front-end and the backend of your application. While it may be necessary to build additional views, extend the model and add some new controller, we recommend to place all <code>socket.io</code> related code into the following two files:</p>
+<pre><code>public/js/ws-client.js
+</code></pre>
+<p>Create this client-side script to:</p>
+<ol>
+<li>initialize the socket.io client connection from the browser to the server. </li>
+<li>Handle incoming socket messages to refresh the local views</li>
+<li>Provide an abstraction similar to the <code>api-client.js</code> so that the Web application can send messages to the server via the socket connection.</li>
+</ol>
+<p>In particular, the <code>socket</code> object should not leak as a global variable.</p>
+<pre><code>ws.js
+</code></pre>
+<p>Create a server-side module which will:</p>
+<ol>
+<li>initialize the socket server when required from the main <code>app.js</code> file. </li>
+<li>export the server-side event bus so that it can be connected with the existing routes and forward server-side events to the connected browsers.</li>
+<li>receive and handle messages from the connected browsers by performing database operations through the model or by sending messages to other connected browsers.</li>
+</ol>
+<p>See the handson for an example of how to integrate this module with your existing Express application.</p>
+<h2 id="grading">Grading</h2>
+<p>Task 1 is required.</p>
+<p>&starf;&star;&star; Pick one between tasks 2, 3, or 4.</p>
+<p>&starf;&starf;&star; Pick two between tasks 2, 3, or 4.</p>
+<p>&starf;&starf;&starf; Tasks 2, 3, and 4</p>
+<p><span style="font-style: italic; ">Please list in the <code>README.md</code> file the optional features you implemented.</span></p>
+<h2 id="task---setup-the-socketio-connection"><span class='task'>Task 1.</span>  Setup the socket.io connection</h2>
+<p>Extend your single-page application loader page so that it opens a client socket connection to the server.</p>
+<p>Extend your express server so that it starts a Web socket server that can handle the incoming client socket connections and disconnections.</p>
+<p>Keep track of how many clients are connected at a given time and whenever a client connects, send a welcome message carrying the number of connected clients. Display it somewhere on your application view.</p>
+<h2 id="task---synchronized-map-list"><span class='task'>Task 2.</span>  Synchronized Map List</h2>
+<p>When the user adds, updates, deletes, clones, or toggles the favourite bit, the map list view should be automatically refreshed on all connected browsers.</p>
+<p>Setup an event bus on the server so that the routes handling the mutation of the server state (e.g., <span class='post'>POST</span>, <span class='put'>PUT</span>, <span class='patch'>PATCH</span>, <span class='delete'>DELETE</span>) will emit an event whenever the database state changes. </p>
+<p>This event should be forwarded by the Web socket server to all connected clients so that they can automatically refresh their local map list view.</p>
+<h2 id="task---synchronized-map-editor"><span class='task'>Task 3.</span>  Synchronized Map Editor</h2>
+<p>Turn the map editor into a multi-user collaborative editor. </p>
+<p>Whenever one user modifies the map configuration, the corresponding updated map or marker object should be sent to the Web socket server so that:</p>
+<ol>
+<li>it is saved in the database, updating the state of the map and its markers</li>
+<li>it is broadcast to all other browsers displaying <em>the same map</em>. </li>
+<li>Browsers should update their editor or list views when they receive the updated map or marker object.</li>
+</ol>
+<p>Note: the create/update map button is no longer relevant and should be removed.</p>
+<h2 id="task---users-location-tracking"><span class='task'>Task 4.</span>  Users Location Tracking</h2>
+<p>Add a form to identify the user using the browser (just a text input field will do). When submitting the form, track the user location using the GPS sensor. Send the user GPS location and the user name through the socket connection so that it can be broadcast to all connected browsers.</p>
+<p>On all connected browsers, display a marker representing the location of each user. Display the user name as the marker <a href="https://leafletjs.com/reference.html#tooltip">tooltip</a>. Keep the map view updated as the users change their location. Use the marker color to represent whether the user is currently online or not.</p>
+<p>Store in the database all locations ever sent by each user. Include a timestamp tracking when the location was recorded.</p>
+<p>Create a view where the entire location history of a given user is displayed on the map. Use a leaflet <a href="https://leafletjs.com/reference.html#polyline">Polyline</a> to connect the positions. Highlight the current location with a different marker color. If the user moves, also this view should be automatically refreshed. </p>
+<p>For testing purposes, let the user click on the map to set their location as opposed to reading it from the GPS sensor.</p>
+<section class="topics">
+
+<h2 id="mastery-check-topics">Mastery Check Topics</h2>
+<p>Solving this exercise will demonstrate mastery for the following topics:</p>
+<ul>
+<li>4. APIs<ul>
+<li>4.1. Browser<ul>
+<li>4.1.10. Socket.io</li>
+</ul>
+</li>
+<li>4.2. Server<ul>
+<li>4.2.7. Socket.io<ul>
+<li>4.2.7.1. on</li>
+<li>4.2.7.2. emit</li>
+<li>4.2.7.3. broadcast</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>5. Networking<ul>
+<li>5.2. WebSockets</li>
+</ul>
+</li>
+</ul>
+</section>
+
+
+<h2 id="questions">Questions?</h2>
+<p>Please post them on our <a href="https://stackoverflowteams.com/c/usi-web-atelier/questions/ask?tags=ex8">private StackOverflow</a> using the <code>ex8</code> tag.</p>
+<footer></footer></body></html>
