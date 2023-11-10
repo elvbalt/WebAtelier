@@ -1,0 +1,120 @@
+<!--
+
+    Web Atelier 2023  Exercise 5 - Web Apps with Express.js
+
+    Student: __Elvira Baltasar__
+
+    Task 5.  Map Editor
+
+    1. Copy parts of the list.html file from the previous exercise into this template
+    2. Invoke this view template by passing the appropriate data and functions
+    3. Make sure that the form action attribute points to the corresponding routes
+
+-->
+
+
+<head>
+    <title>USIMAP - Map List</title>
+    <meta name="author" content="__Elvira Baltasar__">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+    <link rel="stylesheet" href="css/style.css" /> 
+    <link rel="stylesheet" href="css/list.css" /> 
+
+    <style>
+        .thumb { width: 200px; height: 200px}
+    </style>
+
+</head>
+<body>
+
+    <h1 id ="titulo"> <img src="images/logo def.png" width="200"> </h1>
+    <section id="general">
+        <nav> 
+            <a id="home" href="/map">
+                <button id="op"> Home page </button> </a>
+            <a id="mapgal" href="/map">
+                <button id="opa"> Map gallery </button> </a>
+            <a id="marker" href="/map/new">
+                <button id="op"> Marker editor </button> </a>
+        </nav> 
+        
+
+    <main id="view-map-list">
+
+        <header>
+            <h4>Title</h4>
+            <span>Thumbnail</span>
+            <span class="lat">Latitude</span>
+            <span class="lng">Longitude</span>
+            <span class="zoom">Zoom</span>
+            <span class="tiles">Tile Source</span>
+            <span class="Views">View count</span>
+            <span class="actions">Actions</span>
+            <label for="sort">Sort by:</label>
+                <select id="sort">
+                <option value="Last"> </option>
+                <option value="Lat">Center Latitude</option>
+                <option value="Lng">Center Longitude</option>
+                <option value="zoomLevel">Zoom Level</option>
+                <option value="title">Title</option>
+                
+                </select>
+        </header>
+
+        <% maps.forEach(map=> { %>
+
+        <%
+        let fav_button = "&starf;";
+        let fav_value = "true"
+        if (!map.fav) {
+            fav_value = "false";
+            fav_button = "&star;";
+        }
+        %>
+        <section id="map-<%=map._id%>" data-mapid="<%=map._id%>">
+            <h4 class="name"><%=map.title%></h4>
+            <a href="/map/<%=map._id%>" target="view">
+               <div id="map-thumb-<%=map._id%>" class="thumb"></div>
+            </a>
+
+            <span class="lat"><%=map.center_str.lat%></span>
+            <span class="lng"><%=map.center_str.lng%></span>
+            <span class="zoom"><%=map.zoom%></span>
+            <span class="tiles"><%=map.tiles%></span>
+            <span class="views"><%=map.viewCount%> </span>
+            <a href="/map/<%=map._id%>/edit" target="editor">Edit</a>
+            <form action="/map/<%=map._id%>/clone" method="POST">
+                <button>Clone</button>
+            </form>
+            <form action="/map/<%=map._id%>/fav?_method=PATCH" method="POST">
+                <input type="hidden" name="fav" value="<%=fav_value%>">
+                <button><%-fav_button%></button>
+            </form>
+            <form action="/map/<%=map._id%>?_method=DELETE" method="POST">
+                <button>Delete</button>
+            </form>
+        </section>
+
+        <%})%>
+    </main>
+
+    <sidebar>
+        <% if (typeof msg !== 'undefined') { %>
+            <p style="color:#ffffff"><%=msg%></p>
+            <%}%>
+    </sidebar>
+
+      
+
+</body>
+
+<!-- use this script to load the map list so that the thumbnails can be initialized client-side -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="js/map-util.js"></script>
+<script src="/maps.js"></script>
+

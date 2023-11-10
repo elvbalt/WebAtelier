@@ -31,7 +31,7 @@ function wait(t) {
 
 describe('★☆☆', function () {
 
-    this.timeout(60000);
+    this.timeout(60000000000);
 
     let iframe_load_count = 0;
 

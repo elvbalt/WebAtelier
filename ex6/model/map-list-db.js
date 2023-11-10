@@ -172,7 +172,7 @@ let make_map_list = function (client, db_name, collection_name) {
      * @throws {StatusError} the status code will be 404 if the map is not found.
      * @returns {Promise} resolving to undefined
      */
-    async function toggleFav(id) {
+    function toggleFav(id) {
         //TODO check whether the object already exists
         try {
             id = new ObjectId(id)
@@ -180,11 +180,18 @@ let make_map_list = function (client, db_name, collection_name) {
             throw StatusError(404)
         }
 
-        let mapi = await getMap(id);
-        if(mapi == undefined) {
-            throw StatusError(404)
-        }
-        return collection.updateOne({ _id: id }, { $set: { fav: !mapi.fav } });
+        //let mapi = getMap(id);
+        return getMap(id)
+            .then((map) =>  {
+                if(map == undefined) {
+                    throw StatusError(404)
+                }
+                return map;
+            })
+            .then((map) =>
+                 collection.updateOne({ _id: id }, { $set: { fav: !map.fav } })
+            );
+        //return collection.updateOne({ _id: id }, { $set: { fav: !mapi.fav } });
     }
 
     async function updateView(id){

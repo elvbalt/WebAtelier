@@ -1,7 +1,7 @@
 /**
  * Web Atelier 2023  - 7 - Single-Page Web Applications with Fetch and Client-side Views
  *
- * Author: __Student_Name__
+ * Author: __Elvira Baltasar__
  *
  * API Client
  *
@@ -62,21 +62,28 @@ api = function () {
     }
 
     function getMap(id) {
+        return fetchJSON('GET', '/map/:'+id+'/edit')
     }
 
     function addMap(map) {
+        return fetchJSON('POST', '/map/', map)
     }
 
+
     function replaceMap(id, map) {
+        return fetchJSON('PUT', '/map/:'+id, map)
     }
 
     function deleteMap(id) {
+        return fetchJSON('DELETE', '/map/:'+id)
     }
 
     function cloneMap(id) {
+        return fetchJSON('POST', '/map/:'+id+'/clone')
     }
 
     function toggleFav(id) {
+        return fetchJSON('PATCH', '/map/:'+id+'/fav')
     }
 
 

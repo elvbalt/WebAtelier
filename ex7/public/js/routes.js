@@ -1,7 +1,7 @@
 /**
  * Web Atelier 2023  - 7 - Single-Page Web Applications with Fetch and Client-side Views
  *
- * Author: __Student_Name__
+ * Author: __Elvira Baltasar__
  *
  * Client-side controllers
  *
@@ -30,7 +30,10 @@ function refresh_map_list() {
         dom.querySelectorAll("a").forEach(link => {
             link.addEventListener("click", (e) => {
 
+                e.preventDefault();
                 let url = new URL(e.currentTarget.href);
+
+                route(url);
 
                 //TODO prevent the browser from following the link
                 //TODO call the client-side router based on the link href
@@ -42,10 +45,14 @@ function refresh_map_list() {
 
             form.addEventListener("submit", function (e) {
 
+                e.preventDefault();
                 let id = e.target.parentNode.dataset.mapid;
+
+                api.deleteMap(id);
 
                 //TODO prevent the browser from submitting the form
                 //TODO delete the map and then, refresh the map list
+                refresh_map_list();
             });
 
         });
@@ -54,10 +61,14 @@ function refresh_map_list() {
 
             form.addEventListener("submit", function (e) {
 
+                e.preventDefault();
                 let id = e.target.parentNode.dataset.mapid;
 
                 //TODO prevent the browser from submitting the form
                 //TODO clone the map and then, refresh the map list
+                api.cloneMap(id);
+
+                refresh_map_list();
 
             });
 
@@ -67,11 +78,13 @@ function refresh_map_list() {
 
             form.addEventListener("submit", function (e) {
 
-
+                e.preventDefault();
                 let id = e.target.parentNode.dataset.mapid;
 
                 //TODO prevent the browser from submitting the form
                 //TODO toggle the map fav bit and then, refresh the map list
+                api.toggleFav(id);
+                refresh_map_list();
 
             });
 
@@ -389,7 +402,10 @@ function route(url) {
     //TODO complete the client-side routing table
     const routes =
     {
-        "/map": () => refresh_map_list()
+        "/map": () => refresh_map_list(),
+        "/map/new": () => refresh_map_editor("new"),
+        "/map/:id": () => refresh_map_view(id),
+        "/map/:id/edit": () => refresh_map_editor(id)
     };
 
     let href = url.pathname.split("/");

@@ -1,0 +1,70 @@
+<!--
+    Web Atelier 2023
+    Exercise 3
+    Object-Oriented JavaScript
+
+    Map Editor
+
+    Author: __Elvira Baltasar__
+
+                                         
+-->
+
+
+<head>
+    <title>USIMAP - Map List</title>
+    <meta name="author" content="__Elvira Baltasar__">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+    <link rel="stylesheet" href="/css/style.css" /> 
+    <link rel="stylesheet" href="/css/list.css" /> 
+
+    <style>
+        .thumb { width: 200px; height: 200px}
+    </style>
+
+</head>
+<body>
+
+    <h1 id ="titulo"> <img src="/images/logo def.png" width="200"> </h1>
+    <section id="general">
+        <nav> 
+            <a id="home" href="/map">
+                <button id="op"> Home page </button> </a>
+            <a id="mapgal" href="/map">
+                <button id="opa"> Map gallery </button> </a>
+            <a id="marker" href="/map/new">
+                <button id="op"> Marker editor </button> </a>
+        </nav> 
+        
+
+
+    <main>
+
+            <form action="/map" method = "put">
+            
+            <input id="title" type="text" name="title" readonly value=<%=map.title%> />
+            <input id="lat" name="lat" value=<%=map.center_str.lat%> />
+            <input id="lng" name="lng" value=<%=map.center_str.lng%> />
+            <input id="zoom" type="number" name="zoom" readonly value="13" />
+            <input id="tiles" type="text" name="tiles" readonly value=<%map.tiles%> />
+            <input id="views" type="text" name="views" readonly value=<%=map.viewCount ?? 0%> />
+
+            <button formaction="/map/<%=map._id%>/edit?_method=GET"> Edit </button>
+
+
+            </form>
+        <div id="map" style="width:100%; height:90%"></div>
+
+    </main>
+
+</body>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>    
+<script src="/js/map-util.js"></script>
+<script src="/map/<%=map._id%>/map.js"></script>
+<script src="/js/map-script-stuff.js"></script>

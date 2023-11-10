@@ -1,0 +1,103 @@
+<!--
+
+    Web Atelier 2023  Exercise 5 - Web Apps with Express.js
+
+    Student: __Elvira Baltasar__
+
+    Task 5.  Map Editor
+
+    1. Copy the editor.html file from the previous exercise into this template
+    2. Include placeholders for the map title, center.lat, center.lng, zoom, and tile source
+    3. Make sure that the form action attribute points to the corresponding routes
+    4. Use the <script> tag to load the map object from /map/:id/maps.js
+
+-->
+
+<head>
+    <title>USIMAP - Map Editor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+    <link rel="stylesheet" href="/css/style.css" />  <!-- ex1 -->
+
+</head>
+
+<body>
+
+    <h1 id ="titulo"> 
+        <img src="/images/logo def.png" width="200"> 
+    </h1>
+    <section id="general">
+        <nav> 
+            <a id="home" href="/map">
+                <button id="op"> Home page </button> </a>
+            <a id="mapgal" href="/map">
+                <button id="op"> Map gallery </button> </a>
+            <a id="marker" href="/map/new">
+                <button id="opa"> Marker editor </button> </a>
+        </nav> 
+
+    <main>
+
+        <header>
+            <h1>Map Editor</h1>
+        </header>
+        <aside class="controls">
+
+            <% if (map._id == -1){ %>
+                <form action="/map" method="POST">
+            <% }else{ %>
+                <form action="/map/<% map._id%>?_method=PUT" method="post">
+            <% } %>
+
+                <input id="title" type="text" name="title" placeholder="<%=map.title%>"/>
+                <input id="lat" type="text" name="lat" placeholder="<%=map.center_str.lat%>"/>
+                <input id="lng" type="text" name="lng" placeholder="<%=map.center_str.lng%>" />
+                <input id="zoom" type="number" name="zoom" value="13" />
+                
+                <select name="tiles" id="tiles">
+
+                    <option value="watercolor" selected>watercolor</option>
+                    <option value="osm">osm</option>
+                    <option value="natgeo">natgeo</option>
+                    <option value="ESRI_world_imagery">ESRI_world_imagery</option>
+                    <option value="Swiss_Color">Swiss_Color</option>
+                    <option value="Swiss_Imagery">Swiss_Imagery</option>
+                    <option value="topo">topo</option>
+                    <option value="toner">toner</option>
+
+                </select>
+
+                <% if (map._id == -1){ %>
+                <button data-action="create" formaction="/map">Create New Map</button>
+
+                <% } else { %>
+
+                <button data-action="update" formaction="/map/<%=map._id%>?_method=PUT">Update Map</button>
+
+                <% } %>
+
+
+            </form>
+
+        </aside>
+
+        
+
+        <div id="map" style="width:100%; height:90%"></div>
+
+    </main>
+
+</body>
+
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script> 
+<script src="/js/map-util.js"></script>
+
+    <script src="/map/<%=map._id%>/map.js"></script>
+
+<script src="/js/map-script.edit.js"></script>
