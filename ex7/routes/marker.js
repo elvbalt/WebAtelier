@@ -97,7 +97,7 @@ router.put("/:mid/marker/:id", async (req, res) => {
 
     res.format({
         json: () => {
-            res.status(added ? 201 : 200).json(marker_data);
+            res.status(added ? 201 : 200).json(marker);
         },
         default: () => {
             res.status(406).send('Not Acceptable')

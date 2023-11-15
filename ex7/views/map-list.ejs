@@ -1,49 +1,3 @@
-<!--
-
-    Web Atelier 2023  Exercise 5 - Web Apps with Express.js
-
-    Student: __Elvira Baltasar__
-
-    Task 5.  Map Editor
-
-    1. Copy parts of the list.html file from the previous exercise into this template
-    2. Invoke this view template by passing the appropriate data and functions
-    3. Make sure that the form action attribute points to the corresponding routes
-
--->
-
-
-<head>
-    <title>USIMAP - Map List</title>
-    <meta name="author" content="__Elvira Baltasar__">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-
-    <link rel="stylesheet" href="css/style.css" /> 
-    <link rel="stylesheet" href="css/list.css" /> 
-
-    <style>
-        .thumb { width: 200px; height: 200px}
-    </style>
-
-</head>
-<body>
-
-    <h1 id ="titulo"> <img src="images/logo def.png" width="200"> </h1>
-    <section id="general">
-        <nav> 
-            <a id="home" href="/map">
-                <button id="op"> Home page </button> </a>
-            <a id="mapgal" href="/map">
-                <button id="opa"> Map gallery </button> </a>
-            <a id="marker" href="/map/new">
-                <button id="op"> Marker editor </button> </a>
-        </nav> 
-        
-
-    <main id="view-map-list">
 
         <header>
             <h4>Title</h4>
@@ -98,23 +52,5 @@
                 <button>Delete</button>
             </form>
         </section>
-
+        
         <%})%>
-    </main>
-
-    <sidebar>
-        <% if (typeof msg !== 'undefined') { %>
-            <p style="color:#ffffff"><%=msg%></p>
-            <%}%>
-    </sidebar>
-
-      
-
-</body>
-
-<!-- use this script to load the map list so that the thumbnails can be initialized client-side -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-<script src="js/map-util.js"></script>
-<script src="/maps.js"></script>
-

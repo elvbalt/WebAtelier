@@ -1,7 +1,7 @@
 /**
  * Web Atelier 2023  Exercise 7 - Single-Page Web Applications with Fetch and Client-side Views
  *
- * Student: __STUDENT NAME__
+ * Student: __Elvira Baltasar__
  *
  * Main Server Application
  *

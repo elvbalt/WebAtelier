@@ -15,7 +15,8 @@ function refresh_map_list() {
     document.title = "Map List";
 
     api.getMaps().then((maps) => {
-        document.querySelector("main").innerHTML = ejs.views_map_list({ maps });;
+        document.querySelector("main").innerHTML = ejs.views_map_list({ maps });
+        document.querySelector("sidebar").innerHTML = ejs.views_sidebar_gen();
 
         maps.forEach(initMapThumb);
 
@@ -74,7 +75,7 @@ function refresh_map_list() {
 
         });
 
-        document.querySelectorAll("form[action$='PATCH']").forEach(form => {
+        dom.querySelectorAll("form[action$='PATCH']").forEach(form => {
 
             form.addEventListener("submit", function (e) {
 
@@ -90,8 +91,20 @@ function refresh_map_list() {
 
         });
 
-    }
+        /*document.querySelectorAll("form[action$='PATCH']").addEventListener("click", function (e) {
 
+                e.preventDefault();
+                let id = e.target.parentNode.dataset.mapid;
+
+                //TODO prevent the browser from submitting the form
+                //TODO toggle the map fav bit and then, refresh the map list
+                api.toggleFav(id);
+                refresh_map_list();
+
+            });*/
+
+        //TODO add event listeners to the map view and edit links
+    }
 }
 
 
@@ -202,7 +215,8 @@ let showMap = (function () {
             m.on("click", function (e) {
                 e.marker = marker;
                 marker_click_listeners.forEach((f) => f(e));
-            });
+       
+        });
 
             m.on("moveend", function (e) {
 
@@ -212,6 +226,8 @@ let showMap = (function () {
                 //Task 7
                 //TODO update the marker through the API
 
+                api.replaceMarker(marker, marker.map_id)
+
             });
 
         }
@@ -219,7 +235,6 @@ let showMap = (function () {
     }
 
     return function (map, editable = false) {
-
         _editable = editable;
 
         SyncMapPosition(map);
@@ -227,6 +242,12 @@ let showMap = (function () {
 
         //Task 6
         //TODO load the markers from the API and display them on the map
+
+        if (map._id != "new" && map._id){
+            api.getMarkers(map._id).then(markers => {
+                markers.forEach(showMarker)
+            })
+        }
 
         return {
             SyncTilesToMap,
@@ -238,7 +259,7 @@ let showMap = (function () {
         };
     }
 
-})(); //showMap IIFE
+}); //showMap IIFE
 
 
 /**
@@ -252,6 +273,24 @@ function refresh_map_view(id) {
     //TODO get the map from the API and display it using showMap
     //TODO display the map title
     //TODO display a link to edit the map
+
+    api.getMap(id).then((map) => {
+
+        document.querySelector("main").innerHTML = ejs.views_map_view({ map });
+        document.querySelector("sidebar").innerHTML = ejs.views_sidebar({map});
+
+        showMap()(map, false);
+
+        document.getElementById("edit").addEventListener("click", (e) => {
+    
+            e.preventDefault();
+    
+            let url = new URL(window.location.origin + `/map/${id}/edit`);
+            
+            route(url)
+        });
+
+    });
 
 
 }
@@ -284,17 +323,67 @@ function refresh_map_editor(id) {
         }
     }
 
+
+    /**
+ * Converts a floating point number representing a GPS coordinate to a string in DMS format.
+ * @param {Float} gps - A floating point number representing a GPS coordinate (latitude or longitude).
+ * @returns a string with the DMS representation of the GPS coordinate
+ */
+function gps2str(gps) {
+    if (-180 > gps > 180 || isNaN(gps)){
+        return undefined;
+    }
+
+    let degrees = Math.trunc(gps);
+    
+    let minutesFloat = (gps - degrees) * 60;
+    
+    let minutes = Math.trunc(minutesFloat);
+    minutes = Math.abs(minutes);
+    let secondsFl = (Math.abs(gps) - Math.abs(degrees) - minutes/60) * 3600;
+    let seconds = Math.round(secondsFl)
+    seconds = Math.abs(seconds);
+
+    if (seconds === 60){
+        minutes++;
+        seconds = 0;
+    }
+    if (minutes === 60){
+        if (degrees < 0){
+            degrees--;
+        }else{
+            degrees++;
+        }
+
+        minutes = 0;
+    }
+  // Format the result as a string
+    return `${degrees}° ${minutes}' ${seconds}"`;
+}
+
     let default_map = {
         zoom: 2,
         center: { lat: 0, lng: 0 },
+        center_str: {lat: gps2str(0), lng: gps2str(0)},
         tiles: "osm",
-        title: "New Map"
+        title: "New Map",
+        id: -1
     };
+    if(id !== "new"){
+        api.getMap(id).then((map) => {
 
-    if (id == "new") {
-        setup_map_editor(true, default_map);
+            document.querySelector("main").innerHTML = ejs.views_map_edit({ map });
+            document.querySelector("sidebar").innerHTML = ejs.views_sidebar({map});
+
+            setup_map_editor(false, map);
+
+        });
     } else {
-        api.getMap(id).then(setup_map_editor.bind(this, false));
+        document.querySelector("main").innerHTML = ejs.views_map_edit({map: default_map})
+        
+        document.querySelector("sidebar").innerHTML = ejs.views_sidebar({map: default_map});
+        setup_map_editor(true, default_map)
+
     }
 
     function setup_map_editor(create, map) {
@@ -308,14 +397,14 @@ function refresh_map_editor(id) {
             f(map_obj);
         }
 
-
+        let leaflet_map_handler = showMap()
         let { SyncTilesToMap,
               SyncMapPosition,
               addMapClickEventListener,
               addMarkerClickEventListener,
               showMarker,
               getMarkerIcon
-            } = showMap(map, true);
+            } = leaflet_map_handler(map, true);
 
         //TODO display the map editor form
 
@@ -330,12 +419,29 @@ function refresh_map_editor(id) {
 
             createBtn.addEventListener("click", function (e) {
 
+                e.preventDefault();
+
+                let map_data = {
+                    zoom: parseInt(document.getElementById("zoom").value) || default_map.zoom,
+                    center: {
+                        lat: parseFloat(document.getElementById("lat").value) || default_map.center.lat,
+                        lng: parseFloat(document.getElementById("lng").value) || default_map.center.lng
+                    },
+                    title: document.getElementById("title").value || default_map.title,
+                    tiles: document.getElementById("tiles").value || default_map.tiles,
+                }
+
+                api.addMap(map_data).then((map) => {
+        
+                    let url = new URL(window.location.origin + `/map/${map._id}`);
+                    
+                    route(url)
+                });
+
                 //TODO prevent the browser from submitting the form
                 //TODO create a new map object from the form input data
                 //TODO post the new map object to the server through the API
                 //TODO then, display the newly created map
-
-
             });
 
         }
@@ -345,6 +451,24 @@ function refresh_map_editor(id) {
 
             updateBtn.addEventListener("click", function (e) {
 
+                e.preventDefault();
+
+                let map_data = {
+                    zoom: parseInt(document.getElementById("zoom").value) || map.zoom,
+                    center: {
+                        lat: parseFloat(document.getElementById("lat").value) || map.center.lat,
+                        lng: parseFloat(document.getElementById("lng").value) || map.center.lng
+                    },
+                    title: document.getElementById("title").value || map.title,
+                    tiles: document.getElementById("tiles").value || map.tiles,
+                    fav: map.fav
+                }
+        
+                api.replaceMap(id, map_data);
+
+                let url = new URL(window.location.origin + `/map/${id}`);
+                
+                route(url)
                 //TODO prevent the browser from submitting the form
                 //TODO replace the updated map object on the server
                 //TODO then, refresh the map list view
@@ -365,6 +489,11 @@ function refresh_map_editor(id) {
 
             //TODO add a marker and show it on the map
 
+            if (id != "new" && id){
+            api.addMarker(marker, id).then(marker => {
+                showMarker(marker)    
+            })
+        }
         })
 
         addMarkerClickEventListener((e) => {
@@ -384,8 +513,57 @@ function refresh_map_editor(id) {
             //TODO save the marker through the API when the input fields change
             //TODO refresh the marker shown on the map to reflect the values of the input fields
 
+            document.querySelector("sidebar").innerHTML = ejs.views_marker_edit({ marker, types });
 
-        });
+            document.getElementById("mtitle").addEventListener("change", function(e){
+                e.preventDefault();
+
+                marker.title = document.getElementById("mtitle").value;
+
+                api.replaceMarker(marker, id);
+
+                refresh_map_editor(id)
+                
+            });
+            document.getElementById("mhue").addEventListener("change", function(e){
+                e.preventDefault();
+
+                marker.hue = document.getElementById("mhue").value;
+
+                api.replaceMarker(marker, id);
+
+                leaflet_marker._icon.style.filter = `hue-rotate(${marker.hue}deg)`;
+            });
+            
+
+            document.querySelectorAll('input[name=type]').forEach((element) => element.addEventListener("click", function(e){
+
+
+                let valor = document.querySelector('input[name=type]:checked').value;
+
+                marker.type = valor;
+
+                api.replaceMarker(marker, id);
+
+                leaflet_marker.setIcon(getMarkerIcon(marker.type));
+
+            }))
+        
+        let delet = document.querySelector("button[data-action='delete']");
+        if (delet) {
+
+            delet.addEventListener("click", function (e) {
+
+                e.preventDefault();
+
+                api.deleteMarker(marker, id)
+        
+                leaflet_marker.remove();
+            });
+    }
+            
+
+        })
 
     };
 
@@ -398,14 +576,16 @@ function refresh_map_editor(id) {
  */
 function route(url) {
 
+    let pathname = url.pathname;
+
     //Task 2
     //TODO complete the client-side routing table
     const routes =
     {
         "/map": () => refresh_map_list(),
         "/map/new": () => refresh_map_editor("new"),
-        "/map/:id": () => refresh_map_view(id),
-        "/map/:id/edit": () => refresh_map_editor(id)
+        "/map/:id": (id) => refresh_map_view(id),
+        "/map/:id/edit": (id) => refresh_map_editor(id)
     };
 
     let href = url.pathname.split("/");
@@ -439,7 +619,10 @@ function route(url) {
 
         //Task 8
         //TODO push the current url to the browser history
+        //history.pushState(null, null, url.pathname)
 
+        //window.location.hash(url.href)
+        history.pushState(null, null, '#'+url.pathname);
         return true;
 
     } else {
@@ -452,13 +635,22 @@ function route(url) {
 
 
 
+
+
 function init() {
 
     //Task 8
     //TODO call the client-side router based on the current url fragment value
 
-    //by default, refresh the map list view
-    refresh_map_list();
+    a = window.location.hash;
+    if (a){
+        b = a.substring(1);
+        route(new URL(window.location.origin + b));
+    }else{
+
+        //by default, refresh the map list view
+        refresh_map_list();
+    }
 
     //intercept all links
     document.querySelectorAll("a").forEach(link => {
@@ -477,6 +669,9 @@ function init() {
     window.addEventListener("popstate", (e) => {
         //Task 8
         //TODO call the client-side router based on the url retrieved from the browser history
+        let a = window.location.hash;
+        b = a.substring(1);
+        route(new URL(window.location.origin + b));
     });
 
 } //init

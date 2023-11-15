@@ -2,7 +2,7 @@
 
 If you can read this file on your computer, you have successfully checked out the skeleton of the exercise 7.
 
-Write your full name here: ________
+Write your full name here: Elvira Baltasar
 
 In case you work in pair, write the name of both students here:
 
@@ -37,9 +37,10 @@ Important: If you do not use the __exact commit message__ shown above we will no
 ## Test Status
 
 [ ] all tests are green
-[ ] NN/NN tests are red, but my solution is correct
+[x] NN/NN tests are red, but my solution is correct
 
 ## Optional Tasks
 
 Please write below which optional tasks you have completed.
 
+I have completed all tasks

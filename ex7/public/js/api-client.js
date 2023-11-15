@@ -62,7 +62,7 @@ api = function () {
     }
 
     function getMap(id) {
-        return fetchJSON('GET', '/map/:'+id+'/edit')
+        return fetchJSON('GET', '/map/'+id+'/edit')
     }
 
     function addMap(map) {
@@ -71,21 +71,36 @@ api = function () {
 
 
     function replaceMap(id, map) {
-        return fetchJSON('PUT', '/map/:'+id, map)
+        return fetchJSON('PUT', '/map/'+id, map)
     }
 
     function deleteMap(id) {
-        return fetchJSON('DELETE', '/map/:'+id)
+        return fetchJSON('DELETE', '/map/'+id)
     }
 
     function cloneMap(id) {
-        return fetchJSON('POST', '/map/:'+id+'/clone')
+        return fetchJSON('POST', '/map/'+id+'/clone')
     }
 
     function toggleFav(id) {
-        return fetchJSON('PATCH', '/map/:'+id+'/fav')
+        return fetchJSON('PATCH', '/map/'+id+'/fav')
     }
 
+    function addMarker(marker, map_id){
+        return fetchJSON('POST', '/map/'+map_id+'/marker', marker)
+    }
+
+    function getMarkers(map_id){
+        return fetchJSON('GET', '/map/'+map_id+'/marker')
+    }
+
+    function replaceMarker(marker, map_id){
+        return fetchJSON('PUT', '/map/'+map_id+'/marker/'+marker._id, marker)
+    }
+
+    function deleteMarker(marker, map_id){
+        return fetchJSON('DELETE', '/map/'+map_id+'/marker/'+marker._id)
+    }
 
     return {
         getMaps,
@@ -94,7 +109,11 @@ api = function () {
         replaceMap,
         toggleFav,
         cloneMap,
-        deleteMap
+        deleteMap,
+        addMarker,
+        getMarkers,
+        replaceMarker,
+        deleteMarker
     }
 
 }();

@@ -78,7 +78,7 @@ router.get("/new", (req, res) => {
 router.get("/:id", async (req, res) => {
     try{
         let mapita = await map_list.getMap(req.params.id);
-
+        console.log('get map')
         if (mapita == undefined) {
             res.sendStatus(404);
             return;

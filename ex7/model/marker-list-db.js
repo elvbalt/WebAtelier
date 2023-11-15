@@ -123,7 +123,7 @@ let make_marker_list = function (client, db_name, collection_name) {
 
         marker._id = result.upsertedId || id;
         let found = (result.upsertedCount == 0);
-        return { found, marker };
+        return { marker, found };
     }
 
     /**

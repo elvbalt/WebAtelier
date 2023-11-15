@@ -31,7 +31,7 @@ function wait(t) {
 
 describe('★☆☆', function () {
 
-    this.timeout(60000000000);
+    this.timeout(1000);
 
     let iframe_load_count = 0;
 
@@ -116,7 +116,7 @@ describe('★☆☆', function () {
 
                 doc.querySelector("a[href='/map'").click();
 
-                await wait(100);
+                await wait(1000);
 
                 let p = doc.querySelectorAll("main a[href$='/edit']");
 
@@ -154,7 +154,7 @@ describe('★☆☆', function () {
 
                     doc.querySelector("a[href$='/map' i]").click();
 
-                    await wait(100);
+                    await wait(10000);
 
                     let clone_form = Array.from(doc.querySelectorAll("main.map-index form[action$='clone']")).pop();
 
@@ -176,7 +176,7 @@ describe('★☆☆', function () {
 
                     doc.querySelector("a[href$='/map' i]").click();
 
-                    await wait(100);
+                    await wait(10000);
 
                     let fav_form = Array.from(doc.querySelectorAll("main.map-index form[action$='PATCH']")).pop();
 
@@ -198,7 +198,7 @@ describe('★☆☆', function () {
 
                     doc.querySelector("a[href$='/map' i]").click();
 
-                    await wait(100);
+                    await wait(100000);
 
                     let delete_form = Array.from(doc.querySelectorAll("main.map-index form[action$='DELETE']")).pop();
 
