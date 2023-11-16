@@ -49,11 +49,13 @@ function refresh_map_list() {
                 e.preventDefault();
                 let id = e.target.parentNode.dataset.mapid;
 
-                api.deleteMap(id);
+                api.deleteMap(id).then( ()=>{
+                    refresh_map_list();
+                }
+                )
 
                 //TODO prevent the browser from submitting the form
                 //TODO delete the map and then, refresh the map list
-                refresh_map_list();
             });
 
         });
@@ -67,10 +69,10 @@ function refresh_map_list() {
 
                 //TODO prevent the browser from submitting the form
                 //TODO clone the map and then, refresh the map list
-                api.cloneMap(id);
-
-                refresh_map_list();
-
+                api.cloneMap(id).then( ()=>{
+                    refresh_map_list();
+                }
+                )
             });
 
         });
@@ -84,24 +86,15 @@ function refresh_map_list() {
 
                 //TODO prevent the browser from submitting the form
                 //TODO toggle the map fav bit and then, refresh the map list
-                api.toggleFav(id);
-                refresh_map_list();
+                api.toggleFav(id).then( ()=>{
+                    refresh_map_list();
+                }
+                )
 
             });
 
         });
 
-        /*document.querySelectorAll("form[action$='PATCH']").addEventListener("click", function (e) {
-
-                e.preventDefault();
-                let id = e.target.parentNode.dataset.mapid;
-
-                //TODO prevent the browser from submitting the form
-                //TODO toggle the map fav bit and then, refresh the map list
-                api.toggleFav(id);
-                refresh_map_list();
-
-            });*/
 
         //TODO add event listeners to the map view and edit links
     }
@@ -214,6 +207,7 @@ let showMap = (function () {
 
             m.on("click", function (e) {
                 e.marker = marker;
+                console.log("1")
                 marker_click_listeners.forEach((f) => f(e));
        
         });
@@ -464,11 +458,13 @@ function gps2str(gps) {
                     fav: map.fav
                 }
         
-                api.replaceMap(id, map_data);
-
-                let url = new URL(window.location.origin + `/map/${id}`);
+                api.replaceMap(id, map_data).then(() =>{
+                    let url = new URL(window.location.origin + `/map/${id}`);
                 
-                route(url)
+                    route(url)
+                })
+
+                
                 //TODO prevent the browser from submitting the form
                 //TODO replace the updated map object on the server
                 //TODO then, refresh the map list view
@@ -520,9 +516,9 @@ function gps2str(gps) {
 
                 marker.title = document.getElementById("mtitle").value;
 
-                api.replaceMarker(marker, id);
-
-                refresh_map_editor(id)
+                api.replaceMarker(marker, id).then(()=>{
+                    refresh_map_editor(id)
+                })
                 
             });
             document.getElementById("mhue").addEventListener("change", function(e){
@@ -530,9 +526,10 @@ function gps2str(gps) {
 
                 marker.hue = document.getElementById("mhue").value;
 
-                api.replaceMarker(marker, id);
+                api.replaceMarker(marker, id).then(()=>{
+                    leaflet_marker._icon.style.filter = `hue-rotate(${marker.hue}deg)`;
+                })
 
-                leaflet_marker._icon.style.filter = `hue-rotate(${marker.hue}deg)`;
             });
             
 
@@ -543,10 +540,9 @@ function gps2str(gps) {
 
                 marker.type = valor;
 
-                api.replaceMarker(marker, id);
-
-                leaflet_marker.setIcon(getMarkerIcon(marker.type));
-
+                api.replaceMarker(marker, id).then(()=>{
+                    leaflet_marker.setIcon(getMarkerIcon(marker.type));
+                })           
             }))
         
         let delet = document.querySelector("button[data-action='delete']");
@@ -556,9 +552,11 @@ function gps2str(gps) {
 
                 e.preventDefault();
 
-                api.deleteMarker(marker, id)
-        
-                leaflet_marker.remove();
+                api.deleteMarker(marker, id).then(()=>{
+                    leaflet_marker.remove();
+                    document.querySelector("sidebar").innerHTML = ejs.views_sidebar_gen();
+                })
+    
             });
     }
             
@@ -574,7 +572,7 @@ function gps2str(gps) {
  * @param {URL} url
  * @returns true if the url matches a route, false otherwise
  */
-function route(url) {
+function route(url, save = true) {
 
     let pathname = url.pathname;
 
@@ -622,7 +620,9 @@ function route(url) {
         //history.pushState(null, null, url.pathname)
 
         //window.location.hash(url.href)
-        history.pushState(null, null, '#'+url.pathname);
+        if (save) {
+            history.pushState(null, null, '#'+url.pathname);
+        }
         return true;
 
     } else {
@@ -671,7 +671,7 @@ function init() {
         //TODO call the client-side router based on the url retrieved from the browser history
         let a = window.location.hash;
         b = a.substring(1);
-        route(new URL(window.location.origin + b));
+        route(new URL(window.location.origin + b), false);
     });
 
 } //init
