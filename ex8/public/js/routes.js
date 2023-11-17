@@ -211,7 +211,7 @@ let showMap = (function () {
                 e.marker = marker;
                 marker_click_listeners.forEach((f) => f(e));
        
-        });
+            });
 
             m.on("moveend", function (e) {
 
@@ -512,7 +512,7 @@ function gps2str(gps) {
             if (id != "new" && id){
             api.addMarker(marker, id).then(marker => {
                 showMarker(marker)    
-                ws.message({topic: 'editing', id: id})
+                ws.message({topic: 'user', id: id})
             })
         }
         })
@@ -595,6 +595,78 @@ function gps2str(gps) {
 
 }
 
+function refresh_user_map() {
+
+    document.title = "User map";
+
+    let can = false;
+    let name;
+
+    document.querySelector("main").innerHTML = ejs.views_users();
+    document.querySelector("sidebar").innerHTML = ejs.views_sidebar_loc();
+
+    let map = {
+        zoom: 2,
+        center: { lat: 0, lng: 0 },
+        center_str: {lat: gps2str(0), lng: gps2str(0)},
+        tiles: "osm",
+        title: "New Map",
+        id: -1
+    };
+    
+
+    let leaflet_map_handler = showMap()
+    let { 
+            addMapClickEventListener,
+            addMarkerClickEventListener,
+            showMarker,
+            getMarkerIcon
+        } = leaflet_map_handler(map, false);
+
+       
+       
+        // Task 6
+        addMapClickEventListener((e) => {
+
+            if (can){
+                let marker = {
+                    location: e.latlng,
+                    title: name,
+                    hue: Math.floor(Math.random() * 360)
+                }
+
+                api.addLocation(marker).then(marker => {
+                    marker.bindTooltip(marker.title).openTooltip();
+                    showMarker(marker)    
+                    ws.message({topic: 'user'})
+                })
+
+            }
+        })
+
+    document.getElementById("log in").addEventListener("click", function (e) {
+        can = true;
+        name = document.getElementById("login").value
+        console.log(name)
+        e.preventDefault();
+
+        api.getLocation().then(()=>{
+            ws.message({topic: 'user'})
+        })
+
+    });
+    document.getElementById("clear").addEventListener("click", function (e) {
+
+        e.preventDefault();
+
+        api.deleteLocation().then(()=>{
+            ws.message({topic: 'user'})
+        })
+
+    });
+
+}
+
 /**
  * Lookup the route matching the url and call the corresponding function
  * @param {URL} url
@@ -610,9 +682,10 @@ function route(url, save = true) {
     {
         "/map": () => refresh_map_list(),
         "/map/new": () => refresh_map_editor("new"),
+        "/map/users": () => refresh_user_map(),
         "/map/:id": (id) => refresh_map_view(id),
         "/map/:id/edit": (id) => refresh_map_editor(id),
-        "/map/users": () => refresh_user_map()
+        
     };
 
     let href = url.pathname.split("/");

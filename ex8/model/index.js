@@ -40,15 +40,19 @@ let connect = function(db_name, mongodb_uri) {
 
             map_list = require("./map-list-db")(client, db_name, "maps");
             marker_list = require("./marker-list-db")(client, db_name, "markers");
+            location_list = require("./locations")(client, db_name, "locations");
 
             model.map_list = map_list;
             model.marker_list = marker_list;
+            model.location_list = location_list;
 
             return { client,
                      marker_list,
                      map_list,
+                     location_list,
                      maps: client.db(db_name).collection("maps"),
-                     markers: client.db(db_name).collection("markers")
+                     markers: client.db(db_name).collection("markers"),
+                     locations: client.db(db_name).collection("locations")
                    }
         }).catch(err => console.error(err));
     }

@@ -102,6 +102,16 @@ api = function () {
         return fetchJSON('DELETE', '/map/'+map_id+'/marker/'+marker._id)
     }
 
+    function getLocation(){
+        return fetchJSON('GET', '/user')
+    }
+    function deleteLocation(){
+        return fetchJSON('DELETE', '/user')
+    }
+    function addLocation(location){
+        return fetchJSON('POST', '/user', location)
+    }
+
     return {
         getMaps,
         getMap,
@@ -113,7 +123,10 @@ api = function () {
         addMarker,
         getMarkers,
         replaceMarker,
-        deleteMarker
+        deleteMarker,
+        getLocation,
+        deleteLocation,
+        addLocation
     }
 
 }();

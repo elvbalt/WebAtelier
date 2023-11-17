@@ -1,7 +1,7 @@
 /**
  * Web Atelier 2023  - Exercise 8 - Real-time Web applications with Socket.io
  *
- * Author: __Elvira Baltasar__
+ * Author: __Elvira Baltasar__Jamila Oubenali
  *
  * Web Socket Server
  *
@@ -21,8 +21,6 @@ function init(server) {
         //TODO register event handlers for the socket
         //TODO keep track of the number of connected clients
 
-        //socket.on()
-
         socket.on('disconnect', function () {
             console.log('client disconnected');
             clients--;
@@ -36,6 +34,9 @@ function init(server) {
         socket.on('editing', function(data){
             console.log("EDITING", data);
             socket.broadcast.emit('editing', data);
+        })
+        socket.on('user', function(){
+            socket.broadcast.emit('user');
         })
 
 });

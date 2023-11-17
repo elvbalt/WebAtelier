@@ -94,6 +94,7 @@ function initControllers(app) {
     const routers = require("./routes");
 
     // Sequentially adding controllers to the express application
+    app.use(routers["location"]);
     app.use("/map",routers["map"]);
     app.use("/map",routers["marker"]);
 

@@ -1,4 +1,4 @@
-//EJS Compiled Views - This file was automatically generated on Fri Nov 17 2023 22:57:16 GMT+0100 (hora estándar de Europa central)
+//EJS Compiled Views - This file was automatically generated on Sat Nov 18 2023 00:32:00 GMT+0100 (hora estándar de Europa central)
  ejs.views_include = function(locals) {
      
      return function(path, d) {
@@ -50,13 +50,13 @@ function encode_char(c) {
 };
 ;
 var __line = 1
-  , __lines = "    <header>\r\n            <h1>Map Editor</h1>\r\n        </header>\r\n  \r\n\r\n                <input id=\"title\" type=\"text\" name=\"title\" map_id=\"<%=map._id%>\" placeholder=\"<%=map.title%>\"/>\r\n                <input id=\"lat\" type=\"text\" name=\"lat\" placeholder=\"<%=map.center_str.lat%>\"/>\r\n                <input id=\"lng\" type=\"text\" name=\"lng\" placeholder=\"<%=map.center_str.lng%>\" />\r\n                <input id=\"zoom\" type=\"number\" name=\"zoom\" value=\"13\" />\r\n                \r\n                <select name=\"tiles\" id=\"tiles\">\r\n                    <% let options = [\"watercolor\", \"osm\", \"natgeo\", \"ESRI_world_imagery\", \"Swiss_Color\", \"Swiss_Imagery\", \"topo\", \"toner\"] %>\r\n                    <% for (let option of options) { %>\r\n                        <option value=\"<%= option %>\" <%= map.tiles === option ? 'selected' : '' %>>\r\n                            <%= option %>\r\n                        </option>\r\n                    <% } %>\r\n                </select>\r\n\r\n                <% if (map.id == -1){ %>\r\n                <button data-action='create'> Create </button>\r\n\r\n                <% } else { %>\r\n\r\n                <button data-action='update'>Update </button>\r\n\r\n                <% } %>\r\n\r\n\r\n            <div id=\"map\"></div>"
+  , __lines = "<header>\r\n            <h1>Map Editor</h1>\r\n        </header>\r\n  \r\n\r\n                <input id=\"title\" type=\"text\" name=\"title\" map_id=\"<%=map._id%>\" placeholder=\"<%=map.title%>\"/>\r\n                <input id=\"lat\" type=\"text\" name=\"lat\" placeholder=\"<%=map.center_str.lat%>\"/>\r\n                <input id=\"lng\" type=\"text\" name=\"lng\" placeholder=\"<%=map.center_str.lng%>\" />\r\n                <input id=\"zoom\" type=\"number\" name=\"zoom\" value=\"13\" />\r\n                \r\n                <select name=\"tiles\" id=\"tiles\">\r\n                    <% let options = [\"watercolor\", \"osm\", \"natgeo\", \"ESRI_world_imagery\", \"Swiss_Color\", \"Swiss_Imagery\", \"topo\", \"toner\"] %>\r\n                    <% for (let option of options) { %>\r\n                        <option value=\"<%= option %>\" <%= map.tiles === option ? 'selected' : '' %>>\r\n                            <%= option %>\r\n                        </option>\r\n                    <% } %>\r\n                </select>\r\n\r\n                <% if (map.id == -1){ %>\r\n                <button data-action='create'> Create </button>\r\n\r\n                <% } else { %>\r\n\r\n                <button data-action='update'>Update </button>\r\n\r\n                <% } %>\r\n\r\n\r\n            <div id=\"map\"></div>"
   , __filename = undefined;
 try {
   var __output = "";
   function __append(s) { if (s !== undefined && s !== null) __output += s }
   with (locals || {}) {
-    ; __append("    <header>\r\n            <h1>Map Editor</h1>\r\n        </header>\r\n  \r\n\r\n                <input id=\"title\" type=\"text\" name=\"title\" map_id=\"")
+    ; __append("<header>\r\n            <h1>Map Editor</h1>\r\n        </header>\r\n  \r\n\r\n                <input id=\"title\" type=\"text\" name=\"title\" map_id=\"")
     ; __line = 6
     ; __append(escapeFn(map._id))
     ; __append("\" placeholder=\"")
@@ -631,6 +631,123 @@ try {
   var __output = "";
   function __append(s) { if (s !== undefined && s !== null) __output += s }
   with (locals || {}) {
+  }
+  return __output;
+} catch (e) {
+  rethrow(e, __lines, __filename, __line, escapeFn);
+}
+
+}
+ejs.views_sidebar_loc = function(locals, escapeFn, include = ejs.views_include(locals), rethrow
+) {
+rethrow = rethrow || function rethrow(err, str, flnm, lineno, esc) {
+  var lines = str.split('\n');
+  var start = Math.max(lineno - 3, 0);
+  var end = Math.min(lines.length, lineno + 3);
+  var filename = esc(flnm);
+  // Error context
+  var context = lines.slice(start, end).map(function (line, i){
+    var curr = i + start + 1;
+    return (curr == lineno ? ' >> ' : '    ')
+      + curr
+      + '| '
+      + line;
+  }).join('\n');
+
+  // Alter exception message
+  err.path = filename;
+  err.message = (filename || 'ejs') + ':'
+    + lineno + '\n'
+    + context + '\n\n'
+    + err.message;
+
+  throw err;
+};
+escapeFn = escapeFn || function (markup) {
+  return markup == undefined
+    ? ''
+    : String(markup)
+      .replace(_MATCH_HTML, encode_char);
+};
+var _ENCODE_HTML_RULES = {
+      "&": "&amp;"
+    , "<": "&lt;"
+    , ">": "&gt;"
+    , '"': "&#34;"
+    , "'": "&#39;"
+    }
+  , _MATCH_HTML = /[&<>'"]/g;
+function encode_char(c) {
+  return _ENCODE_HTML_RULES[c] || c;
+};
+;
+var __line = 1
+  , __lines = "<nav>\r\n    <input id=\"login\">\r\n    <button id=\"log in\"> Log in </button> </a>\r\n    <button id=\"clear\"> Clear </button> </a>\r\n    \r\n</nav>"
+  , __filename = undefined;
+try {
+  var __output = "";
+  function __append(s) { if (s !== undefined && s !== null) __output += s }
+  with (locals || {}) {
+    ; __append("<nav>\r\n    <input id=\"login\">\r\n    <button id=\"log in\"> Log in </button> </a>\r\n    <button id=\"clear\"> Clear </button> </a>\r\n    \r\n</nav>")
+    ; __line = 6
+  }
+  return __output;
+} catch (e) {
+  rethrow(e, __lines, __filename, __line, escapeFn);
+}
+
+}
+ejs.views_users = function(locals, escapeFn, include = ejs.views_include(locals), rethrow
+) {
+rethrow = rethrow || function rethrow(err, str, flnm, lineno, esc) {
+  var lines = str.split('\n');
+  var start = Math.max(lineno - 3, 0);
+  var end = Math.min(lines.length, lineno + 3);
+  var filename = esc(flnm);
+  // Error context
+  var context = lines.slice(start, end).map(function (line, i){
+    var curr = i + start + 1;
+    return (curr == lineno ? ' >> ' : '    ')
+      + curr
+      + '| '
+      + line;
+  }).join('\n');
+
+  // Alter exception message
+  err.path = filename;
+  err.message = (filename || 'ejs') + ':'
+    + lineno + '\n'
+    + context + '\n\n'
+    + err.message;
+
+  throw err;
+};
+escapeFn = escapeFn || function (markup) {
+  return markup == undefined
+    ? ''
+    : String(markup)
+      .replace(_MATCH_HTML, encode_char);
+};
+var _ENCODE_HTML_RULES = {
+      "&": "&amp;"
+    , "<": "&lt;"
+    , ">": "&gt;"
+    , '"': "&#34;"
+    , "'": "&#39;"
+    }
+  , _MATCH_HTML = /[&<>'"]/g;
+function encode_char(c) {
+  return _ENCODE_HTML_RULES[c] || c;
+};
+;
+var __line = 1
+  , __lines = "<div id=\"map\"></div>"
+  , __filename = undefined;
+try {
+  var __output = "";
+  function __append(s) { if (s !== undefined && s !== null) __output += s }
+  with (locals || {}) {
+    ; __append("<div id=\"map\"></div>")
   }
   return __output;
 } catch (e) {
@@ -682,13 +799,13 @@ function encode_char(c) {
 };
 ;
 var __line = 1
-  , __lines = "    <header>\r\n            <h1>Map Editor</h1>\r\n        </header>\r\n  \r\n\r\n                <input id=\"title\" type=\"text\" name=\"title\" map_id=\"<%=map._id%>\" placeholder=\"<%=map.title%>\"/>\r\n                <input id=\"lat\" type=\"text\" name=\"lat\" placeholder=\"<%=map.center_str.lat%>\"/>\r\n                <input id=\"lng\" type=\"text\" name=\"lng\" placeholder=\"<%=map.center_str.lng%>\" />\r\n                <input id=\"zoom\" type=\"number\" name=\"zoom\" value=\"13\" />\r\n                \r\n                <select name=\"tiles\" id=\"tiles\">\r\n                    <% let options = [\"watercolor\", \"osm\", \"natgeo\", \"ESRI_world_imagery\", \"Swiss_Color\", \"Swiss_Imagery\", \"topo\", \"toner\"] %>\r\n                    <% for (let option of options) { %>\r\n                        <option value=\"<%= option %>\" <%= map.tiles === option ? 'selected' : '' %>>\r\n                            <%= option %>\r\n                        </option>\r\n                    <% } %>\r\n                </select>\r\n\r\n                <% if (map.id == -1){ %>\r\n                <button data-action='create'> Create </button>\r\n\r\n                <% } else { %>\r\n\r\n                <button data-action='update'>Update </button>\r\n\r\n                <% } %>\r\n\r\n\r\n            <div id=\"map\"></div>"
+  , __lines = "<header>\r\n            <h1>Map Editor</h1>\r\n        </header>\r\n  \r\n\r\n                <input id=\"title\" type=\"text\" name=\"title\" map_id=\"<%=map._id%>\" placeholder=\"<%=map.title%>\"/>\r\n                <input id=\"lat\" type=\"text\" name=\"lat\" placeholder=\"<%=map.center_str.lat%>\"/>\r\n                <input id=\"lng\" type=\"text\" name=\"lng\" placeholder=\"<%=map.center_str.lng%>\" />\r\n                <input id=\"zoom\" type=\"number\" name=\"zoom\" value=\"13\" />\r\n                \r\n                <select name=\"tiles\" id=\"tiles\">\r\n                    <% let options = [\"watercolor\", \"osm\", \"natgeo\", \"ESRI_world_imagery\", \"Swiss_Color\", \"Swiss_Imagery\", \"topo\", \"toner\"] %>\r\n                    <% for (let option of options) { %>\r\n                        <option value=\"<%= option %>\" <%= map.tiles === option ? 'selected' : '' %>>\r\n                            <%= option %>\r\n                        </option>\r\n                    <% } %>\r\n                </select>\r\n\r\n                <% if (map.id == -1){ %>\r\n                <button data-action='create'> Create </button>\r\n\r\n                <% } else { %>\r\n\r\n                <button data-action='update'>Update </button>\r\n\r\n                <% } %>\r\n\r\n\r\n            <div id=\"map\"></div>"
   , __filename = undefined;
 try {
   var __output = "";
   function __append(s) { if (s !== undefined && s !== null) __output += s }
   with (locals || {}) {
-    ; __append("    <header>\r\n            <h1>Map Editor</h1>\r\n        </header>\r\n  \r\n\r\n                <input id=\"title\" type=\"text\" name=\"title\" map_id=\"")
+    ; __append("<header>\r\n            <h1>Map Editor</h1>\r\n        </header>\r\n  \r\n\r\n                <input id=\"title\" type=\"text\" name=\"title\" map_id=\"")
     ; __line = 6
     ; __append(escapeFn(map._id))
     ; __append("\" placeholder=\"")
@@ -1263,6 +1380,123 @@ try {
   var __output = "";
   function __append(s) { if (s !== undefined && s !== null) __output += s }
   with (locals || {}) {
+  }
+  return __output;
+} catch (e) {
+  rethrow(e, __lines, __filename, __line, escapeFn);
+}
+
+}
+ejs.views_sidebar_loc = function(locals, escapeFn, include = ejs.views_include(locals), rethrow
+) {
+rethrow = rethrow || function rethrow(err, str, flnm, lineno, esc) {
+  var lines = str.split('\n');
+  var start = Math.max(lineno - 3, 0);
+  var end = Math.min(lines.length, lineno + 3);
+  var filename = esc(flnm);
+  // Error context
+  var context = lines.slice(start, end).map(function (line, i){
+    var curr = i + start + 1;
+    return (curr == lineno ? ' >> ' : '    ')
+      + curr
+      + '| '
+      + line;
+  }).join('\n');
+
+  // Alter exception message
+  err.path = filename;
+  err.message = (filename || 'ejs') + ':'
+    + lineno + '\n'
+    + context + '\n\n'
+    + err.message;
+
+  throw err;
+};
+escapeFn = escapeFn || function (markup) {
+  return markup == undefined
+    ? ''
+    : String(markup)
+      .replace(_MATCH_HTML, encode_char);
+};
+var _ENCODE_HTML_RULES = {
+      "&": "&amp;"
+    , "<": "&lt;"
+    , ">": "&gt;"
+    , '"': "&#34;"
+    , "'": "&#39;"
+    }
+  , _MATCH_HTML = /[&<>'"]/g;
+function encode_char(c) {
+  return _ENCODE_HTML_RULES[c] || c;
+};
+;
+var __line = 1
+  , __lines = "<nav>\r\n    <input id=\"login\">\r\n    <button id=\"log in\"> Log in </button> </a>\r\n    <button id=\"clear\"> Clear </button> </a>\r\n    \r\n</nav>"
+  , __filename = undefined;
+try {
+  var __output = "";
+  function __append(s) { if (s !== undefined && s !== null) __output += s }
+  with (locals || {}) {
+    ; __append("<nav>\r\n    <input id=\"login\">\r\n    <button id=\"log in\"> Log in </button> </a>\r\n    <button id=\"clear\"> Clear </button> </a>\r\n    \r\n</nav>")
+    ; __line = 6
+  }
+  return __output;
+} catch (e) {
+  rethrow(e, __lines, __filename, __line, escapeFn);
+}
+
+}
+ejs.views_users = function(locals, escapeFn, include = ejs.views_include(locals), rethrow
+) {
+rethrow = rethrow || function rethrow(err, str, flnm, lineno, esc) {
+  var lines = str.split('\n');
+  var start = Math.max(lineno - 3, 0);
+  var end = Math.min(lines.length, lineno + 3);
+  var filename = esc(flnm);
+  // Error context
+  var context = lines.slice(start, end).map(function (line, i){
+    var curr = i + start + 1;
+    return (curr == lineno ? ' >> ' : '    ')
+      + curr
+      + '| '
+      + line;
+  }).join('\n');
+
+  // Alter exception message
+  err.path = filename;
+  err.message = (filename || 'ejs') + ':'
+    + lineno + '\n'
+    + context + '\n\n'
+    + err.message;
+
+  throw err;
+};
+escapeFn = escapeFn || function (markup) {
+  return markup == undefined
+    ? ''
+    : String(markup)
+      .replace(_MATCH_HTML, encode_char);
+};
+var _ENCODE_HTML_RULES = {
+      "&": "&amp;"
+    , "<": "&lt;"
+    , ">": "&gt;"
+    , '"': "&#34;"
+    , "'": "&#39;"
+    }
+  , _MATCH_HTML = /[&<>'"]/g;
+function encode_char(c) {
+  return _ENCODE_HTML_RULES[c] || c;
+};
+;
+var __line = 1
+  , __lines = "<div id=\"map\"></div>"
+  , __filename = undefined;
+try {
+  var __output = "";
+  function __append(s) { if (s !== undefined && s !== null) __output += s }
+  with (locals || {}) {
+    ; __append("<div id=\"map\"></div>")
   }
   return __output;
 } catch (e) {

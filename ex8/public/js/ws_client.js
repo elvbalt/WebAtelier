@@ -1,7 +1,7 @@
 /**
  * Web Atelier 2023  - 8 - Real-time Web applications with Socket.io
  *
- * Author: __Elvira Baltasar_
+ * Author: __Elvira Baltasar_Jamila Oubenali
  *
  * Web Socket Client
  *
@@ -45,6 +45,13 @@ const ws = function(){
                     refresh_map_view(id);
                 }
             }
+        }
+    })
+
+    socket.on('user', function(){
+        let title = document.title;
+        if (title == 'User map'){
+            refresh_user_map();
         }
     })
 
