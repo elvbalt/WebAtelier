@@ -16,7 +16,7 @@ function refresh_map_list() {
 
     api.getMaps().then((maps) => {
         document.querySelector("main").innerHTML = ejs.views_map_list({ maps });
-        document.querySelector("sidebar").innerHTML = ejs.views_sidebar_gen();
+        //document.querySelector("sidebar").innerHTML = ejs.views_sidebar_gen();
 
         maps.forEach(initMapThumb);
 
@@ -554,7 +554,7 @@ function gps2str(gps) {
 
                 api.deleteMarker(marker, id).then(()=>{
                     leaflet_marker.remove();
-                    document.querySelector("sidebar").innerHTML = ejs.views_sidebar_gen();
+                    //document.querySelector("sidebar").innerHTML = ejs.views_sidebar_gen();
                 })
     
             });

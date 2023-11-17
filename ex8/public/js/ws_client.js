@@ -18,6 +18,10 @@ const ws = function(){
         console.log("connected to the server");
     });
 
+    socket.on('update', (count) => {
+        document.getElementById('clientCount').innerText = count;
+    })
+
 //TODO register event handlers for the socket to receive messages from the server
 
 

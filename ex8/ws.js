@@ -11,14 +11,12 @@ const io = require('socket.io')();
 let clients = 0;
 
 function init(server) {
-    console.log("dd")
-
     io.attach(server);
 
     io.on('connection', function(socket){
         console.log("client connected");
         clients++;
-        
+        io.emit('update', clients);
 
         //TODO register event handlers for the socket
         //TODO keep track of the number of connected clients
@@ -26,6 +24,7 @@ function init(server) {
         socket.on('disconnect', function () {
             console.log('client disconnected');
             clients--;
+            io.emit('update', clients);
         })
 
 });
