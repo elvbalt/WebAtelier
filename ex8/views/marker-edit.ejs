@@ -1,0 +1,53 @@
+<!--
+
+    Web Atelier 2023  Exercise 7 - Single-Page Web Applications with Fetch and Client-side Views
+
+    Student: __Elvira Baltasar__
+
+    Task 6.  Marker Editor Form
+
+    1. This view expects a marker object and a types string array
+    2. The marker object has the following properties:
+        - title: string
+        - location: {lat: number, lng: number}
+        - hue: number
+        - type: string
+    3. The types array contains the types of markers that can be selected
+
+-->
+
+<% if (locals.marker) { %>
+
+    <form class="marker">
+
+        <div id="info">
+
+        <p>Latitude: <%=gps2str(marker.location.lng)%>, Longitude: <%=gps2str(marker.location.lat)%></p>
+
+        <label for="mtitle">Title:</label><input id="mtitle" type="text" name="title" value="<%=marker.title%>" />
+        <label for="mhue">Color:</label><input id="mhue" type="range" min="0" max="360" value="<%=marker.hue%>" />
+
+        </div>
+
+        <% if (locals.types==undefined) { locals.types=["undefined", "null" ]; } %>
+
+        <label>Type:</label>
+
+        <div id ="options">
+
+        <% types.forEach(type=> { %>
+            <div id="dentro">
+            <label for="type-<%=type%>"><img src="/images/marker-<%=type%>.svg" /></label>
+            <input id="type-<%=type%>" type="radio" name="type" value="<%=type%>" <% if (marker.type==type) {%>checked<% } %> />
+            </div>
+        <% }); %>
+
+    </div>
+
+        <button data-action="delete">Delete Marker</button>
+
+        
+
+    </form>
+
+<% } %>

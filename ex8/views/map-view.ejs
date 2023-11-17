@@ -1,0 +1,13 @@
+
+
+<input id="title" type="text" name="title" readonly value="<%=map.title%>" />
+<input id="lat" name="lat" value=<%=map.center_str.lat%> disabled />
+<input id="lng" name="lng" vale=<%=map.center_str.lng%> disabled />
+<input id="zoom" type="number" name="zoom" readonly value="13" />
+<input id="tiles" type="text" name="tiles" readonly value=<%=map.tiles%> />
+<input id="views" type="text" name="views" readonly value=<%=map.viewCount ?? 0%> />
+
+<button id = "edit"> Edit </button>
+
+
+<div id="map"></div>

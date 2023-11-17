@@ -1,16 +1,22 @@
 /**
  * Web Atelier 2023  - 8 - Real-time Web applications with Socket.io
  *
- * Author: __Student_Name__
+ * Author: __Elvira Baltasar_
  *
  * Web Socket Client
  *
  */
 
+
 const ws = function(){
 
     //assumes the socket.io client library is loaded in the HTML file
     const socket = io();
+    console.log("dam it")
+
+    socket.on('message', function(){
+        console.log("connected to the server");
+    });
 
 //TODO register event handlers for the socket to receive messages from the server
 

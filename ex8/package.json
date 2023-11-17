@@ -1,0 +1,36 @@
+{
+  "name": "web-atelier-exercise-7",
+  "version": "1.0.0",
+  "description": "Web Atelier Exercise 7 Skeleton",
+  "main": "index.js",
+  "author": "__STUDENT NAME__",
+  "license": "MIT",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "DEBUG=router:* nodemon --delay 1 --ignore public/ --ignore maps.json app.js",
+    "ejsc": "node ./node_modules/ejsc-views/bin/ejsc -d",
+    "test": "mocha --exit",
+    "watch:test": "mocha -w -min --delay=2000"
+  },
+  "dependencies": {
+    "ejsc-views": "^1.0.7",
+    "express": "^4.18.2",
+    "method-override": "^3.0.0",
+    "model": "^0.0.6",
+    "module": "^1.1.0",
+    "mongod": "^2.0.0",
+    "mongodb": "^6.3.0",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "node": "^21.1.0",
+    "socket.io": "^4.7.2"
+  },
+  "devDependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "fast-check": "^3.13.1",
+    "fs-extra": "^10.1.0",
+    "mocha": "^10.1.0",
+    "should": "^13.2.3",
+    "supertest": "^6.3.0"
+  }
+}

@@ -1,0 +1,30 @@
+    <header>
+            <h1>Map Editor</h1>
+        </header>
+  
+
+                <input id="title" type="text" name="title" placeholder="<%=map.title%>"/>
+                <input id="lat" type="text" name="lat" placeholder="<%=map.center_str.lat%>"/>
+                <input id="lng" type="text" name="lng" placeholder="<%=map.center_str.lng%>" />
+                <input id="zoom" type="number" name="zoom" value="13" />
+                
+                <select name="tiles" id="tiles">
+                    <% let options = ["watercolor", "osm", "natgeo", "ESRI_world_imagery", "Swiss_Color", "Swiss_Imagery", "topo", "toner"] %>
+                    <% for (let option of options) { %>
+                        <option value="<%= option %>" <%= map.tiles === option ? 'selected' : '' %>>
+                            <%= option %>
+                        </option>
+                    <% } %>
+                </select>
+
+                <% if (map.id == -1){ %>
+                <button data-action='create'> Create </button>
+
+                <% } else { %>
+
+                <button data-action='update'>Update </button>
+
+                <% } %>
+
+
+            <div id="map"></div>

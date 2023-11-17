@@ -1,0 +1,56 @@
+
+        <header>
+            <h4>Title</h4>
+            <span>Thumbnail</span>
+            <span class="lat">Latitude</span>
+            <span class="lng">Longitude</span>
+            <span class="zoom">Zoom</span>
+            <span class="tiles">Tile Source</span>
+            <span class="Views">View count</span>
+            <span class="actions">Actions</span>
+            <label for="sort">Sort by:</label>
+                <select id="sort">
+                <option value="Last"> </option>
+                <option value="Lat">Center Latitude</option>
+                <option value="Lng">Center Longitude</option>
+                <option value="zoomLevel">Zoom Level</option>
+                <option value="title">Title</option>
+                
+                </select>
+        </header>
+
+        <% maps.forEach(map=> { %>
+
+        <%
+        let fav_button = "&starf;";
+        let fav_value = "true"
+        if (!map.fav) {
+            fav_value = "false";
+            fav_button = "&star;";
+        }
+        %>
+        <section id="map-<%=map._id%>" data-mapid="<%=map._id%>">
+            <h4 class="name"><%=map.title%></h4>
+            <a href="/map/<%=map._id%>" target="view">
+               <div id="map-thumb-<%=map._id%>" class="thumb"></div>
+            </a>
+
+            <span class="lat"><%=map.center_str.lat%></span>
+            <span class="lng"><%=map.center_str.lng%></span>
+            <span class="zoom"><%=map.zoom%></span>
+            <span class="tiles"><%=map.tiles%></span>
+            <span class="views"><%=map.viewCount%> </span>
+            <a href="/map/<%=map._id%>/edit" target="editor">Edit</a>
+            <form action="/map/<%=map._id%>/clone" method="POST">
+                <button>Clone</button>
+            </form>
+            <form action="/map/<%=map._id%>/fav?_method=PATCH" method="POST">
+                <input type="hidden" name="fav" value="<%=fav_value%>">
+                <button><%-fav_button%></button>
+            </form>
+            <form action="/map/<%=map._id%>?_method=DELETE" method="POST">
+                <button>Delete</button>
+            </form>
+        </section>
+        
+        <%})%>

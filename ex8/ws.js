@@ -1,25 +1,34 @@
 /**
  * Web Atelier 2023  - Exercise 8 - Real-time Web applications with Socket.io
  *
- * Author: __Student_Name__
+ * Author: __Elvira Baltasar__
  *
  * Web Socket Server
  *
  */
 
 const io = require('socket.io')();
+let clients = 0;
 
 function init(server) {
+    console.log("dd")
 
     io.attach(server);
 
     io.on('connection', function(socket){
-        console.log('client connected',socket.id);
+        console.log("client connected");
+        clients++;
+        
 
         //TODO register event handlers for the socket
         //TODO keep track of the number of connected clients
 
-    });
+        socket.on('disconnect', function () {
+            console.log('client disconnected');
+            clients--;
+        })
+
+});
 
 }
 
