@@ -512,6 +512,7 @@ function gps2str(gps) {
             if (id != "new" && id){
             api.addMarker(marker, id).then(marker => {
                 showMarker(marker)    
+                ws.message({topic: 'editing', id: id})
             })
         }
         })
@@ -541,7 +542,7 @@ function gps2str(gps) {
                 marker.title = document.getElementById("mtitle").value;
 
                 api.replaceMarker(marker, id).then(()=>{
-                    refresh_map_editor(id)
+                    ws.message({topic: 'editing', id: id})
                 })
                 
             });
@@ -552,6 +553,7 @@ function gps2str(gps) {
 
                 api.replaceMarker(marker, id).then(()=>{
                     leaflet_marker._icon.style.filter = `hue-rotate(${marker.hue}deg)`;
+                    ws.message({topic: 'editing', id: id})
                 })
 
             });
@@ -566,6 +568,7 @@ function gps2str(gps) {
 
                 api.replaceMarker(marker, id).then(()=>{
                     leaflet_marker.setIcon(getMarkerIcon(marker.type));
+                    ws.message({topic: 'editing', id: id})
                 })           
             }))
         
@@ -579,6 +582,7 @@ function gps2str(gps) {
                 api.deleteMarker(marker, id).then(()=>{
                     leaflet_marker.remove();
                     document.querySelector("sidebar").innerHTML = ejs.views_sidebar_gen();
+                    ws.message({topic: 'editing', id: id})
                 })
     
             });
@@ -607,7 +611,8 @@ function route(url, save = true) {
         "/map": () => refresh_map_list(),
         "/map/new": () => refresh_map_editor("new"),
         "/map/:id": (id) => refresh_map_view(id),
-        "/map/:id/edit": (id) => refresh_map_editor(id)
+        "/map/:id/edit": (id) => refresh_map_editor(id),
+        "/map/users": () => refresh_user_map()
     };
 
     let href = url.pathname.split("/");
