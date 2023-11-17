@@ -6,8 +6,8 @@ Write your full name here: ________
 
 In case you work in pair, write the name of both students here:
 
-1. ________
-2. ________
+1. Jamila Oubenali
+2. Elvira Baltasar
 
 After entering your name(s) above, you should commit and push your code as follows:
 

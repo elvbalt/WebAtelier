@@ -25,7 +25,6 @@ const ws = function(){
 
     socket.on('updatingMap', function(){
         console.log("fvjndfvjndfnj");
-        /*document.querySelector("main").innerHTML = ejs.views_map_list({ maps: maps.data });*/
         refresh_map_list();
     })
 
