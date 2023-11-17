@@ -1,4 +1,4 @@
-//EJS Compiled Views - This file was automatically generated on Fri Nov 17 2023 16:41:46 GMT+0100 (hora estándar de Europa central)
+//EJS Compiled Views - This file was automatically generated on Fri Nov 17 2023 19:02:43 GMT+0100 (hora estándar de Europa central)
  ejs.views_include = function(locals) {
      
      return function(path, d) {
@@ -50,14 +50,16 @@ function encode_char(c) {
 };
 ;
 var __line = 1
-  , __lines = "    <header>\r\n            <h1>Map Editor</h1>\r\n        </header>\r\n  \r\n\r\n                <input id=\"title\" type=\"text\" name=\"title\" placeholder=\"<%=map.title%>\"/>\r\n                <input id=\"lat\" type=\"text\" name=\"lat\" placeholder=\"<%=map.center_str.lat%>\"/>\r\n                <input id=\"lng\" type=\"text\" name=\"lng\" placeholder=\"<%=map.center_str.lng%>\" />\r\n                <input id=\"zoom\" type=\"number\" name=\"zoom\" value=\"13\" />\r\n                \r\n                <select name=\"tiles\" id=\"tiles\">\r\n                    <% let options = [\"watercolor\", \"osm\", \"natgeo\", \"ESRI_world_imagery\", \"Swiss_Color\", \"Swiss_Imagery\", \"topo\", \"toner\"] %>\r\n                    <% for (let option of options) { %>\r\n                        <option value=\"<%= option %>\" <%= map.tiles === option ? 'selected' : '' %>>\r\n                            <%= option %>\r\n                        </option>\r\n                    <% } %>\r\n                </select>\r\n\r\n                <% if (map.id == -1){ %>\r\n                <button data-action='create'> Create </button>\r\n\r\n                <% } else { %>\r\n\r\n                <button data-action='update'>Update </button>\r\n\r\n                <% } %>\r\n\r\n\r\n            <div id=\"map\"></div>"
+  , __lines = "    <header>\r\n            <h1>Map Editor</h1>\r\n        </header>\r\n  \r\n\r\n                <input id=\"title\" type=\"text\" name=\"title\" map_id=\"<%=map._id%>\" placeholder=\"<%=map.title%>\"/>\r\n                <input id=\"lat\" type=\"text\" name=\"lat\" placeholder=\"<%=map.center_str.lat%>\"/>\r\n                <input id=\"lng\" type=\"text\" name=\"lng\" placeholder=\"<%=map.center_str.lng%>\" />\r\n                <input id=\"zoom\" type=\"number\" name=\"zoom\" value=\"13\" />\r\n                \r\n                <select name=\"tiles\" id=\"tiles\">\r\n                    <% let options = [\"watercolor\", \"osm\", \"natgeo\", \"ESRI_world_imagery\", \"Swiss_Color\", \"Swiss_Imagery\", \"topo\", \"toner\"] %>\r\n                    <% for (let option of options) { %>\r\n                        <option value=\"<%= option %>\" <%= map.tiles === option ? 'selected' : '' %>>\r\n                            <%= option %>\r\n                        </option>\r\n                    <% } %>\r\n                </select>\r\n\r\n                <% if (map.id == -1){ %>\r\n                <button data-action='create'> Create </button>\r\n\r\n                <% } else { %>\r\n\r\n                <button data-action='update'>Update </button>\r\n\r\n                <% } %>\r\n\r\n\r\n            <div id=\"map\"></div>"
   , __filename = undefined;
 try {
   var __output = "";
   function __append(s) { if (s !== undefined && s !== null) __output += s }
   with (locals || {}) {
-    ; __append("    <header>\r\n            <h1>Map Editor</h1>\r\n        </header>\r\n  \r\n\r\n                <input id=\"title\" type=\"text\" name=\"title\" placeholder=\"")
+    ; __append("    <header>\r\n            <h1>Map Editor</h1>\r\n        </header>\r\n  \r\n\r\n                <input id=\"title\" type=\"text\" name=\"title\" map_id=\"")
     ; __line = 6
+    ; __append(escapeFn(map._id))
+    ; __append("\" placeholder=\"")
     ; __append(escapeFn(map.title))
     ; __append("\"/>\r\n                <input id=\"lat\" type=\"text\" name=\"lat\" placeholder=\"")
     ; __line = 7
@@ -388,14 +390,16 @@ function encode_char(c) {
 };
 ;
 var __line = 1
-  , __lines = "\r\n\r\n<input id=\"title\" type=\"text\" name=\"title\" readonly value=\"<%=map.title%>\" />\r\n<input id=\"lat\" name=\"lat\" value=<%=map.center_str.lat%> disabled />\r\n<input id=\"lng\" name=\"lng\" vale=<%=map.center_str.lng%> disabled />\r\n<input id=\"zoom\" type=\"number\" name=\"zoom\" readonly value=\"13\" />\r\n<input id=\"tiles\" type=\"text\" name=\"tiles\" readonly value=<%=map.tiles%> />\r\n<input id=\"views\" type=\"text\" name=\"views\" readonly value=<%=map.viewCount ?? 0%> />\r\n\r\n<button id = \"edit\"> Edit </button>\r\n\r\n\r\n<div id=\"map\"></div>\r\n"
+  , __lines = "\r\n\r\n<input id=\"title\" type=\"text\" name=\"title\" map_id=\"<%=map._id%>\" readonly value=\"<%=map.title%>\" />\r\n<input id=\"lat\" name=\"lat\" value=<%=map.center_str.lat%> disabled />\r\n<input id=\"lng\" name=\"lng\" vale=<%=map.center_str.lng%> disabled />\r\n<input id=\"zoom\" type=\"number\" name=\"zoom\" readonly value=\"13\" />\r\n<input id=\"tiles\" type=\"text\" name=\"tiles\" readonly value=<%=map.tiles%> />\r\n<input id=\"views\" type=\"text\" name=\"views\" readonly value=<%=map.viewCount ?? 0%> />\r\n\r\n<button id = \"edit\"> Edit </button>\r\n\r\n\r\n<div id=\"map\"></div>\r\n"
   , __filename = undefined;
 try {
   var __output = "";
   function __append(s) { if (s !== undefined && s !== null) __output += s }
   with (locals || {}) {
-    ; __append("\r\n\r\n<input id=\"title\" type=\"text\" name=\"title\" readonly value=\"")
+    ; __append("\r\n\r\n<input id=\"title\" type=\"text\" name=\"title\" map_id=\"")
     ; __line = 3
+    ; __append(escapeFn(map._id))
+    ; __append("\" readonly value=\"")
     ; __append(escapeFn(map.title))
     ; __append("\" />\r\n<input id=\"lat\" name=\"lat\" value=")
     ; __line = 4
@@ -678,14 +682,16 @@ function encode_char(c) {
 };
 ;
 var __line = 1
-  , __lines = "    <header>\r\n            <h1>Map Editor</h1>\r\n        </header>\r\n  \r\n\r\n                <input id=\"title\" type=\"text\" name=\"title\" placeholder=\"<%=map.title%>\"/>\r\n                <input id=\"lat\" type=\"text\" name=\"lat\" placeholder=\"<%=map.center_str.lat%>\"/>\r\n                <input id=\"lng\" type=\"text\" name=\"lng\" placeholder=\"<%=map.center_str.lng%>\" />\r\n                <input id=\"zoom\" type=\"number\" name=\"zoom\" value=\"13\" />\r\n                \r\n                <select name=\"tiles\" id=\"tiles\">\r\n                    <% let options = [\"watercolor\", \"osm\", \"natgeo\", \"ESRI_world_imagery\", \"Swiss_Color\", \"Swiss_Imagery\", \"topo\", \"toner\"] %>\r\n                    <% for (let option of options) { %>\r\n                        <option value=\"<%= option %>\" <%= map.tiles === option ? 'selected' : '' %>>\r\n                            <%= option %>\r\n                        </option>\r\n                    <% } %>\r\n                </select>\r\n\r\n                <% if (map.id == -1){ %>\r\n                <button data-action='create'> Create </button>\r\n\r\n                <% } else { %>\r\n\r\n                <button data-action='update'>Update </button>\r\n\r\n                <% } %>\r\n\r\n\r\n            <div id=\"map\"></div>"
+  , __lines = "    <header>\r\n            <h1>Map Editor</h1>\r\n        </header>\r\n  \r\n\r\n                <input id=\"title\" type=\"text\" name=\"title\" map_id=\"<%=map._id%>\" placeholder=\"<%=map.title%>\"/>\r\n                <input id=\"lat\" type=\"text\" name=\"lat\" placeholder=\"<%=map.center_str.lat%>\"/>\r\n                <input id=\"lng\" type=\"text\" name=\"lng\" placeholder=\"<%=map.center_str.lng%>\" />\r\n                <input id=\"zoom\" type=\"number\" name=\"zoom\" value=\"13\" />\r\n                \r\n                <select name=\"tiles\" id=\"tiles\">\r\n                    <% let options = [\"watercolor\", \"osm\", \"natgeo\", \"ESRI_world_imagery\", \"Swiss_Color\", \"Swiss_Imagery\", \"topo\", \"toner\"] %>\r\n                    <% for (let option of options) { %>\r\n                        <option value=\"<%= option %>\" <%= map.tiles === option ? 'selected' : '' %>>\r\n                            <%= option %>\r\n                        </option>\r\n                    <% } %>\r\n                </select>\r\n\r\n                <% if (map.id == -1){ %>\r\n                <button data-action='create'> Create </button>\r\n\r\n                <% } else { %>\r\n\r\n                <button data-action='update'>Update </button>\r\n\r\n                <% } %>\r\n\r\n\r\n            <div id=\"map\"></div>"
   , __filename = undefined;
 try {
   var __output = "";
   function __append(s) { if (s !== undefined && s !== null) __output += s }
   with (locals || {}) {
-    ; __append("    <header>\r\n            <h1>Map Editor</h1>\r\n        </header>\r\n  \r\n\r\n                <input id=\"title\" type=\"text\" name=\"title\" placeholder=\"")
+    ; __append("    <header>\r\n            <h1>Map Editor</h1>\r\n        </header>\r\n  \r\n\r\n                <input id=\"title\" type=\"text\" name=\"title\" map_id=\"")
     ; __line = 6
+    ; __append(escapeFn(map._id))
+    ; __append("\" placeholder=\"")
     ; __append(escapeFn(map.title))
     ; __append("\"/>\r\n                <input id=\"lat\" type=\"text\" name=\"lat\" placeholder=\"")
     ; __line = 7
@@ -1016,14 +1022,16 @@ function encode_char(c) {
 };
 ;
 var __line = 1
-  , __lines = "\r\n\r\n<input id=\"title\" type=\"text\" name=\"title\" readonly value=\"<%=map.title%>\" />\r\n<input id=\"lat\" name=\"lat\" value=<%=map.center_str.lat%> disabled />\r\n<input id=\"lng\" name=\"lng\" vale=<%=map.center_str.lng%> disabled />\r\n<input id=\"zoom\" type=\"number\" name=\"zoom\" readonly value=\"13\" />\r\n<input id=\"tiles\" type=\"text\" name=\"tiles\" readonly value=<%=map.tiles%> />\r\n<input id=\"views\" type=\"text\" name=\"views\" readonly value=<%=map.viewCount ?? 0%> />\r\n\r\n<button id = \"edit\"> Edit </button>\r\n\r\n\r\n<div id=\"map\"></div>\r\n"
+  , __lines = "\r\n\r\n<input id=\"title\" type=\"text\" name=\"title\" map_id=\"<%=map._id%>\" readonly value=\"<%=map.title%>\" />\r\n<input id=\"lat\" name=\"lat\" value=<%=map.center_str.lat%> disabled />\r\n<input id=\"lng\" name=\"lng\" vale=<%=map.center_str.lng%> disabled />\r\n<input id=\"zoom\" type=\"number\" name=\"zoom\" readonly value=\"13\" />\r\n<input id=\"tiles\" type=\"text\" name=\"tiles\" readonly value=<%=map.tiles%> />\r\n<input id=\"views\" type=\"text\" name=\"views\" readonly value=<%=map.viewCount ?? 0%> />\r\n\r\n<button id = \"edit\"> Edit </button>\r\n\r\n\r\n<div id=\"map\"></div>\r\n"
   , __filename = undefined;
 try {
   var __output = "";
   function __append(s) { if (s !== undefined && s !== null) __output += s }
   with (locals || {}) {
-    ; __append("\r\n\r\n<input id=\"title\" type=\"text\" name=\"title\" readonly value=\"")
+    ; __append("\r\n\r\n<input id=\"title\" type=\"text\" name=\"title\" map_id=\"")
     ; __line = 3
+    ; __append(escapeFn(map._id))
+    ; __append("\" readonly value=\"")
     ; __append(escapeFn(map.title))
     ; __append("\" />\r\n<input id=\"lat\" name=\"lat\" value=")
     ; __line = 4

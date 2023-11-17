@@ -219,10 +219,10 @@ router.put("/:id", async (req, res) => {
 
         let result = await map_list.replaceMap(req.params.id, mapita);
 
-        eventBus.emit('broadcast', 
+        /*eventBus.emit('broadcast', 
         {
             topic: 'updatingMap',
-        });
+        });*/
 
         res.format({
             html: () => {

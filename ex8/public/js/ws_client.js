@@ -13,7 +13,6 @@ const ws = function(){
 
     //assumes the socket.io client library is loaded in the HTML file
     const socket = io();
-    console.log("dam it")
 
     socket.on('message', function(){
         console.log("connected to the server");
@@ -24,15 +23,43 @@ const ws = function(){
     })
 
     socket.on('updatingMap', function(){
-        console.log("fvjndfvjndfnj");
+        
         refresh_map_list();
     })
+
+    socket.on('editing', function(data) {
+        //recibo el mensaje q lanzo otro usuario
+        // get el titulo del documento
+
+        let title = document.title;
+
+        if (title == 'Map List'){
+            refresh_map_list();
+        }else {
+            let id = document.querySelector("#title").getAttribute("map_id");
+            console.log(data);
+            if (data != undefined && id  == data.id){
+                if (title == 'Map Editor'){
+                    refresh_map_editor(id);
+                }else if (title == 'Map View'){
+                    refresh_map_view(id);
+                }
+            }
+        }
+    })
+
+    function message(message){
+        socket.emit('editing', message)
+    }
+    
 
 //TODO register event handlers for the socket to receive messages from the server
 
 
 
 //TODO publish methods to send messages to the server
-    return {};
+    return {
+        message
+    };
 
 }();

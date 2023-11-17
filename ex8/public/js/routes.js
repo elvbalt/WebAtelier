@@ -146,6 +146,7 @@ let showMap = (function () {
     function SyncTilesToMap(map) {
         if (tile_layer) { tile_layer.remove(); }
         tile_layer = initMapTiles(map, leaflet_map);
+        api.replaceMap(map._id, map);
     }
 
     function SyncMapPosition(map) {
@@ -207,7 +208,6 @@ let showMap = (function () {
 
             m.on("click", function (e) {
                 e.marker = marker;
-                console.log("1")
                 marker_click_listeners.forEach((f) => f(e));
        
         });
@@ -389,6 +389,10 @@ function gps2str(gps) {
         function SyncFormToMap(f) {
             let map_obj = form2obj();
             f(map_obj);
+
+            api.replaceMap(id, map_obj).then(()=>{
+                ws.message({topic: 'editing', id: id})
+            });
         }
 
         let leaflet_map_handler = showMap()
@@ -403,11 +407,12 @@ function gps2str(gps) {
         //TODO display the map editor form
 
         //setup the change event listeners for the form input fields
-        document.getElementById("zoom").addEventListener("change", SyncFormToMap.bind(this, SyncMapPosition));
-        document.getElementById("lat").addEventListener("change", SyncFormToMap.bind(this, SyncMapPosition));
-        document.getElementById("lng").addEventListener("change", SyncFormToMap.bind(this, SyncMapPosition));
-        document.getElementById("tiles").addEventListener("change", SyncFormToMap.bind(this, SyncTilesToMap));
-
+        document.getElementById("zoom").addEventListener("change", SyncFormToMap.bind(this, SyncMapPosition))
+        document.getElementById("lat").addEventListener("change", SyncFormToMap.bind(this, SyncMapPosition))
+        document.getElementById("lng").addEventListener("change", SyncFormToMap.bind(this, SyncMapPosition))
+        document.getElementById("title").addEventListener("change", SyncFormToMap.bind(this, SyncMapPosition))
+        document.getElementById("tiles").addEventListener("change", SyncFormToMap.bind(this, SyncTilesToMap))
+        
         let createBtn = document.querySelector("button[data-action='create']");
         if (createBtn) {
 

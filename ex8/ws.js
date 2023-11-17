@@ -28,6 +28,15 @@ function init(server) {
             clients--;
             io.emit('update', clients);
         })
+        socket.on('message', function(message){
+            console.log("MASSAGE", message);
+            io.emit('message', message);
+        })
+
+        socket.on('editing', function(data){
+            console.log("EDITING", data);
+            socket.broadcast.emit('editing', data);
+        })
 
 });
 

@@ -93,9 +93,6 @@ let make_marker_list = function (client, db_name, collection_name) {
         // _id added by the database
         // console.log(marker._id);
 
-        console.log("aqui")
-        console.log(added)
-
         return added;
     }
 
