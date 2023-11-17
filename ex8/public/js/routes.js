@@ -119,8 +119,9 @@ let showMap = (function () {
     let marker_layer = L.layerGroup().addTo(leaflet_map);
     let tile_layer;
 
-    leaflet_map.on('zoomend', SyncMapToForm);
-    leaflet_map.on('moveend', SyncMapToForm);
+    
+
+    console.log('hola', leaflet_map)
 
     /**
      * Updates the form input values from the map.
@@ -234,6 +235,24 @@ let showMap = (function () {
         SyncMapPosition(map);
         tile_layer = initMapTiles(map, leaflet_map);
 
+        leaflet_map.on('zoomend', () => {
+            SyncMapToForm()
+            if(editable) {
+                let map_obj = form2obj()
+                api.replaceMap(map._id, map_obj).then(()=>{
+                    ws.message({topic: 'editing', id: map._id})
+                });
+            }
+        })
+        leaflet_map.on('moveend', () => {
+            SyncMapToForm()
+            if(editable) {
+                let map_obj = form2obj()
+                api.replaceMap(map._id, map_obj).then(()=>{
+                    ws.message({topic: 'editing', id: map._id})
+                });
+            }
+        });
         //Task 6
         //TODO load the markers from the API and display them on the map
 
@@ -288,6 +307,21 @@ function refresh_map_view(id) {
 
 
 }
+function form2obj() {
+
+    let title = document.getElementById("title").value;
+    let zoom = parseInt(document.getElementById("zoom").value);
+    let lat = parseFloat(document.getElementById("lat").value);
+    let lng = parseFloat(document.getElementById("lng").value);
+    let tiles = document.getElementById("tiles").value;
+
+    return {
+        title,
+        zoom,
+        center: {lat,lng},
+        tiles
+    }
+}
 
 /**
  * Task 5
@@ -301,21 +335,6 @@ function refresh_map_editor(id) {
      * Reads the form data and returns a map object with the title, zoom, center and tiles fields.
      * @returns {Object} the map object based on the form data
      */
-    function form2obj() {
-
-        let title = document.getElementById("title").value;
-        let zoom = parseInt(document.getElementById("zoom").value);
-        let lat = parseFloat(document.getElementById("lat").value);
-        let lng = parseFloat(document.getElementById("lng").value);
-        let tiles = document.getElementById("tiles").value;
-
-        return {
-            title,
-            zoom,
-            center: {lat,lng},
-            tiles
-        }
-    }
 
 
     /**
