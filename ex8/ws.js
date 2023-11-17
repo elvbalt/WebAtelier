@@ -21,6 +21,8 @@ function init(server) {
         //TODO register event handlers for the socket
         //TODO keep track of the number of connected clients
 
+        //socket.on()
+
         socket.on('disconnect', function () {
             console.log('client disconnected');
             clients--;
@@ -42,6 +44,7 @@ eventBus.on('broadcast', function(event){
 
     //send to all clients
     io.emit(event.topic, event.payload);
+    
 });
 
 

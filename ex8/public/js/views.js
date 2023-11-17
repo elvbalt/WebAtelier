@@ -1,4 +1,4 @@
-//EJS Compiled Views - This file was automatically generated on Fri Nov 17 2023 15:42:19 GMT+0100 (hora estándar de Europa central)
+//EJS Compiled Views - This file was automatically generated on Fri Nov 17 2023 16:41:46 GMT+0100 (hora estándar de Europa central)
  ejs.views_include = function(locals) {
      
      return function(path, d) {
@@ -621,14 +621,12 @@ function encode_char(c) {
 };
 ;
 var __line = 1
-  , __lines = "<div id=\"CounterContainer\">\r\n    Conected Clients: <span id=\"clientCount\">0</span>\r\n</div> \r\n\r\n"
+  , __lines = ""
   , __filename = undefined;
 try {
   var __output = "";
   function __append(s) { if (s !== undefined && s !== null) __output += s }
   with (locals || {}) {
-    ; __append("<div id=\"CounterContainer\">\r\n    Conected Clients: <span id=\"clientCount\">0</span>\r\n</div> \r\n\r\n")
-    ; __line = 5
   }
   return __output;
 } catch (e) {
@@ -1251,14 +1249,12 @@ function encode_char(c) {
 };
 ;
 var __line = 1
-  , __lines = "<div id=\"CounterContainer\">\r\n    Conected Clients: <span id=\"clientCount\">0</span>\r\n</div> \r\n\r\n"
+  , __lines = ""
   , __filename = undefined;
 try {
   var __output = "";
   function __append(s) { if (s !== undefined && s !== null) __output += s }
   with (locals || {}) {
-    ; __append("<div id=\"CounterContainer\">\r\n    Conected Clients: <span id=\"clientCount\">0</span>\r\n</div> \r\n\r\n")
-    ; __line = 5
   }
   return __output;
 } catch (e) {

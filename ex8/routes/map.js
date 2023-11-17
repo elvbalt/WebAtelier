@@ -17,6 +17,8 @@ let script = require("../script-module");
 
 let { model } = require('../model');
 
+const eventBus = require('../ws').eventBus;
+
 router.get("/", async (req, res) => {
     try {
 
@@ -181,6 +183,11 @@ router.post("/", async (req, res) => {
 
         await map_list.addMap(mapita);
 
+        eventBus.emit('broadcast', 
+        {
+            topic: 'updatingMap',
+        });
+
         res.format({
             html: () => {
                 res.redirect("/map/" + mapita._id);
@@ -212,6 +219,11 @@ router.put("/:id", async (req, res) => {
 
         let result = await map_list.replaceMap(req.params.id, mapita);
 
+        eventBus.emit('broadcast', 
+        {
+            topic: 'updatingMap',
+        });
+
         res.format({
             html: () => {
                 res.redirect("/map/" + mapita._id);
@@ -237,6 +249,12 @@ router.post("/:id/clone", async (req, res) => {
         }
 
         let cloned = await map_list.cloneMap(req.params.id);
+
+        eventBus.emit('broadcast', 
+        {
+            topic: 'updatingMap',
+        });
+
         res.format({
             html: () => {
                 res.redirect("/map/" + cloned._id);
@@ -258,6 +276,12 @@ router.patch("/:id/fav", async (req, res) => {    try{
         }
 
         await map_list.toggleFav(req.params.id);
+
+        eventBus.emit('broadcast', 
+        {
+            topic: 'updatingMap',
+        });
+
         mapita = await map_list.getMap(req.params.id)
         res.format({
             html: () => {
@@ -283,6 +307,11 @@ router.delete("/:id", async (req, res) => {
         }
 
         await map_list.deleteMap(req.params.id);
+
+        eventBus.emit('broadcast', 
+        {
+            topic: 'updatingMap',
+        });
 
         res.format({
             html: () => {
@@ -339,6 +368,11 @@ router.patch("/:id", async (req, res) => {
 
         //save the updated map
         await model.map_list.replaceMap(req.params.id, map_data);
+
+        eventBus.emit('broadcast', 
+        {
+            topic: 'updatingMap',
+        });
 
         //redirect to the map page
         res.format({

@@ -8,6 +8,7 @@
  */
 
 
+
 const ws = function(){
 
     //assumes the socket.io client library is loaded in the HTML file
@@ -20,6 +21,12 @@ const ws = function(){
 
     socket.on('update', (count) => {
         document.getElementById('clientCount').innerText = count;
+    })
+
+    socket.on('updatingMap', function(){
+        console.log("fvjndfvjndfnj");
+        /*document.querySelector("main").innerHTML = ejs.views_map_list({ maps: maps.data });*/
+        refresh_map_list();
     })
 
 //TODO register event handlers for the socket to receive messages from the server

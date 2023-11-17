@@ -15,11 +15,15 @@
      display: grid;
      grid-template-columns: 2fr 8fr 2fr;
      align-items: start;
-     
+     overflow-y: hidden;
  }
 div[id="info"]{
     display: grid;
     grid-template-rows: 1fr;
+}
+
+main{
+    overflow-y: scroll;
 }
 
 div[id="options"]{
