@@ -1,7 +1,7 @@
 /**
  * Web Atelier 2023  - 7 - Single-Page Web Applications with Fetch and Client-side Views
  *
- * Author: __Elvira Baltasar__
+ * Author: _Elvira Baltasar_
  *
  * Client-side controllers
  *
@@ -191,6 +191,9 @@ let showMap = (function () {
 
     let _editable = false;
 
+    hue_offline = `hue-rotate(90deg)`
+    hue_online = `hue-rotate(180deg)`
+
     function showMarker(marker) {
 
         let m = L.marker(marker.location, {
@@ -199,7 +202,7 @@ let showMap = (function () {
             autoPan: _editable
         }).addTo(marker_layer);
 
-        m._icon.style.filter = `hue-rotate(${marker.hue}deg)`;
+        m._icon.style.filter = hue_online;
 
         if (_editable) {
 
@@ -263,7 +266,9 @@ let showMap = (function () {
             addMapClickEventListener,
             addMarkerClickEventListener,
             showMarker,
-            getMarkerIcon
+            getMarkerIcon,
+            leaflet_map,
+            marker_layer
         };
     }
 
@@ -507,7 +512,6 @@ function gps2str(gps) {
             if (id != "new" && id){
             api.addMarker(marker, id).then(marker => {
                 showMarker(marker)   
-                console.log("aqui=") 
                 ws.message({topic: 'editing', id: id})
             })
         }
@@ -594,11 +598,9 @@ function gps2str(gps) {
 function refresh_user_map() {
 
     document.title = "User map";
-
+    let names = {}
     let can = false;
     let name;
-    let userLgn;
-    let user;
 
     document.querySelector("main").innerHTML = ejs.views_users();
     document.querySelector("sidebar").innerHTML = ejs.views_sidebar_loc();
@@ -625,11 +627,14 @@ function refresh_user_map() {
 
         let leaflet_map_handler = showMap()
         let { 
-                addMapClickEventListener,
-                addMarkerClickEventListener,
-                showMarker,
-                getMarkerIcon
-            } = leaflet_map_handler(map, false);
+            addMapClickEventListener,
+            addMarkerClickEventListener,
+            showMarker,
+            getMarkerIcon,
+            leaflet_map,
+            marker_layer
+        } = leaflet_map_handler(map, false);
+        
 
             addMapClickEventListener((e) => {
 
@@ -639,13 +644,12 @@ function refresh_user_map() {
                         title: name,
                         hue: Math.floor(Math.random() * 360)
                     }
-    
+        
                     api.addLocation(marker).then(marker => {
-                        let Lmarker = showMarker(marker) 
-                        Lmarker.bindTooltip(marker.title).openTooltip(); 
+                        anadirMarcador(marker)
                         ws.message2(marker)
                     })
-    
+        
                 }
             })
 
@@ -656,48 +660,81 @@ function refresh_user_map() {
             addMapClickEventListener,
             addMarkerClickEventListener,
             showMarker,
-            getMarkerIcon
-        } = leaflet_map_handler(map, false);
+            getMarkerIcon,
+            leaflet_map,
+            marker_layer
+    } = leaflet_map_handler(map, false);
 
-       
-       
-        // Task 6
-        addMapClickEventListener((e) => {
-
-            if (can){
-                let marker = {
-                    location: e.latlng,
-                    title: name,
-                    hue: Math.floor(Math.random() * 360)
-                }
-
-                api.addLocation(marker).then(marker => {
-                    let Lmarker = showMarker(marker) 
-                    Lmarker.bindTooltip(marker.title).openTooltip();   
-                    ws.message2(marker)
-                })
-
+    hue_offline = `hue-rotate(90deg)`
+    hue_online = `hue-rotate(180deg)`
+    function updateUsers(connected_users) {
+        for (name in names) {
+            if (connected_users.hasOwnProperty(name)) {
+                names[name].forEach((m) => m._icon.style.filter = hue_online)
+            } else {
+                names[name].forEach((m) => m._icon.style.filter = hue_offline)
             }
-        })
+        }
+    }
+       
+    // Task 6
+    addMapClickEventListener((e) => {
+
+        if (can){
+            let marker = {
+                location: e.latlng,
+                title: name,
+                hue: Math.floor(Math.random() * 360)
+            }
+
+            api.addLocation(marker).then(marker => {
+                anadirMarcador(marker)
+                ws.message2(marker)
+            })
+
+        }
+    })
+
+    function anadirMarcador(marker) {
+        let Lmarker = showMarker(marker) 
+        let nameAux = marker.title
+        Lmarker.bindTooltip(marker.title).openTooltip();   
+        if (!names.hasOwnProperty(nameAux)) {
+            names[nameAux] = []
+        }
+        names[nameAux].push(Lmarker)
+        if (names[nameAux].length > 1) {
+            L.polyline([names[nameAux][names[nameAux].length-2].getLatLng(), Lmarker.getLatLng()], {color: 'red'}).addTo(leaflet_map);
+        }
+    }
 
     document.getElementById("log in").addEventListener("click", function (e) {
         if (!can){
             can = true;
             name = document.getElementById("login").value
-            let locations =[];
+            ws.logUser(name)
             e.preventDefault();
-            ws.addFunction(showMarker, refrescarMapa)
+            ws.addFunction(anadirMarcador, refrescarMapa, updateUsers)
             api.getLocation().then((markers)=>{
+                
                 markers.forEach((marker) => {
-                    if (marker.title == name){
-                        locations.push(marker.location)
-                    }
                     let Lmarker = showMarker(marker) 
-                    Lmarker.bindTooltip(marker.title).openTooltip();
+                    if (!names.hasOwnProperty(marker.title)) {
+                        names[marker.title] = []
+                    }
+                    names[marker.title].push(Lmarker)
+                    Lmarker.bindTooltip(marker.title);
                 })
+                for (let name in names) {
+                    if (names[name].length > 1) {
+                        for (let i = 1; i < names[name].length; i++) {
+                            L.polyline([names[name][i-1].getLatLng(), names[name][i].getLatLng()], {color: 'red'}).addTo(leaflet_map);
+                        }
+                    }
+                }
             })
-            L.polyline(locations, {color: 'red'}).addTo(map);
-    }
+            
+        }
     });
     document.getElementById("clear").addEventListener("click", function (e) {
 

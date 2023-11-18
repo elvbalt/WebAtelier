@@ -1,4 +1,4 @@
-//EJS Compiled Views - This file was automatically generated on Sat Nov 18 2023 14:11:15 GMT+0100 (hora estándar de Europa central)
+//EJS Compiled Views - This file was automatically generated on Sun Nov 19 2023 00:07:42 GMT+0100 (hora estándar de Europa central)
  ejs.views_include = function(locals) {
      
      return function(path, d) {

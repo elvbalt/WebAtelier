@@ -58,11 +58,37 @@ const ws = function(){
         refreshMap();
     })
 
+    let connected_users = {}
+
+    socket.on('login', function(user) {
+        if (!connected_users.hasOwnProperty(user)) {
+            connected_users[user] = {}
+        }
+        if (updateUsers)
+            updateUsers(connected_users)
+    })
+
+    socket.on('logout', function(user) {
+        if (connected_users.hasOwnProperty(user)) {
+            delete connected_users[user]
+        }
+        if (updateUsers)
+            updateUsers(connected_users)
+    })
+
     function message(message){
         socket.emit('editing', message)
     }
     function message2(marker){
         socket.emit('user', marker)
+        if (updateUsers)
+        updateUsers(connected_users)
+    }
+
+    function logUser(user_name) {
+        socket.emit('login', user_name)
+        if (updateUsers)
+        updateUsers(connected_users)
     }
 
     function clear(){
@@ -70,11 +96,12 @@ const ws = function(){
     }
 //TODO register event handlers for the socket to receive messages from the server
 
-let showMarker, refreshMap
+let showMarker, refreshMap, updateUsers
 
-function addFunction(showMarkerAux, refreshMapAux) {
+function addFunction(showMarkerAux, refreshMapAux, updateUsersAux) {
     showMarker = showMarkerAux;
     refreshMap = refreshMapAux;
+    updateUsers = updateUsersAux
 }
 
 
@@ -83,7 +110,8 @@ function addFunction(showMarkerAux, refreshMapAux) {
         message,
         message2,
         addFunction,
-        clear
+        clear,
+        logUser
     };
 
 }();
