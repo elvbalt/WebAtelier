@@ -37,7 +37,6 @@ const ws = function(){
             refresh_map_list();
         }else {
             let id = document.querySelector("#title").getAttribute("map_id");
-            console.log(data);
             if (data != undefined && id  == data.id){
                 if (title == 'Map Editor'){
                     refresh_map_editor(id);
@@ -48,25 +47,43 @@ const ws = function(){
         }
     })
 
-    socket.on('user', function(){
+    socket.on('user', function(marker){
         let title = document.title;
         if (title == 'User map'){
-            refresh_user_map();
+            showMarker(marker)
         }
+    })
+
+    socket.on('clear', function(){
+        refreshMap();
     })
 
     function message(message){
         socket.emit('editing', message)
     }
-    
+    function message2(marker){
+        socket.emit('user', marker)
+    }
 
+    function clear(){
+        socket.emit('clear')
+    }
 //TODO register event handlers for the socket to receive messages from the server
 
+let showMarker, refreshMap
+
+function addFunction(showMarkerAux, refreshMapAux) {
+    showMarker = showMarkerAux;
+    refreshMap = refreshMapAux;
+}
 
 
 //TODO publish methods to send messages to the server
     return {
-        message
+        message,
+        message2,
+        addFunction,
+        clear
     };
 
 }();

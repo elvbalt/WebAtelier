@@ -35,8 +35,12 @@ function init(server) {
             console.log("EDITING", data);
             socket.broadcast.emit('editing', data);
         })
-        socket.on('user', function(){
-            socket.broadcast.emit('user');
+        socket.on('user', function(marker){
+            console.log('user')
+            socket.broadcast.emit('user', marker);
+        })
+        socket.on('clear', function(){
+            socket.broadcast.emit('clear');
         })
 
 });

@@ -119,10 +119,6 @@ let showMap = (function () {
     let marker_layer = L.layerGroup().addTo(leaflet_map);
     let tile_layer;
 
-    
-
-    console.log('hola', leaflet_map)
-
     /**
      * Updates the form input values from the map.
      */
@@ -226,6 +222,7 @@ let showMap = (function () {
             });
 
         }
+        return m
 
     }
 
@@ -253,9 +250,7 @@ let showMap = (function () {
                 });
             }
         });
-        //Task 6
-        //TODO load the markers from the API and display them on the map
-
+      
         if (map._id != "new" && map._id){
             api.getMarkers(map._id).then(markers => {
                 markers.forEach(showMarker)
@@ -511,8 +506,9 @@ function gps2str(gps) {
 
             if (id != "new" && id){
             api.addMarker(marker, id).then(marker => {
-                showMarker(marker)    
-                ws.message({topic: 'user', id: id})
+                showMarker(marker)   
+                console.log("aqui=") 
+                ws.message({topic: 'editing', id: id})
             })
         }
         })
@@ -601,6 +597,8 @@ function refresh_user_map() {
 
     let can = false;
     let name;
+    let userLgn;
+    let user;
 
     document.querySelector("main").innerHTML = ejs.views_users();
     document.querySelector("sidebar").innerHTML = ejs.views_sidebar_loc();
@@ -614,6 +612,44 @@ function refresh_user_map() {
         id: -1
     };
     
+    function refrescarMapa(){
+        document.querySelector("main").innerHTML = ejs.views_users();
+        let map = {
+            zoom: 2,
+            center: { lat: 0, lng: 0 },
+            center_str: {lat: gps2str(0), lng: gps2str(0)},
+            tiles: "osm",
+            title: "New Map",
+            id: -1
+        };
+
+        let leaflet_map_handler = showMap()
+        let { 
+                addMapClickEventListener,
+                addMarkerClickEventListener,
+                showMarker,
+                getMarkerIcon
+            } = leaflet_map_handler(map, false);
+
+            addMapClickEventListener((e) => {
+
+                if (can){
+                    let marker = {
+                        location: e.latlng,
+                        title: name,
+                        hue: Math.floor(Math.random() * 360)
+                    }
+    
+                    api.addLocation(marker).then(marker => {
+                        let Lmarker = showMarker(marker) 
+                        Lmarker.bindTooltip(marker.title).openTooltip(); 
+                        ws.message2(marker)
+                    })
+    
+                }
+            })
+
+    }
 
     let leaflet_map_handler = showMap()
     let { 
@@ -636,31 +672,40 @@ function refresh_user_map() {
                 }
 
                 api.addLocation(marker).then(marker => {
-                    marker.bindTooltip(marker.title).openTooltip();
-                    showMarker(marker)    
-                    ws.message({topic: 'user'})
+                    let Lmarker = showMarker(marker) 
+                    Lmarker.bindTooltip(marker.title).openTooltip();   
+                    ws.message2(marker)
                 })
 
             }
         })
 
     document.getElementById("log in").addEventListener("click", function (e) {
-        can = true;
-        name = document.getElementById("login").value
-        console.log(name)
-        e.preventDefault();
-
-        api.getLocation().then(()=>{
-            ws.message({topic: 'user'})
-        })
-
+        if (!can){
+            can = true;
+            name = document.getElementById("login").value
+            let locations =[];
+            e.preventDefault();
+            ws.addFunction(showMarker, refrescarMapa)
+            api.getLocation().then((markers)=>{
+                markers.forEach((marker) => {
+                    if (marker.title == name){
+                        locations.push(marker.location)
+                    }
+                    let Lmarker = showMarker(marker) 
+                    Lmarker.bindTooltip(marker.title).openTooltip();
+                })
+            })
+            L.polyline(locations, {color: 'red'}).addTo(map);
+    }
     });
     document.getElementById("clear").addEventListener("click", function (e) {
 
         e.preventDefault();
 
         api.deleteLocation().then(()=>{
-            ws.message({topic: 'user'})
+            refrescarMapa()
+            ws.clear()
         })
 
     });
